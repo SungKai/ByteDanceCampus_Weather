@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671B6288D16F000A4FCAF /* RisingFoundationExtention.m */; };
+		147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671B7288D16F000A4FCAF /* RisingUIKitExtension.m */; };
+		147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671BE288D185800A4FCAF /* RisingRouterRequest.m */; };
+		147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671C2288D185800A4FCAF /* RisingRouterResponse.m */; };
+		147671C6288D185800A4FCAF /* RisingRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671C3288D185800A4FCAF /* RisingRouter.m */; };
 		B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F4288ADF8E007CE07E /* AppDelegate.m */; };
-		B57599F8288ADF8E007CE07E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F7288ADF8E007CE07E /* SceneDelegate.m */; };
 		B57599FB288ADF8E007CE07E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599FA288ADF8E007CE07E /* ViewController.m */; };
-		B57599FE288ADF8E007CE07E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57599FC288ADF8E007CE07E /* Main.storyboard */; };
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
 		B5759A03288ADF90007CE07E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5759A01288ADF90007CE07E /* LaunchScreen.storyboard */; };
 		B5759A06288ADF90007CE07E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5759A05288ADF90007CE07E /* main.m */; };
@@ -18,16 +21,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		147671B6288D16F000A4FCAF /* RisingFoundationExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingFoundationExtention.m; sourceTree = "<group>"; };
+		147671B7288D16F000A4FCAF /* RisingUIKitExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingUIKitExtension.m; sourceTree = "<group>"; };
+		147671B8288D16F000A4FCAF /* RisingUIKitExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingUIKitExtension.h; sourceTree = "<group>"; };
+		147671B9288D16F000A4FCAF /* RisingFoundationExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingFoundationExtension.h; sourceTree = "<group>"; };
+		147671BD288D185800A4FCAF /* RisingRouterResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingRouterResponse.h; sourceTree = "<group>"; };
+		147671BE288D185800A4FCAF /* RisingRouterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingRouterRequest.m; sourceTree = "<group>"; };
+		147671BF288D185800A4FCAF /* RisingRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingRouter.h; sourceTree = "<group>"; };
+		147671C0288D185800A4FCAF /* RisingRouterHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingRouterHandler.h; sourceTree = "<group>"; };
+		147671C1288D185800A4FCAF /* RisingRouterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingRouterRequest.h; sourceTree = "<group>"; };
+		147671C2288D185800A4FCAF /* RisingRouterResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingRouterResponse.m; sourceTree = "<group>"; };
+		147671C3288D185800A4FCAF /* RisingRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingRouter.m; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F3288ADF8E007CE07E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B57599F4288ADF8E007CE07E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B57599F6288ADF8E007CE07E /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		B57599F7288ADF8E007CE07E /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		B57599F9288ADF8E007CE07E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B57599FA288ADF8E007CE07E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B57599FD288ADF8E007CE07E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B57599FF288ADF90007CE07E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5759A02288ADF90007CE07E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5759A04288ADF90007CE07E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +59,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		147671B5288D166B00A4FCAF /* RisingRouter */ = {
+			isa = PBXGroup;
+			children = (
+				147671C0288D185800A4FCAF /* RisingRouterHandler.h */,
+				147671BF288D185800A4FCAF /* RisingRouter.h */,
+				147671C3288D185800A4FCAF /* RisingRouter.m */,
+				147671C1288D185800A4FCAF /* RisingRouterRequest.h */,
+				147671BE288D185800A4FCAF /* RisingRouterRequest.m */,
+				147671BD288D185800A4FCAF /* RisingRouterResponse.h */,
+				147671C2288D185800A4FCAF /* RisingRouterResponse.m */,
+			);
+			path = RisingRouter;
+			sourceTree = "<group>";
+		};
+		147671BC288D16F600A4FCAF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				147671B9288D16F000A4FCAF /* RisingFoundationExtension.h */,
+				147671B6288D16F000A4FCAF /* RisingFoundationExtention.m */,
+				147671B8288D16F000A4FCAF /* RisingUIKitExtension.h */,
+				147671B7288D16F000A4FCAF /* RisingUIKitExtension.m */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		8AA4E2FF70A89252F4390E76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +125,8 @@
 				B5759A0D288AE0F8007CE07E /* Supporting Files */,
 				B57599F9288ADF8E007CE07E /* ViewController.h */,
 				B57599FA288ADF8E007CE07E /* ViewController.m */,
+				147671B5288D166B00A4FCAF /* RisingRouter */,
+				147671BC288D16F600A4FCAF /* Extension */,
 				B5759A0C288AE0EF007CE07E /* PrefixHeader.pch */,
 				B5759A04288ADF90007CE07E /* Info.plist */,
 			);
@@ -100,9 +138,6 @@
 			children = (
 				B57599F3288ADF8E007CE07E /* AppDelegate.h */,
 				B57599F4288ADF8E007CE07E /* AppDelegate.m */,
-				B57599F6288ADF8E007CE07E /* SceneDelegate.h */,
-				B57599F7288ADF8E007CE07E /* SceneDelegate.m */,
-				B57599FC288ADF8E007CE07E /* Main.storyboard */,
 				B57599FF288ADF90007CE07E /* Assets.xcassets */,
 				B5759A01288ADF90007CE07E /* LaunchScreen.storyboard */,
 				B5759A05288ADF90007CE07E /* main.m */,
@@ -171,7 +206,6 @@
 			files = (
 				B5759A03288ADF90007CE07E /* LaunchScreen.storyboard in Resources */,
 				B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */,
-				B57599FE288ADF8E007CE07E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,22 +260,18 @@
 			files = (
 				B57599FB288ADF8E007CE07E /* ViewController.m in Sources */,
 				B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */,
+				147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */,
+				147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */,
+				147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */,
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
-				B57599F8288ADF8E007CE07E /* SceneDelegate.m in Sources */,
+				147671C6288D185800A4FCAF /* RisingRouter.m in Sources */,
+				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B57599FC288ADF8E007CE07E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B57599FD288ADF8E007CE07E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B5759A01288ADF90007CE07E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -373,6 +403,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 727CVV9PLJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
@@ -384,7 +415,6 @@
 				INFOPLIST_FILE = ByteDanceCampus_Weather/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -395,7 +425,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sungkaikai.ByteDanceCampus-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -407,6 +437,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 727CVV9PLJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
@@ -418,7 +449,6 @@
 				INFOPLIST_FILE = ByteDanceCampus_Weather/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -429,7 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sungkaikai.ByteDanceCampus-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
