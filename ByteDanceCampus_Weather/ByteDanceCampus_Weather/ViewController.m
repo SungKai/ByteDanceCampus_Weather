@@ -7,7 +7,21 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+#import "IGListKit.h"
+
+@interface ViewController () <
+    IGListAdapterDataSource
+>
+
+@property (nonatomic, strong) UIView *currentView;
+
+@property (nonatomic, strong) UIImageView *backgroundImgView;
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, strong) IGListAdapter *adapter;
+
+@property (nonatomic, strong) NSMutableArray *objects;
 
 @end
 
@@ -17,7 +31,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColor.orangeColor;
+    self.navigationController.navigationBarHidden = YES;
+    
+    self.objects = @[@"1", @"2", @"3"].mutableCopy;
+    self.view = self.currentView;
+    [self.view addSubview:self.backgroundImgView];
+    [self adapter];
+    [self.view addSubview:self.collectionView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -27,7 +47,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
 }
 
 #pragma mark - Method
@@ -35,6 +54,57 @@
 // MARK: SEL
 
 #pragma mark - Getter
+
+- (UIView *)currentView {
+    if (_currentView == nil) {
+        _currentView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _currentView.backgroundColor = UIColor.orangeColor;
+    }
+    return _currentView;
+}
+
+- (UIImageView *)backgroundImgView {
+    if (_backgroundImgView == nil) {
+        _backgroundImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];    }
+    return _backgroundImgView;
+}
+
+- (UICollectionView *)collectionView {
+    if (_collectionView == nil) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.SuperFrame collectionViewLayout:layout];
+        _collectionView.backgroundColor = UIColor.greenColor;
+        _collectionView.pagingEnabled = YES;
+    }
+    return _collectionView;
+}
+
+- (IGListAdapter *)adapter {
+    if (_adapter == nil) {
+        _adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:self];
+        _adapter.dataSource = self;
+        _adapter.collectionView = self.collectionView;
+    }
+    return _adapter;
+}
+
+#pragma mark - IGListAdapterDataSource
+
+- (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
+    return self.backgroundImgView;
+}
+
+- (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
+    return self.objects;
+}
+
+- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
+    return (IGListSectionController *)[self.router sourceForRouterPath:@"CitySection"];
+}
 
 #pragma mark - RisingRouterHandler
 
@@ -81,7 +151,5 @@
         completion(response);
     }
 }
-
-
 
 @end

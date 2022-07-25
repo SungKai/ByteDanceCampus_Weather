@@ -13,6 +13,9 @@ target 'ByteDanceCampus_Weather' do
 	pod 'Masonry'
 	pod 'YYKit',:inhibit_warnings => true
 	pod 'MJRefresh'
+	pod 'WCDB'
+	pod 'IGListKit'
+	pod 'FluentDarkModeKit'
 
 end
 

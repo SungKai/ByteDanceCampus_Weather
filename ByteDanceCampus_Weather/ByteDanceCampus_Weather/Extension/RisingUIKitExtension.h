@@ -10,6 +10,8 @@
 #ifndef RisingUIKitExtension_h
 #define RisingUIKitExtension_h
 
+#import "UIView+Rising.h"
+
 UIKIT_STATIC_INLINE NSIndexPath *IndexPathForRange(NSRange range) {
     return [NSIndexPath indexPathForItem:range.length inSection:range.location];
 }
