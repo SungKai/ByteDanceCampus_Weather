@@ -9,10 +9,9 @@
 #define PrefixHeader_pch
 
 #import "RisingRouter.h"
-#import "RisingRouter+Extension.h"
 
-#import "RisingFoundationExtension.h"
+#import "HttpTool.h"
 
-#import "RisingUIKitExtension.h"
+#import "ExtensionHeader.h"
 
 #endif /* PrefixHeader_pch */
