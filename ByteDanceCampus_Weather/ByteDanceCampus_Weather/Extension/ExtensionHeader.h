@@ -20,4 +20,6 @@
 
 #import <YYKit.h>
 
+#import <JWT.h>
+
 #endif /* ExtensionHeader_h */

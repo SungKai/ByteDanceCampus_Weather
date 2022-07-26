@@ -12,6 +12,8 @@
 
 #import "HttpTool.h"
 
+#import "ByteDanceCampus_Weather-Swift.h"
+
 #import "ExtensionHeader.h"
 
 #endif /* PrefixHeader_pch */

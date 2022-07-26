@@ -17,6 +17,14 @@
 		14B2C5A0288EC480005BFC7C /* CitySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C59F288EC480005BFC7C /* CitySectionController.m */; };
 		14B2C5A3288EC92D005BFC7C /* UIView+Rising.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5A2288EC92D005BFC7C /* UIView+Rising.m */; };
 		14B2C5A6288EDAFE005BFC7C /* CityWeatherItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5A5288EDAFE005BFC7C /* CityWeatherItem.m */; };
+		14B2C5B92890398B005BFC7C /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B22890398A005BFC7C /* Data+Extension.swift */; };
+		14B2C5BA2890398B005BFC7C /* ECKeyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B32890398A005BFC7C /* ECKeyData.swift */; };
+		14B2C5BB2890398B005BFC7C /* ASN1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B42890398A005BFC7C /* ASN1.swift */; };
+		14B2C5BC2890398B005BFC7C /* P8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B52890398B005BFC7C /* P8.swift */; };
+		14B2C5BD2890398B005BFC7C /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B62890398B005BFC7C /* JWT.swift */; };
+		14B2C5BE2890398B005BFC7C /* ECPrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B72890398B005BFC7C /* ECPrivateKey.swift */; };
+		14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */; };
+		14B2C5C828903C13005BFC7C /* RisingJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5C728903C13005BFC7C /* RisingJWT.swift */; };
 		B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F4288ADF8E007CE07E /* AppDelegate.m */; };
 		B57599FB288ADF8E007CE07E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599FA288ADF8E007CE07E /* ViewController.m */; };
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
@@ -48,6 +56,15 @@
 		14B2C5A2288EC92D005BFC7C /* UIView+Rising.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Rising.m"; sourceTree = "<group>"; };
 		14B2C5A4288EDAFE005BFC7C /* CityWeatherItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityWeatherItem.h; sourceTree = "<group>"; };
 		14B2C5A5288EDAFE005BFC7C /* CityWeatherItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityWeatherItem.m; sourceTree = "<group>"; };
+		14B2C5B22890398A005BFC7C /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		14B2C5B32890398A005BFC7C /* ECKeyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECKeyData.swift; sourceTree = "<group>"; };
+		14B2C5B42890398A005BFC7C /* ASN1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1.swift; sourceTree = "<group>"; };
+		14B2C5B52890398B005BFC7C /* P8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = P8.swift; sourceTree = "<group>"; };
+		14B2C5B62890398B005BFC7C /* JWT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
+		14B2C5B72890398B005BFC7C /* ECPrivateKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECPrivateKey.swift; sourceTree = "<group>"; };
+		14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CupertinoJWTError.swift; sourceTree = "<group>"; };
+		14B2C5C528903BCF005BFC7C /* SwiftOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftOC.h; sourceTree = "<group>"; };
+		14B2C5C728903C13005BFC7C /* RisingJWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RisingJWT.swift; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +131,21 @@
 			path = HttpTool;
 			sourceTree = "<group>";
 		};
+		14B2C5C0289039B5005BFC7C /* CupertinoJWT */ = {
+			isa = PBXGroup;
+			children = (
+				14B2C5C728903C13005BFC7C /* RisingJWT.swift */,
+				14B2C5B42890398A005BFC7C /* ASN1.swift */,
+				14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */,
+				14B2C5B22890398A005BFC7C /* Data+Extension.swift */,
+				14B2C5B32890398A005BFC7C /* ECKeyData.swift */,
+				14B2C5B72890398B005BFC7C /* ECPrivateKey.swift */,
+				14B2C5B62890398B005BFC7C /* JWT.swift */,
+				14B2C5B52890398B005BFC7C /* P8.swift */,
+			);
+			path = CupertinoJWT;
+			sourceTree = "<group>";
+		};
 		8AA4E2FF70A89252F4390E76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +194,9 @@
 				14B2C59D288E79B0005BFC7C /* HttpTool */,
 				147671B5288D166B00A4FCAF /* RisingRouter */,
 				147671BC288D16F600A4FCAF /* Extension */,
+				14B2C5C0289039B5005BFC7C /* CupertinoJWT */,
 				B5759A0C288AE0EF007CE07E /* PrefixHeader.pch */,
+				14B2C5C528903BCF005BFC7C /* SwiftOC.h */,
 				B5759A04288ADF90007CE07E /* Info.plist */,
 			);
 			path = ByteDanceCampus_Weather;
@@ -213,6 +247,7 @@
 				TargetAttributes = {
 					B57599EF288ADF8E007CE07E = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -294,16 +329,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B57599FB288ADF8E007CE07E /* ViewController.m in Sources */,
+				14B2C5BE2890398B005BFC7C /* ECPrivateKey.swift in Sources */,
 				B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */,
+				14B2C5B92890398B005BFC7C /* Data+Extension.swift in Sources */,
+				14B2C5C828903C13005BFC7C /* RisingJWT.swift in Sources */,
 				14B2C5A0288EC480005BFC7C /* CitySectionController.m in Sources */,
 				147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */,
+				14B2C5BA2890398B005BFC7C /* ECKeyData.swift in Sources */,
 				147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */,
 				147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */,
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
+				14B2C5BB2890398B005BFC7C /* ASN1.swift in Sources */,
 				147671C6288D185800A4FCAF /* RisingRouter.m in Sources */,
+				14B2C5BC2890398B005BFC7C /* P8.swift in Sources */,
 				14B2C597288E6AEF005BFC7C /* RisingRouter+Extension.m in Sources */,
 				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
+				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
 				14B2C5A3288EC92D005BFC7C /* UIView+Rising.m in Sources */,
+				14B2C5BD2890398B005BFC7C /* JWT.swift in Sources */,
 				14B2C59A288E78E7005BFC7C /* HttpTool.m in Sources */,
 				14B2C5A6288EDAFE005BFC7C /* CityWeatherItem.m in Sources */,
 			);
@@ -441,9 +484,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -466,6 +512,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sungkaikai.ByteDanceCampus-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ByteDanceCampus_Weather/SwiftOC.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -476,9 +526,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 727CVV9PLJ;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
@@ -500,6 +553,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "sungkaikai.ByteDanceCampus-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ByteDanceCampus_Weather/SwiftOC.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

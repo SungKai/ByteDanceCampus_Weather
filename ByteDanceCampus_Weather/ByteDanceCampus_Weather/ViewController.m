@@ -38,6 +38,14 @@
     [self.view addSubview:self.backgroundImgView];
     [self adapter];
     [self.view addSubview:self.collectionView];
+    [self test];
+}
+
+- (void)test {
+    
+    NSString *str = RisingJWT.token;
+    
+    RisingLog(R_success, @"%@", str);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
