@@ -16,6 +16,7 @@ target 'ByteDanceCampus_Weather' do
 	pod 'WCDB'
 	pod 'IGListKit'
 	pod 'FluentDarkModeKit'
+	pod 'JWT'
 
 end
 

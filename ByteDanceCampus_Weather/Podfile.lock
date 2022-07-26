@@ -14,10 +14,13 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - Base64 (1.1.2)
   - FluentDarkModeKit (1.0.4)
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
+  - JWT (2.2.0):
+    - Base64 (~> 1.1.2)
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
   - SQLiteRepairKit (1.2.2):
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - AFNetworking
   - FluentDarkModeKit
   - IGListKit
+  - JWT
   - Masonry
   - MJRefresh
   - WCDB
@@ -42,9 +46,11 @@ DEPENDENCIES:
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - AFNetworking
+    - Base64
     - FluentDarkModeKit
     - IGListDiffKit
     - IGListKit
+    - JWT
     - Masonry
     - MJRefresh
     - SQLiteRepairKit
@@ -54,9 +60,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   FluentDarkModeKit: b6317653a00329564582884772ec57c4eaad1a1f
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
+  JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
@@ -64,6 +72,6 @@ SPEC CHECKSUMS:
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 9ae92ede482cf809eef06fb7b4ce4fc21ca0fdb3
+PODFILE CHECKSUM: ac993263e6ae508bf0ec53be6116fd053db62ad8
 
 COCOAPODS: 1.11.3
