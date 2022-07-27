@@ -25,9 +25,6 @@ static HttpTool *_shareTool;
 /// 以HTTP格式上传
 @property (nonatomic, strong) AFHTTPRequestSerializer *HTTPRequest;
 
-/// PropertyList格式上传
-@property (nonatomic, strong) AFPropertyListRequestSerializer *propertyListRequest;
-
 @end
 
 #pragma mark - HttpTool
@@ -76,23 +73,10 @@ static HttpTool *_shareTool;
 
 - (void)request:(NSString * _Nonnull)URLString
            type:(HttpToolRequestType)requestType
-     serializer:(HttpToolRequestSerializer)requestSerializer
- bodyParameters:(id _Nullable)parameters
-       progress:(nullable void (^)(NSProgress * _Nonnull))progress
-        success:(nullable void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
-        failure:(nullable void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure {
-    
-    switch (requestSerializer) {
-        case HttpToolRequestSerializerPropertyList:
-            self.sessionManager.requestSerializer = self.propertyListRequest;
-            break;
-        case HttpToolRequestSerializerJSON:
-            self.sessionManager.requestSerializer = self.defaultJSONRequest;
-            break;
-        case HttpToolRequestSerializerHTTP:
-            self.sessionManager.requestSerializer = self.HTTPRequest;
-            break;
-    }
+     serializer:(__kindof AFHTTPRequestSerializer *)requestSerializer
+     parameters:(id _Nullable)parameters
+        success:(nullable void (^)(NSURLSessionDataTask * task, id _Nullable object))success
+        failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError * error))failure {
     
     NSString *methodType = @"";
     switch (requestType) {
@@ -113,16 +97,19 @@ static HttpTool *_shareTool;
             break;
     }
     
+    self.sessionManager.requestSerializer = requestSerializer;
+    
     [[self.sessionManager
       dataTaskWithHTTPMethod:methodType
       URLString:URLString
       parameters:parameters
       headers:nil
       uploadProgress:nil // 这里源码有if...else判断
-      downloadProgress:progress
+      downloadProgress:nil // 此项目用不到
       success:success
       failure:failure]
      resume];
+    
 }
 
 - (void)form:(NSString *)URLString
@@ -167,8 +154,8 @@ bodyConstructing:(void (^)(id<AFMultipartFormData> _Nonnull))block
 - (AFJSONRequestSerializer *)defaultJSONRequest {
     if (_defaultJSONRequest == nil) {
         _defaultJSONRequest = AFJSONRequestSerializer.serializer;
-        _defaultJSONRequest = AFJSONRequestSerializer.serializer;
         _defaultJSONRequest.timeoutInterval = 15;
+        [_HTTPRequest setValue:[RisingJWT tokenWithAuto:YES] forHTTPHeaderField:@"Authorization"];
         _defaultJSONRequest.HTTPMethodsEncodingParametersInURI = [NSSet setWithArray:@[]];
     }
     return _defaultJSONRequest;
@@ -177,19 +164,10 @@ bodyConstructing:(void (^)(id<AFMultipartFormData> _Nonnull))block
 - (AFHTTPRequestSerializer *)HTTPRequest {
     if (_HTTPRequest == nil) {
         _HTTPRequest = AFHTTPRequestSerializer.serializer;
-        _HTTPRequest = AFHTTPRequestSerializer.serializer;
+        [_HTTPRequest setValue:[RisingJWT tokenWithAuto:YES] forHTTPHeaderField:@"Authorization"];
         _HTTPRequest.timeoutInterval = 15;
     }
     return _HTTPRequest;
-}
-
-- (AFPropertyListRequestSerializer *)propertyListRequest {
-    if (_propertyListRequest == nil) {
-        _propertyListRequest = AFPropertyListRequestSerializer.serializer;
-        _propertyListRequest = AFPropertyListRequestSerializer.serializer;
-        _propertyListRequest.timeoutInterval = 15;
-    }
-    return _propertyListRequest;
 }
 
 @end

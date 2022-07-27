@@ -26,6 +26,8 @@
 		14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */; };
 		14B2C5C828903C13005BFC7C /* RisingJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5C728903C13005BFC7C /* RisingJWT.swift */; };
 		14B2C5CD2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */; };
+		14B2C5D0289112BF005BFC7C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5CF289112BF005BFC7C /* Weather.m */; };
+		14B2C5D328911446005BFC7C /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5D228911446005BFC7C /* DaylyWeather.m */; };
 		B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F4288ADF8E007CE07E /* AppDelegate.m */; };
 		B57599FB288ADF8E007CE07E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599FA288ADF8E007CE07E /* ViewController.m */; };
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
@@ -67,6 +69,11 @@
 		14B2C5C528903BCF005BFC7C /* SwiftOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftOC.h; sourceTree = "<group>"; };
 		14B2C5C728903C13005BFC7C /* RisingJWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RisingJWT.swift; sourceTree = "<group>"; };
 		14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_DQ362YMNMP.p8; sourceTree = "<group>"; };
+		14B2C5CE289112BE005BFC7C /* Weather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		14B2C5CF289112BF005BFC7C /* Weather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		14B2C5D128911446005BFC7C /* DaylyWeather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DaylyWeather.h; sourceTree = "<group>"; };
+		14B2C5D228911446005BFC7C /* DaylyWeather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DaylyWeather.m; sourceTree = "<group>"; };
+		14B2C5D428911608005BFC7C /* WeatherHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherHeader.h; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,17 +193,22 @@
 		B57599F2288ADF8E007CE07E /* ByteDanceCampus_Weather */ = {
 			isa = PBXGroup;
 			children = (
-				B5759A0D288AE0F8007CE07E /* Supporting Files */,
 				B57599F9288ADF8E007CE07E /* ViewController.h */,
 				B57599FA288ADF8E007CE07E /* ViewController.m */,
 				14B2C59E288EC480005BFC7C /* CitySectionController.h */,
 				14B2C59F288EC480005BFC7C /* CitySectionController.m */,
 				14B2C5A4288EDAFE005BFC7C /* CityWeatherItem.h */,
 				14B2C5A5288EDAFE005BFC7C /* CityWeatherItem.m */,
+				14B2C5D128911446005BFC7C /* DaylyWeather.h */,
+				14B2C5D228911446005BFC7C /* DaylyWeather.m */,
+				14B2C5CE289112BE005BFC7C /* Weather.h */,
+				14B2C5CF289112BF005BFC7C /* Weather.m */,
+				14B2C5D428911608005BFC7C /* WeatherHeader.h */,
 				14B2C59D288E79B0005BFC7C /* HttpTool */,
 				147671B5288D166B00A4FCAF /* RisingRouter */,
-				147671BC288D16F600A4FCAF /* Extension */,
 				14B2C5C0289039B5005BFC7C /* CupertinoJWT */,
+				147671BC288D16F600A4FCAF /* Extension */,
+				B5759A0D288AE0F8007CE07E /* Supporting Files */,
 				B5759A0C288AE0EF007CE07E /* PrefixHeader.pch */,
 				14B2C5C528903BCF005BFC7C /* SwiftOC.h */,
 				14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */,
@@ -343,11 +355,13 @@
 				147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */,
 				147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */,
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
+				14B2C5D328911446005BFC7C /* DaylyWeather.m in Sources */,
 				14B2C5BB2890398B005BFC7C /* ASN1.swift in Sources */,
 				147671C6288D185800A4FCAF /* RisingRouter.m in Sources */,
 				14B2C5BC2890398B005BFC7C /* P8.swift in Sources */,
 				14B2C597288E6AEF005BFC7C /* RisingRouter+Extension.m in Sources */,
 				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
+				14B2C5D0289112BF005BFC7C /* Weather.m in Sources */,
 				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
 				14B2C5A3288EC92D005BFC7C /* UIView+Rising.m in Sources */,
 				14B2C5BD2890398B005BFC7C /* JWT.swift in Sources */,

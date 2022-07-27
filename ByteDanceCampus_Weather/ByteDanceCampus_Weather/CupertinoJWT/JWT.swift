@@ -1,9 +1,8 @@
 //
 //  JWT.swift
-//  CupertinoJWT
+//  ByteDanceCampus_Weather
 //
-//  Created by Ethanhuang on 2018/8/23.
-//  Copyright © 2018年 Elaborapp Co., Ltd. All rights reserved.
+//  Created by SSR on 2022/7/26.
 //
 
 import Foundation

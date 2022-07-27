@@ -42,7 +42,6 @@ typedef NS_ENUM(NSUInteger, HttpToolRequestType) {
  */
 
 typedef NS_ENUM(NSUInteger, HttpToolRequestSerializer) {
-    HttpToolRequestSerializerPropertyList,
     HttpToolRequestSerializerJSON,
     HttpToolRequestSerializerHTTP
 };
@@ -64,13 +63,32 @@ typedef NS_ENUM(NSUInteger, HttpToolRequestSerializer) {
 /// @param success 请求成功返回
 /// @param failure 请求失败返回
 /// @param requestSerializer 拼接的格式
+//- (void)request:(NSString * _Nonnull)URLString
+//           type:(HttpToolRequestType)requestType
+//     serializer:(HttpToolRequestSerializer)requestSerializer
+// bodyParameters:(id _Nullable)parameters
+//       progress:(nullable void (^)(NSProgress *progress))progress
+//        success:(nullable void (^)(NSURLSessionDataTask * task, id _Nullable object))success
+//        failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError * error))failure;
+
+
+
+
 - (void)request:(NSString * _Nonnull)URLString
            type:(HttpToolRequestType)requestType
-     serializer:(HttpToolRequestSerializer)requestSerializer
- bodyParameters:(id _Nullable)parameters
-       progress:(nullable void (^)(NSProgress *progress))progress
+     serializer:(__kindof AFHTTPRequestSerializer *)requestSerializer
+     parameters:(id _Nullable)parameters
         success:(nullable void (^)(NSURLSessionDataTask * task, id _Nullable object))success
         failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError * error))failure;
+
+
+
+
+
+
+
+
+
 
 /// POST特殊请求(multipartForm请求)
 /// @param URLString 请求URL全名
