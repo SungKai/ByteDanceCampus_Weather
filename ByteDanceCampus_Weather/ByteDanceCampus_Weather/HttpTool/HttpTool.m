@@ -172,16 +172,20 @@ bodyConstructing:(void (^)(id<AFMultipartFormData> _Nonnull))block
 
 @end
 
-@implementation HttpTool (WKWebView)
+#pragma mark - AFHTTPRequestSerializer (Weather)
 
-- (NSURLRequest *)URLRequestWithURL:(NSString *)url
-                     bodyParameters:(id _Nullable)parameters {
-    return [self.defaultJSONRequest
-            requestWithMethod:@"GET"
-            URLString:url
-            parameters:parameters
-            error:nil];
+@implementation AFHTTPRequestSerializer (Weather)
+
++ (AFHTTPRequestSerializer *)weather {
+    static AFHTTPRequestSerializer *weatherSerilizer;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        weatherSerilizer = AFHTTPRequestSerializer.serializer;
+        NSString *token = [@"Bearer " stringByAppendingString:[RisingJWT tokenWithAuto:YES]];
+        [weatherSerilizer setValue:token forHTTPHeaderField:@"Authorization"];
+        weatherSerilizer.timeoutInterval = 15;
+    });
+    return weatherSerilizer;
 }
-
 
 @end
