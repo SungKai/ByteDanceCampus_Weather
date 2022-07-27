@@ -42,7 +42,6 @@ typedef NS_ENUM(NSUInteger, HttpToolRequestType) {
  */
 
 typedef NS_ENUM(NSUInteger, HttpToolRequestSerializer) {
-    HttpToolRequestSerializerPropertyList,
     HttpToolRequestSerializerJSON,
     HttpToolRequestSerializerHTTP
 };
@@ -60,15 +59,13 @@ typedef NS_ENUM(NSUInteger, HttpToolRequestSerializer) {
 /// @param URLString 请求URL全名
 /// @param requestType 请求的类型
 /// @param parameters 请求体(URI和Body请参考文档)
-/// @param progress 进度(GET、POST独有)
 /// @param success 请求成功返回
 /// @param failure 请求失败返回
 /// @param requestSerializer 拼接的格式
 - (void)request:(NSString * _Nonnull)URLString
            type:(HttpToolRequestType)requestType
-     serializer:(HttpToolRequestSerializer)requestSerializer
- bodyParameters:(id _Nullable)parameters
-       progress:(nullable void (^)(NSProgress *progress))progress
+     serializer:(__kindof AFHTTPRequestSerializer *)requestSerializer
+     parameters:(id _Nullable)parameters
         success:(nullable void (^)(NSURLSessionDataTask * task, id _Nullable object))success
         failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError * error))failure;
 
@@ -89,12 +86,11 @@ bodyConstructing:(nullable void (^)(id<AFMultipartFormData> body))block
 
 @end
 
-#pragma mark - HttpTool (WKWebView)
+#pragma mark - AFHTTPRequestSerializer (Weather)
 
-@interface HttpTool (WKWebView)
+@interface AFHTTPRequestSerializer (Weather)
 
-- (NSURLRequest *)URLRequestWithURL:(NSString *)url
-                     bodyParameters:(id _Nullable)parameters;
+@property (nonatomic, readonly, class) AFHTTPRequestSerializer *weather;
 
 @end
 

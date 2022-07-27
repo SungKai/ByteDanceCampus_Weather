@@ -10,7 +10,8 @@
 #import "IGListKit.h"
 
 @interface ViewController () <
-    IGListAdapterDataSource
+    IGListAdapterDataSource,
+    CLLocationManagerDelegate
 >
 
 @property (nonatomic, strong) UIView *currentView;
@@ -24,6 +25,8 @@
 @property (nonatomic, strong) NSMutableArray *objects;
 
 @end
+
+#import "DaylyWeather.h"
 
 @implementation ViewController
 
@@ -43,10 +46,19 @@
 
 - (void)test {
     
-    NSString *str = RisingJWT.token;
+    NSString *str = [RisingJWT tokenWithAuto:YES];
+    
+    NSString *language = [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode];
+//    NSString *language = NSLocale.preferredLanguages[0];
     
     RisingLog(R_success, @"%@", str);
+    
+    RisingLog(R_success, @"%@", NSTimeZone.systemTimeZone.name);
+    
+    DaylyWeather *a = [[DaylyWeather alloc] init];
+    [a test];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

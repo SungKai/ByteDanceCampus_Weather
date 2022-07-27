@@ -1,9 +1,8 @@
 //
 //  JWT.swift
-//  CupertinoJWT
+//  ByteDanceCampus_Weather
 //
-//  Created by Ethanhuang on 2018/8/23.
-//  Copyright © 2018年 Elaborapp Co., Ltd. All rights reserved.
+//  Created by SSR on 2022/7/26.
 //
 
 import Foundation
@@ -15,10 +14,14 @@ public struct JWT: Codable {
 
         /// kid
         let keyID: String
+        
+        /// id
+        let identification: String
 
         enum CodingKeys: String, CodingKey {
             case algorithm = "alg"
             case keyID = "kid"
+            case identification = "id"
         }
     }
 
@@ -31,11 +34,15 @@ public struct JWT: Codable {
 
         /// exp
         public let expireDate: Int
+        
+        /// sub
+        public let subject: String
 
         enum CodingKeys: String, CodingKey {
             case teamID = "iss"
             case issueDate = "iat"
             case expireDate = "exp"
+            case subject = "sub"
         }
     }
 
@@ -43,14 +50,14 @@ public struct JWT: Codable {
 
     private let payload: Payload
 
-    public init(keyID: String, teamID: String, issueDate: Date, expireDuration: TimeInterval) {
+    public init(keyID kid: String, teamID iss: String, subject sub: String, issueDate iat: Date, expireDuration: TimeInterval) {
 
-        header = Header(keyID: keyID)
+        header = Header(keyID: kid, identification: "\(iss).\(sub)")
 
-        let iat = Int(issueDate.timeIntervalSince1970.rounded())
+        let iat = Int(iat.timeIntervalSince1970.rounded())
         let exp = iat + Int(expireDuration)
 
-        payload = Payload(teamID: teamID, issueDate: iat, expireDate: exp)
+        payload = Payload(teamID: iss, issueDate: iat, expireDate: exp, subject: sub)
     }
 
     /// Combine header and payload as digest for signing.
@@ -63,7 +70,7 @@ public struct JWT: Codable {
     /// Sign digest with P8(PEM) string. Use the result in your request authorization header.
     public func sign(with p8: P8) throws -> String {
         let digest = try self.digest()
-
+        
         let signature = try p8.toASN1()
             .toECKeyData()
             .toPrivateKey()
