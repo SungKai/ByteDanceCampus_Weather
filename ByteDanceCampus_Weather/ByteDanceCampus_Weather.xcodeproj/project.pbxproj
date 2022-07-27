@@ -25,6 +25,7 @@
 		14B2C5BE2890398B005BFC7C /* ECPrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B72890398B005BFC7C /* ECPrivateKey.swift */; };
 		14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */; };
 		14B2C5C828903C13005BFC7C /* RisingJWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5C728903C13005BFC7C /* RisingJWT.swift */; };
+		14B2C5CD2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */; };
 		B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F4288ADF8E007CE07E /* AppDelegate.m */; };
 		B57599FB288ADF8E007CE07E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599FA288ADF8E007CE07E /* ViewController.m */; };
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		14B2C5B82890398B005BFC7C /* CupertinoJWTError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CupertinoJWTError.swift; sourceTree = "<group>"; };
 		14B2C5C528903BCF005BFC7C /* SwiftOC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftOC.h; sourceTree = "<group>"; };
 		14B2C5C728903C13005BFC7C /* RisingJWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RisingJWT.swift; sourceTree = "<group>"; };
+		14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_DQ362YMNMP.p8; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,6 +199,7 @@
 				14B2C5C0289039B5005BFC7C /* CupertinoJWT */,
 				B5759A0C288AE0EF007CE07E /* PrefixHeader.pch */,
 				14B2C5C528903BCF005BFC7C /* SwiftOC.h */,
+				14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */,
 				B5759A04288ADF90007CE07E /* Info.plist */,
 			);
 			path = ByteDanceCampus_Weather;
@@ -274,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B2C5CD2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 in Resources */,
 				B5759A03288ADF90007CE07E /* LaunchScreen.storyboard in Resources */,
 				B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */,
 			);

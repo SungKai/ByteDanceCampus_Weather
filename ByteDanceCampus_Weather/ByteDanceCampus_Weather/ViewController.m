@@ -43,7 +43,8 @@
 
 - (void)test {
     
-    NSString *str = RisingJWT.token;
+    NSString *str = [RisingJWT tokenWithAuto:YES];
+    
     
     RisingLog(R_success, @"%@", str);
 }

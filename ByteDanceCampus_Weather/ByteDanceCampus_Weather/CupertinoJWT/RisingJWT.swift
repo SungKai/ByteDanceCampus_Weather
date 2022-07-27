@@ -9,23 +9,37 @@ import Foundation
 
 @objcMembers public class RisingJWT: NSObject {
     
-    static let keyID = "DQ362YMNMP"
+    struct team {
+        static let keyID = "DQ362YMNMP"
+        
+        static let teamID = "95VT929YHJ"
+        
+        static let subject = "com.bytedance.ssr"
+        
+        static let authKeyFileName = "AuthKey_DQ362YMNMP"
+    }
+
+    var date: Date = Date()
     
-    static let teamID = "95VT929YHJ"
+    var expireDuration: TimeInterval = 60 * 60
     
-    static let p8 =
-        "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgdRMW0yufoVHXusdi" +
-        "eRltXqbLxhj/g5YbObuISXC3YGmgCgYIKoZIzj0DAQehRANCAAQ0WVRkkxr4oxoz" +
-        "vyW802+XuIW7BYzicNPU1Xltsn0SE7+UBeZ8WWAeWoufxpU4xyKJGeVcBQ+qncei" +
-        "K1qA+XSH"
+    static public let shared = RisingJWT()
     
-    @objc public class var token: String? {
-        get {
-            let jwt = JWT(keyID: keyID, teamID: teamID, issueDate: Date(), expireDuration: 60 * 60)
-            
-            let token = try? jwt.sign(with: p8)
-            
-            return token
+    @objc public class func token(auto: Bool) -> String? {
+        let jwtShared = RisingJWT.shared
+        if auto {
+            let yetIss = jwtShared.date.timeIntervalSince1970.rounded()
+            let nowIss = Date().timeIntervalSince1970.rounded()
+            if (nowIss - yetIss >= jwtShared.expireDuration) {
+                jwtShared.date = Date()
+            }
+        } else {
+            jwtShared.date = Date()
         }
+        let jwt = JWT(keyID: self.team.keyID, teamID: self.team.teamID, subject: self.team.subject, issueDate: jwtShared.date, expireDuration: jwtShared.expireDuration)
+        
+        let token = try? jwt.sign(with: P8(fromP8: self.team.authKeyFileName))
+        
+        return token
     }
 }

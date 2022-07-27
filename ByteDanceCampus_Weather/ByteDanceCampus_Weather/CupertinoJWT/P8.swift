@@ -8,17 +8,26 @@
 
 import Foundation
 
-public typealias P8 = String
-
-extension P8 {
-    /// Convert PEM format .p8 file to DER-encoded ASN.1 data
-    public func toASN1() throws -> ASN1 {
-        let base64 = self
+public struct P8 {
+    
+    public var fileContent: String
+    
+    public init(_ str: String) {
+        fileContent = str
+            .replacingOccurrences(of: " ", with: "")
             .split(separator: "\n")
             .filter({ $0.hasPrefix("-----") == false })
             .joined(separator: "")
+    }
+    
+    public init(fromP8 filePath : String) {
+        self.init(String(data:try! Data(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource:filePath, ofType:"p8")!)), encoding: .utf8)!)
+    }
+    
+    /// Convert PEM format .p8 file to DER-encoded ASN.1 data
+    public func toASN1() throws -> ASN1 {
 
-        guard let asn1 = Data(base64Encoded: base64) else {
+        guard let asn1 = Data(base64Encoded: fileContent) else {
             throw CupertinoJWTError.invalidP8
         }
         return asn1
