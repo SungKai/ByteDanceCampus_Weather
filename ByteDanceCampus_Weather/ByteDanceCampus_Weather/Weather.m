@@ -9,4 +9,17 @@
 
 @implementation Weather
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+        @"currentTime" : @"forecastStart"
+    };
+}
+
+#pragma mark - Setter
+
+- (void)setCurrentTime:(NSString *)currentTime {
+    _currentTime = currentTime;
+    self->_currentDate = [NSDate dateString:currentTime fromFormatter:NSDateFormatter.defaultFormatter withDateFormat:@"YYYY-MM-DD'T'HH:mm:ss'Z'"];
+}
+
 @end

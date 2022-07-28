@@ -7,6 +7,13 @@
 
 #import "DaylyWeather.h"
 
+WeatherDataSet WeatherDataSetCurrentWeather = @"currentWeather";
+WeatherDataSet WeatherDataSetForecastDaily = @"forecastDaily";
+WeatherDataSet WeatherDataSetForecastHourly = @"forecastHourly";
+WeatherDataSet WeatherDataSetForecastNextHour = @"forecastNextHour";
+WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
+
+
 #pragma mark - DaylyWeather ()
 
 @interface DaylyWeather ()
@@ -18,23 +25,36 @@
 
 @implementation DaylyWeather
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.dataSet = WeatherDataSetCurrentWeather;
+    }
+    return self;
+}
+
 - (void)test {
     
     // TODO: 经纬度被写死了，是否应该考虑不写死
     
     NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], 39.08869547751847, 116.4015449532665]];
     
+    __block WeatherDataSet dataset = self.dataSet;
+    
     [HttpTool.shareTool
      request:requestURL
      type:HttpToolRequestTypeGet
      serializer:AFHTTPRequestSerializer.weather
      parameters:@{
-        @"dataSets" : @"forecastDaily",
+        @"dataSets" : self.dataSet,
         @"timezone" : NSTimeZone.systemTimeZone.name
     }
      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable object) {
         
-        RisingLog(R_success, @"%@", object);
+        NSDictionary *currentWeather = object[dataset];
+        
+        Weather *weather = [Weather mj_objectWithKeyValues:currentWeather];
+        RisingLog(R_debug, @"%@", weather);
         
     }
      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

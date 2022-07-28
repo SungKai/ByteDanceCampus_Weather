@@ -24,6 +24,6 @@
 
 #import <YYKit.h>
 
-#import <JWT.h>
+#import <MJExtension.h>
 
 #endif /* ExtensionHeader_h */
