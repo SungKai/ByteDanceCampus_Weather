@@ -12,6 +12,8 @@
 
 #import "UIView+Rising.h"
 
+#import "UIColor+Rising.h"
+
 UIKIT_STATIC_INLINE NSIndexPath *IndexPathForRange(NSRange range) {
     return [NSIndexPath indexPathForItem:range.length inSection:range.location];
 }
