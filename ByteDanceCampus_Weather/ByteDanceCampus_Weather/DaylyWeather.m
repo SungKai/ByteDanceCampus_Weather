@@ -13,7 +13,6 @@ WeatherDataSet WeatherDataSetForecastHourly = @"forecastHourly";
 WeatherDataSet WeatherDataSetForecastNextHour = @"forecastNextHour";
 WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
 
-
 #pragma mark - DaylyWeather ()
 
 @interface DaylyWeather ()
