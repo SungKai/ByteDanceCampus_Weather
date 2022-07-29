@@ -9,6 +9,8 @@
 
 #import <WCDB.h>
 
+const NSString *WeatherTableName = @"Weather";
+
 #pragma mark - Weather (WCTTableCoding)
 
 @interface Weather (WCTTableCoding) <
@@ -67,11 +69,21 @@ WCDB_SYNTHESIZE(Weather, windSpeed)
     };
 }
 
+#pragma mark - Getter
+
++ (NSString *)tablePath {
+    return NSSearchPathForDirectoriesInDomains(0, 0, YES)[0];
+}
+
 #pragma mark - Setter
 
 - (void)setCurrentTime:(NSString *)currentTime {
     _currentTime = currentTime;
     self->_currentDate = [NSDate dateString:currentTime fromFormatter:NSDateFormatter.defaultFormatter withDateFormat:@"YYYY-MM-DD'T'HH:mm:ss'Z'"];
+}
+
+- (void)save {
+    
 }
 
 @end

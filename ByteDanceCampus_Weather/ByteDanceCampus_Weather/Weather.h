@@ -9,7 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT const NSString *WeatherTableName;
+
 @interface Weather : NSObject
+
+/// 存储路径
+@property(nonatomic, readonly, class) NSString *tablePath;
 
 /// 时间
 @property (nonatomic, copy) NSString *currentTime;
