@@ -7,11 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "WeatherDelegate.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT const NSString *WeatherTableName;
+FOUNDATION_EXPORT NSString *WeatherTableName;
 
-@interface Weather : NSObject
+@interface Weather : NSObject <
+    WeatherDelegate
+>
 
 /// 存储路径
 @property(nonatomic, readonly, class) NSString *tablePath;

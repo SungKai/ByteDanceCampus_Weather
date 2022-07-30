@@ -83,6 +83,7 @@
 		14B2C5D128911446005BFC7C /* DaylyWeather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DaylyWeather.h; sourceTree = "<group>"; };
 		14B2C5D228911446005BFC7C /* DaylyWeather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DaylyWeather.m; sourceTree = "<group>"; };
 		14B2C5D428911608005BFC7C /* WeatherHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherHeader.h; sourceTree = "<group>"; };
+		14C0809528952A38009C176F /* WeatherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherDelegate.h; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,6 +247,7 @@
 				14B2C5A5288EDAFE005BFC7C /* CityWeatherItem.m */,
 				14B2C5D128911446005BFC7C /* DaylyWeather.h */,
 				14B2C5D228911446005BFC7C /* DaylyWeather.m */,
+				14C0809528952A38009C176F /* WeatherDelegate.h */,
 				14B2C5CE289112BE005BFC7C /* Weather.h */,
 				14B2C5CF289112BF005BFC7C /* Weather.mm */,
 				14B2C5D428911608005BFC7C /* WeatherHeader.h */,

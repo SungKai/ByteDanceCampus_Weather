@@ -9,7 +9,9 @@
 
 #import <WCDB.h>
 
-const NSString *WeatherTableName = @"Weather";
+WCTDatabase *weatherDB;
+
+NSString *WeatherTableName = @"Weather";
 
 #pragma mark - Weather (WCTTableCoding)
 
@@ -63,16 +65,36 @@ WCDB_SYNTHESIZE(Weather, windSpeed)
 
 @implementation Weather
 
++ (void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        weatherDB = [[WCTDatabase alloc] initWithPath:Weather.tablePath];
+        [weatherDB createTableAndIndexesOfName:WeatherTableName withClass:Weather.class];
+    });
+}
+
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{
         @"currentTime" : @"forecastStart"
     };
 }
 
+- (void)save {
+    [weatherDB insertObject:self into:WeatherTableName];
+}
+
+- (void)deleteAll {
+    [weatherDB deleteAllObjectsFromTable:WeatherTableName];
+}
+
+- (NSArray<Weather *> *)allObj {
+    return [weatherDB getAllObjectsOfClass:self.class fromTable:WeatherTableName];
+}
+
 #pragma mark - Getter
 
 + (NSString *)tablePath {
-    return NSSearchPathForDirectoriesInDomains(0, 0, YES)[0];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"weather_database"];
 }
 
 #pragma mark - Setter
@@ -80,10 +102,6 @@ WCDB_SYNTHESIZE(Weather, windSpeed)
 - (void)setCurrentTime:(NSString *)currentTime {
     _currentTime = currentTime;
     self->_currentDate = [NSDate dateString:currentTime fromFormatter:NSDateFormatter.defaultFormatter withDateFormat:@"YYYY-MM-DD'T'HH:mm:ss'Z'"];
-}
-
-- (void)save {
-    
 }
 
 @end
