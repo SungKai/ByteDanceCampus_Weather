@@ -24,6 +24,9 @@
 
 @property (nonatomic, strong) NSMutableArray *objects;
 
+/// 按钮
+@property (nonatomic, strong) UIButton *btn;
+
 @end
 
 #import "DaylyWeather.h"
@@ -34,22 +37,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = UIColor.greenColor;
     
-    self.objects = @[@"1", @"2", @"3"].mutableCopy;
-    self.view = self.currentView;
-    [self.view addSubview:self.backgroundImgView];
-    [self adapter];
-    [self.view addSubview:self.collectionView];
-    [self test];
+    [self.view addSubview:self.btn];
+    
 }
 
 - (void)test {
     
     NSString *str = [RisingJWT tokenWithAuto:YES];
     
-    NSString *language = [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode];
-//    NSString *language = NSLocale.preferredLanguages[0];
     
     RisingLog(R_success, @"%@", str);
     
@@ -57,6 +54,11 @@
     
     DaylyWeather *a = [[DaylyWeather alloc] init];
     [a test];
+}
+
+- (void)push {
+    UIViewController *vc = [self.router controllerForRouterPath:@"test"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -74,6 +76,15 @@
 // MARK: SEL
 
 #pragma mark - Getter
+
+- (UIButton *)btn {
+    if (_btn == nil) {
+        _btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 80, 80)];
+        _btn.backgroundColor = UIColor.redColor;
+        [_btn addTarget:self action:@selector(push) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _btn;
+}
 
 - (UIView *)currentView {
     if (_currentView == nil) {

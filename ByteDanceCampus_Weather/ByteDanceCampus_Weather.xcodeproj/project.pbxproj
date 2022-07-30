@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1421CE1428952637009F3CBB /* TestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1421CE1328952637009F3CBB /* TestController.m */; };
 		147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671B6288D16F000A4FCAF /* RisingFoundationExtention.m */; };
 		147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671B7288D16F000A4FCAF /* RisingUIKitExtension.m */; };
 		147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 147671BE288D185800A4FCAF /* RisingRouterRequest.m */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1421CE1228952637009F3CBB /* TestController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestController.h; sourceTree = "<group>"; };
+		1421CE1328952637009F3CBB /* TestController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestController.m; sourceTree = "<group>"; };
 		147671B6288D16F000A4FCAF /* RisingFoundationExtention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingFoundationExtention.m; sourceTree = "<group>"; };
 		147671B7288D16F000A4FCAF /* RisingUIKitExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RisingUIKitExtension.m; sourceTree = "<group>"; };
 		147671B8288D16F000A4FCAF /* RisingUIKitExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RisingUIKitExtension.h; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 				14B2C5CE289112BE005BFC7C /* Weather.h */,
 				14B2C5CF289112BF005BFC7C /* Weather.mm */,
 				14B2C5D428911608005BFC7C /* WeatherHeader.h */,
+				1421CE1228952637009F3CBB /* TestController.h */,
+				1421CE1328952637009F3CBB /* TestController.m */,
 				14B2C59D288E79B0005BFC7C /* HttpTool */,
 				147671B5288D166B00A4FCAF /* RisingRouter */,
 				14B2C5C0289039B5005BFC7C /* RisingJWT */,
@@ -395,6 +400,7 @@
 				147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */,
 				14B2C5BA2890398B005BFC7C /* ECKeyData.swift in Sources */,
 				147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */,
+				1421CE1428952637009F3CBB /* TestController.m in Sources */,
 				147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */,
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
 				14B2C5D328911446005BFC7C /* DaylyWeather.m in Sources */,
