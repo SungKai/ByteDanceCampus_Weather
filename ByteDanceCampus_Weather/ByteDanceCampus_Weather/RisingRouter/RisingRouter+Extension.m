@@ -7,6 +7,8 @@
 
 #import "RisingRouter+Extension.h"
 
+#pragma mark - RisingRouter (UIViewController)
+
 @implementation RisingRouter (UIViewController)
 
 - (__kindof UIViewController *)controllerForRouterPath:(NSString *)routerPath {
@@ -45,6 +47,8 @@
 
 @end
 
+#pragma mark - RisingRouter (UINavigationController)
+
 @implementation RisingRouter (UINavigationController)
 
 - (BOOL)pushForRouterPath:(NSString *)routerPath {
@@ -80,6 +84,8 @@
 }
 
 @end
+
+#pragma mark - RisingRouter (Parameters)
 
 @implementation RisingRouter (Parameters)
 

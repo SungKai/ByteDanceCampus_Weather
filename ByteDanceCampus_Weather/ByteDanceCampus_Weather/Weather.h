@@ -11,13 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 表名
 FOUNDATION_EXPORT NSString *WeatherTableName;
 
 @interface Weather : NSObject <
     WeatherDelegate
 >
 
-/// 存储路径
+/// 存储路径，也是DB所在位置
 @property(nonatomic, readonly, class) NSString *tablePath;
 
 /// 时间

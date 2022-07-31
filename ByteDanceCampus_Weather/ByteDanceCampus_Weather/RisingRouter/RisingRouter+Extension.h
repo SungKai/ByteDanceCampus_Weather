@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - RisingRouter (UIViewController)
+
 @interface RisingRouter (UIViewController)
 
 - (__kindof UIViewController *)controllerForRouterPath:(NSString *)routerPath;
@@ -21,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - RisingRouter (UINavigationController)
+
 @interface RisingRouter (UINavigationController)
 
 - (BOOL)pushForRouterPath:(NSString *)routerPath;
@@ -32,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)pushForURL:(NSURL *)url parameters:(NSDictionary * _Nullable)parameters;
 
 @end
+
+#pragma mark - RisingRouter (Parameters)
 
 @interface RisingRouter (Parameters)
 

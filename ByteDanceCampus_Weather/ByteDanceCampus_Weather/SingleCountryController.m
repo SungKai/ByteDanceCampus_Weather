@@ -1,17 +1,17 @@
 //
-//  TestController.m
+//  SingleCountryController.m
 //  ByteDanceCampus_Weather
 //
 //  Created by SSR on 2022/7/30.
 //
 
-#import "TestController.h"
+#import "SingleCountryController.h"
 
-@interface TestController ()
+@interface SingleCountryController ()
 
 @end
 
-@implementation TestController
+@implementation SingleCountryController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +36,7 @@
             UINavigationController *nav = (request.requestController ? request.requestController : RisingRouterRequest.useTopController).navigationController;
             
             if (nav) {
-                TestController *vc = [[self alloc] init];
+                SingleCountryController *vc = [[self alloc] init];
                 response.responseController = vc;
                 
                 [nav pushViewController:vc animated:YES];
@@ -53,7 +53,7 @@
             
         case RouterRequestController: {
             
-            TestController *vc = [[self alloc] init];
+            SingleCountryController *vc = [[self alloc] init];
             
             response.responseController = vc;
         } break;

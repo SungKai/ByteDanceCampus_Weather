@@ -35,6 +35,11 @@
     return cell;
 }
 
+- (void)didSelectItemAtIndex:(NSInteger)index {
+    
+}
+
+
 #pragma mark - RisingRouterHandler
 
 + (NSArray<NSString *> *)routerPath {

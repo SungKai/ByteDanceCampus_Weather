@@ -1,5 +1,5 @@
 //
-//  TestController.h
+//  SingleCountryController.h
 //  ByteDanceCampus_Weather
 //
 //  Created by SSR on 2022/7/30.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestController : UIViewController <
+@interface SingleCountryController : UIViewController <
     RisingRouterHandler
 >
 

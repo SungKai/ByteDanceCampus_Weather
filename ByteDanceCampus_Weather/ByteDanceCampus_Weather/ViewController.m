@@ -57,8 +57,13 @@
 }
 
 - (void)push {
-    UIViewController *vc = [self.router controllerForRouterPath:@"test"];
-    [self.navigationController pushViewController:vc animated:YES];
+    // 1.取cv取push
+//    UIViewController *vc = [self.router controllerForRouterPath:@"test"];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    // 2.直接push
+    [self.router pushForRouterPath:@"test"];
+    
 }
 
 
