@@ -31,6 +31,7 @@
 		14B2C5D328911446005BFC7C /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5D228911446005BFC7C /* DaylyWeather.m */; };
 		14CDC7B32898FD290009358F /* CityWeatherTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CDC7B22898FD290009358F /* CityWeatherTransition.m */; };
 		14CDC7B8289904560009358F /* AnimateTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CDC7B7289904560009358F /* AnimateTransition.m */; };
+		14CDC852289AA2E00009358F /* WeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CDC851289AA2E00009358F /* WeatherView.m */; };
 		B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599F4288ADF8E007CE07E /* AppDelegate.m */; };
 		B57599FB288ADF8E007CE07E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57599FA288ADF8E007CE07E /* ViewController.m */; };
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
@@ -84,6 +85,8 @@
 		14CDC7B22898FD290009358F /* CityWeatherTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityWeatherTransition.m; sourceTree = "<group>"; };
 		14CDC7B6289904560009358F /* AnimateTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimateTransition.h; sourceTree = "<group>"; };
 		14CDC7B7289904560009358F /* AnimateTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimateTransition.m; sourceTree = "<group>"; };
+		14CDC850289AA2E00009358F /* WeatherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherView.h; sourceTree = "<group>"; };
+		14CDC851289AA2E00009358F /* WeatherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherView.m; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57599F0288ADF8E007CE07E /* ByteDanceCampus_Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteDanceCampus_Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +248,8 @@
 				14CDC7B22898FD290009358F /* CityWeatherTransition.m */,
 				14CDC7B6289904560009358F /* AnimateTransition.h */,
 				14CDC7B7289904560009358F /* AnimateTransition.m */,
+				14CDC850289AA2E00009358F /* WeatherView.h */,
+				14CDC851289AA2E00009358F /* WeatherView.m */,
 				14B2C5D128911446005BFC7C /* DaylyWeather.h */,
 				14B2C5D228911446005BFC7C /* DaylyWeather.m */,
 				14C0809528952A38009C176F /* WeatherDelegate.h */,
@@ -412,6 +417,7 @@
 				14B2C5BC2890398B005BFC7C /* P8.swift in Sources */,
 				14B2C597288E6AEF005BFC7C /* RisingRouter+Extension.m in Sources */,
 				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
+				14CDC852289AA2E00009358F /* WeatherView.m in Sources */,
 				14B2C5D0289112BF005BFC7C /* Weather.mm in Sources */,
 				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
 				14B2C5A3288EC92D005BFC7C /* UIView+Rising.m in Sources */,

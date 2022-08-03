@@ -16,4 +16,6 @@
 
 #import "ExtensionHeader.h"
 
+#import <Masonry.h>
+
 #endif /* PrefixHeader_pch */
