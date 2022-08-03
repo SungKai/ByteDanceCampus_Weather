@@ -7,29 +7,18 @@
 
 #import "ViewController.h"
 
-#import "IGListKit.h"
+#import "AnimateTransition.h"
+#import "CityWeatherTransition.h"
 
-@interface ViewController () <
-    IGListAdapterDataSource,
-    CLLocationManagerDelegate
->
+@interface ViewController ()
 
-@property (nonatomic, strong) UIView *currentView;
+/// 右滑pan
+@property (nonatomic, strong) UIPanGestureRecognizer *nextPan;
 
-@property (nonatomic, strong) UIImageView *backgroundImgView;
-
-@property (nonatomic, strong) UICollectionView *collectionView;
-
-@property (nonatomic, strong) IGListAdapter *adapter;
-
-@property (nonatomic, strong) NSMutableArray *objects;
-
-/// 按钮
-@property (nonatomic, strong) UIButton *btn;
+/// <#description#>
+@property (nonatomic, strong) AnimateTransition *animateTransition;
 
 @end
-
-#import "DaylyWeather.h"
 
 @implementation ViewController
 
@@ -39,33 +28,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.greenColor;
     
-    [self.view addSubview:self.btn];
-    
+    self.transitioningDelegate = self.animateTransition;
 }
-
-- (void)test {
-    
-    NSString *str = [RisingJWT tokenWithAuto:YES];
-    
-    
-    RisingLog(R_success, @"%@", str);
-    
-    RisingLog(R_success, @"%@", NSTimeZone.systemTimeZone.name);
-    
-    DaylyWeather *a = [[DaylyWeather alloc] init];
-    [a test];
-}
-
-- (void)push {
-    // 1.取cv取push
-//    UIViewController *vc = [self.router controllerForRouterPath:@"test"];
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-    // 2.直接push
-    [self.router pushForRouterPath:@"test"];
-    
-}
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -80,66 +44,38 @@
 
 // MARK: SEL
 
+- (void)isPaning:(UIPanGestureRecognizer *)pan {
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan: {
+            
+        } break;
+        case UIGestureRecognizerStateChanged: {
+            
+        } break;
+        case UIGestureRecognizerStateEnded: {
+            
+        } break;
+        case UIGestureRecognizerStateCancelled:
+        default: {
+            
+        } break;
+    }
+}
+
 #pragma mark - Getter
 
-- (UIButton *)btn {
-    if (_btn == nil) {
-        _btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 80, 80)];
-        _btn.backgroundColor = UIColor.redColor;
-        [_btn addTarget:self action:@selector(push) forControlEvents:UIControlEventTouchUpInside];
+- (AnimateTransition *)animateTransition {
+    if (_animateTransition == nil) {
+        _animateTransition = [[CityWeatherTransition alloc] initWithPanGesture:self.nextPan];
     }
-    return _btn;
+    return _animateTransition;
 }
 
-- (UIView *)currentView {
-    if (_currentView == nil) {
-        _currentView = [[UIView alloc] initWithFrame:self.view.bounds];
-        _currentView.backgroundColor = UIColor.orangeColor;
+- (UIPanGestureRecognizer *)nextPan {
+    if (_nextPan == nil) {
+        _nextPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(isPaning:)];
     }
-    return _currentView;
-}
-
-- (UIImageView *)backgroundImgView {
-    if (_backgroundImgView == nil) {
-        _backgroundImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];    }
-    return _backgroundImgView;
-}
-
-- (UICollectionView *)collectionView {
-    if (_collectionView == nil) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing = 0;
-        layout.minimumInteritemSpacing = 0;
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.SuperFrame collectionViewLayout:layout];
-        _collectionView.backgroundColor = UIColor.greenColor;
-        _collectionView.pagingEnabled = YES;
-    }
-    return _collectionView;
-}
-
-- (IGListAdapter *)adapter {
-    if (_adapter == nil) {
-        _adapter = [[IGListAdapter alloc] initWithUpdater:[IGListAdapterUpdater new] viewController:self];
-        _adapter.dataSource = self;
-        _adapter.collectionView = self.collectionView;
-    }
-    return _adapter;
-}
-
-#pragma mark - IGListAdapterDataSource
-
-- (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
-    return self.backgroundImgView;
-}
-
-- (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
-    return self.objects;
-}
-
-- (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    return (IGListSectionController *)[self.router sourceForRouterPath:@"CitySection"];
+    return _nextPan;
 }
 
 #pragma mark - RisingRouterHandler
