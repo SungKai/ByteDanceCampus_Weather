@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 云量
 @property (nonatomic) CGFloat cloudCover;
 
-/// 条件代码
+/// 条件代码:用于展示对应天气图标
 @property (nonatomic, copy) NSString *conditionCode;
 
 /// 是否在白天

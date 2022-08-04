@@ -28,7 +28,7 @@ WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.dataSet = WeatherDataSetCurrentWeather;
+        self.dataSet = WeatherDataSetForecastDaily;
     }
     return self;
 }

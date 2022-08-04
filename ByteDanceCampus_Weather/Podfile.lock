@@ -24,9 +24,9 @@ PODS:
   - Masonry (1.1.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
-  - SDWebImage (5.13.2):
-    - SDWebImage/Core (= 5.13.2)
-  - SDWebImage/Core (5.13.2)
+  - SDWebImage (5.12.2):
+    - SDWebImage/Core (= 5.12.2)
+  - SDWebImage/Core (5.12.2)
   - SQLiteRepairKit (1.2.2):
     - WCDBOptimizedSQLCipher (~> 1.2.0)
   - WCDB (1.0.7.5):
@@ -76,7 +76,7 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
-  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
+  SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
   SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
   WCDB: 8e90babdeb7784c569353a4bd22a66c0a175a882
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
@@ -84,4 +84,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: aa8c84352c87cb567507bcce5a68cafcb036d7b4
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

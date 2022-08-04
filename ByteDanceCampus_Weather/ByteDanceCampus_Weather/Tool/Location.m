@@ -1,0 +1,64 @@
+//
+//  Location.m
+//  ByteDanceCampus_Weather
+//
+//  Created by 宋开开 on 2022/8/4.
+//
+
+#import "Location.h"
+
+@interface Location () <CLLocationManagerDelegate>
+
+@property (nonatomic, strong) CLLocationManager *manager;
+
+@property (nonatomic) void(^saveLocationBlock)(double lat,double lon ,NSString *cityName);
+
+@end
+
+@implementation Location
+
++ (instancetype)shareInstance {
+    static Location * instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[Location alloc] init];
+        instance.manager = [[CLLocationManager alloc]init];
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+            [instance.manager requestWhenInUseAuthorization];
+        }
+        instance.manager.delegate = instance;
+    });
+    return instance;
+}
+
+- (void)getUserLocation:(void(^)(double lat, double lon, NSString *cityName))locationBlock {
+    if (![CLLocationManager locationServicesEnabled]) {
+        return;
+    }
+    // 确定用户的位置服务启用
+    if ([CLLocationManager locationServicesEnabled] &&[CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+        // 位置服务是在设置中禁用，禁用时默认北京
+        _saveLocationBlock = [locationBlock copy];
+        _saveLocationBlock(39.9110130000,116.4135540000,@"北京");
+        return;
+    }
+    _saveLocationBlock = [locationBlock copy];
+    self.manager.distanceFilter = 100;
+    [self.manager startUpdatingLocation];
+}
+
+#pragma mark - CLLocatoinManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    CLLocation *location = [locations lastObject];
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            NSString *cityName = placemarks.lastObject.addressDictionary[@"City"];
+            NSString *str = [cityName substringToIndex:cityName.length -1];
+            _saveLocationBlock(location.coordinate.latitude,location.coordinate.longitude,str);
+        }
+    }];
+    
+}
+@end

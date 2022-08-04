@@ -24,11 +24,11 @@ typedef NSString * WeatherDataSet;
 
 @end
 
-FOUNDATION_EXPORT WeatherDataSet WeatherDataSetCurrentWeather;
+FOUNDATION_EXPORT WeatherDataSet WeatherDataSetCurrentWeather;  //当前时刻
 
-FOUNDATION_EXPORT WeatherDataSet WeatherDataSetForecastDaily;
+FOUNDATION_EXPORT WeatherDataSet WeatherDataSetForecastDaily;  // 未来10天
 
-FOUNDATION_EXPORT WeatherDataSet WeatherDataSetForecastHourly;
+FOUNDATION_EXPORT WeatherDataSet WeatherDataSetForecastHourly;  //未来24小时（有25个）
 
 FOUNDATION_EXPORT WeatherDataSet WeatherDataSetForecastNextHour __deprecated_msg("暂时无法使用ForecastNextHour");
 
