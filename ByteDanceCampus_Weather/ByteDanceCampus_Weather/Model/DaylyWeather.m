@@ -28,7 +28,7 @@ WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.dataSet = WeatherDataSetForecastDaily;
+        self.dataSet = WeatherDataSetCurrentWeather;
     }
     return self;
 }
@@ -36,9 +36,10 @@ WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
 - (void)test {
     
     // TODO: 经纬度被写死了，是否应该考虑不写死
-    
-    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], 39.08869547751847, 116.4015449532665]];
-    
+    NSString *str = [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode];
+    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", @"zh_cn", 29.35, 106.33]];
+    // 重庆：29.35, 106.33
+    // 北京 39.08869547751847, 116.4015449532665
     __block WeatherDataSet dataset = self.dataSet;
     
     [HttpTool.shareTool

@@ -7,9 +7,6 @@
 
 #import "CityChosenViewController.h"
 
-// V
-#import "CityTableViewCell.h"
-
 // Model
 #import "CitiesModel.h"
 
@@ -100,8 +97,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CitiesModel *cityModel = self.cityGroupArray[indexPath.section];
     NSString *cityName = cityModel.cities[indexPath.row];
-    // 用UserDefaults来存储当前选择的城市
-    [NSUserDefaults.standardUserDefaults setObject:cityName forKey:@"chosenCity"];
+    
+    // 选择好城市后用block回调
+    if (self.cityNameBlock) {
+        self.cityNameBlock(cityName);
+    }
+//    // 用UserDefaults来存储当前选择的城市
+//    [NSUserDefaults.standardUserDefaults setObject:cityName forKey:@"chosenCity"];
 }
 
 

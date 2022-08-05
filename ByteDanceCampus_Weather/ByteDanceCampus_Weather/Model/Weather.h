@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Weather : NSObject
 
+/// 城市名字
+@property (nonatomic, copy) NSString *cityName;
+
 /// 时间
 @property (nonatomic, copy) NSString *currentTime;
 

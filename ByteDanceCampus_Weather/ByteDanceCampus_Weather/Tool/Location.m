@@ -36,7 +36,7 @@
         return;
     }
     // 确定用户的位置服务启用
-    if ([CLLocationManager locationServicesEnabled] &&[CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+    if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
         // 位置服务是在设置中禁用，禁用时默认北京
         _saveLocationBlock = [locationBlock copy];
         _saveLocationBlock(39.9110130000,116.4135540000,@"北京");

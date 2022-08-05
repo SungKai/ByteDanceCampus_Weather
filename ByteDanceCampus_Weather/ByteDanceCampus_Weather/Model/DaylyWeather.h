@@ -22,6 +22,8 @@ typedef NSString * WeatherDataSet;
 
 - (void)test;
 
+//- (void)gainTheCityWeather:(void(^))
+
 @end
 
 FOUNDATION_EXPORT WeatherDataSet WeatherDataSetCurrentWeather;  //当前时刻

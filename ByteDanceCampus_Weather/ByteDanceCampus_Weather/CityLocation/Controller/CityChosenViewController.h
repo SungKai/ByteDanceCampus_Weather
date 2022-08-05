@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CityChosenViewController : UIViewController
 
-
+/// 选择好城市后回调
+@property (nonatomic, copy) void(^cityNameBlock)(NSString *cityName);
 
 
 @end
