@@ -7,16 +7,9 @@
 
 #import "ViewController.h"
 
-#import "AnimateTransition.h"
-#import "CityWeatherTransition.h"
+#import "WeatherRequest.h"
 
 @interface ViewController ()
-
-/// 右滑pan
-@property (nonatomic, strong) UIPanGestureRecognizer *nextPan;
-
-/// <#description#>
-@property (nonatomic, strong) AnimateTransition *animateTransition;
 
 @end
 
@@ -28,7 +21,25 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.greenColor;
     
-    self.transitioningDelegate = self.animateTransition;
+    [WeatherRequest
+     requestWithDataSet:WeatherDataSetForecastHourly
+     success:^(WeatherDataSet  _Nonnull set,
+               CurrentWeather * _Nullable current,
+               ForecastDaily * _Nullable daily,
+               ForecastHourly * _Nullable hourly) {
+        if (current) {
+            // 现在
+        }
+        if (daily) {
+            // 10天
+        }
+        if (hourly) {
+            // 25H
+        }
+        
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,20 +74,6 @@
 }
 
 #pragma mark - Getter
-
-- (AnimateTransition *)animateTransition {
-    if (_animateTransition == nil) {
-        _animateTransition = [[CityWeatherTransition alloc] initWithPanGesture:self.nextPan];
-    }
-    return _animateTransition;
-}
-
-- (UIPanGestureRecognizer *)nextPan {
-    if (_nextPan == nil) {
-        _nextPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(isPaning:)];
-    }
-    return _nextPan;
-}
 
 #pragma mark - RisingRouterHandler
 

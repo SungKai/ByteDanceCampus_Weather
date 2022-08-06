@@ -1,11 +1,11 @@
 //
-//  Weather.m
+//  HourlyWeather.m
 //  ByteDanceCampus_Weather
 //
 //  Created by SSR on 2022/7/27.
 //
 
-#import "Weather.h"
+#import "HourlyWeather.h"
 
 #import <WCDB.h>
 
@@ -15,7 +15,7 @@ NSString *WeatherTableName = @"Weather";
 
 #pragma mark - Weather (WCTTableCoding)
 
-@interface Weather (WCTTableCoding) <
+@interface HourlyWeather (WCTTableCoding) <
     WCTTableCoding
 >
 
@@ -40,36 +40,36 @@ WCDB_PROPERTY(windSpeed)
 
 #pragma mark - Weather (WCDB_IMPLEMENTATION)
 
-@implementation Weather (WCDB_IMPLEMENTATION)
+@implementation HourlyWeather (WCDB_IMPLEMENTATION)
 
-WCDB_IMPLEMENTATION(Weather)
+WCDB_IMPLEMENTATION(HourlyWeather)
 
-WCDB_SYNTHESIZE(Weather, currentDate)
-WCDB_SYNTHESIZE(Weather, cloudCover)
-WCDB_SYNTHESIZE(Weather, conditionCode)
-WCDB_SYNTHESIZE(Weather, daylight)
-WCDB_SYNTHESIZE(Weather, humidity)
-WCDB_SYNTHESIZE(Weather, precipitationIntensity)
-WCDB_SYNTHESIZE(Weather, pressure)
-WCDB_SYNTHESIZE(Weather, pressureTrend)
-WCDB_SYNTHESIZE(Weather, temperature)
-WCDB_SYNTHESIZE(Weather, temperatureApparent)
-WCDB_SYNTHESIZE(Weather, temperatureDewPoint)
-WCDB_SYNTHESIZE(Weather, uvIndex)
-WCDB_SYNTHESIZE(Weather, visibility)
-WCDB_SYNTHESIZE(Weather, windDirection)
-WCDB_SYNTHESIZE(Weather, windGust)
-WCDB_SYNTHESIZE(Weather, windSpeed)
+WCDB_SYNTHESIZE(HourlyWeather, currentDate)
+WCDB_SYNTHESIZE(HourlyWeather, cloudCover)
+WCDB_SYNTHESIZE(HourlyWeather, conditionCode)
+WCDB_SYNTHESIZE(HourlyWeather, daylight)
+WCDB_SYNTHESIZE(HourlyWeather, humidity)
+WCDB_SYNTHESIZE(HourlyWeather, precipitationIntensity)
+WCDB_SYNTHESIZE(HourlyWeather, pressure)
+WCDB_SYNTHESIZE(HourlyWeather, pressureTrend)
+WCDB_SYNTHESIZE(HourlyWeather, temperature)
+WCDB_SYNTHESIZE(HourlyWeather, temperatureApparent)
+WCDB_SYNTHESIZE(HourlyWeather, temperatureDewPoint)
+WCDB_SYNTHESIZE(HourlyWeather, uvIndex)
+WCDB_SYNTHESIZE(HourlyWeather, visibility)
+WCDB_SYNTHESIZE(HourlyWeather, windDirection)
+WCDB_SYNTHESIZE(HourlyWeather, windGust)
+WCDB_SYNTHESIZE(HourlyWeather, windSpeed)
 
 @end
 
-@implementation Weather
+@implementation HourlyWeather
 
 + (void)initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        weatherDB = [[WCTDatabase alloc] initWithPath:Weather.tablePath];
-        [weatherDB createTableAndIndexesOfName:WeatherTableName withClass:Weather.class];
+        weatherDB = [[WCTDatabase alloc] initWithPath:HourlyWeather.tablePath];
+        [weatherDB createTableAndIndexesOfName:WeatherTableName withClass:HourlyWeather.class];
     });
 }
 
@@ -87,7 +87,7 @@ WCDB_SYNTHESIZE(Weather, windSpeed)
     [weatherDB deleteAllObjectsFromTable:WeatherTableName];
 }
 
-- (NSArray<Weather *> *)allObj {
+- (NSArray<HourlyWeather *> *)allObj {
     return [weatherDB getAllObjectsOfClass:self.class fromTable:WeatherTableName];
 }
 

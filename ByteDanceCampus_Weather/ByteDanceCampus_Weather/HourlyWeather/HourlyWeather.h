@@ -1,5 +1,5 @@
 //
-//  Weather.h
+//  HourlyWeather.h
 //  ByteDanceCampus_Weather
 //
 //  Created by SSR on 2022/7/27.
@@ -7,16 +7,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import "WeatherDelegate.h"
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class HourlyWeather;
+
+typedef HourlyWeather CurrentWeather;
+
+typedef NSArray <HourlyWeather *> ForecastHourly;
 
 /// 表名
 FOUNDATION_EXPORT NSString *WeatherTableName;
 
-@interface Weather : NSObject <
-    WeatherDelegate
->
+@interface HourlyWeather : NSObject
 
 /// 存储路径，也是DB所在位置
 @property(nonatomic, readonly, class) NSString *tablePath;
