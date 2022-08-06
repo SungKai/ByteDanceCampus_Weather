@@ -16,37 +16,37 @@
 // frme.origin
 
 - (void)setOrigin:(CGPoint)origin {
-    CGRect frame = self.frame;
+    CGRect frame = self.bounds;
     frame.origin = origin;
-    self.frame = frame;
+    self.bounds = frame;
 }
 
 - (CGPoint)origin {
-    return self.frame.origin;
+    return self.bounds.origin;
 }
 
 // frame.origin.x
 
 - (void)setX:(CGFloat)x {
-    CGRect frame = self.frame;
+    CGRect frame = self.bounds;
     frame.origin.x = x;
-    self.frame = frame;
+    self.bounds = frame;
 }
 
 - (CGFloat)x {
-    return self.frame.origin.x;
+    return self.bounds.origin.x;
 }
 
 // frame.origin.y
 
 - (void)setY:(CGFloat)y {
-    CGRect frame = self.frame;
+    CGRect frame = self.bounds;
     frame.origin.y = y;
-    self.frame = frame;
+    self.bounds = frame;
 }
 
 - (CGFloat)y {
-    return self.frame.origin.y;
+    return self.bounds.origin.y;
 }
 
 #pragma mark Super

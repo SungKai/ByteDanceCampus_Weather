@@ -21,10 +21,6 @@
 
 @interface CityViewController ()
 
-/// 定位
-//@property (nonatomic, strong) CLLocation *userLocation;
-
-
 /// 选择城市按钮
 @property (nonatomic, strong) UIButton *locationBtn;
 
