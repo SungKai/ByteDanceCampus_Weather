@@ -28,11 +28,14 @@
 /// 选择城市按钮
 @property (nonatomic, strong) UIButton *locationBtn;
 
-/// 储存每个城市的实时气温透视图数据
-@property (nonatomic, strong) NSMutableArray <Weather *> *currentWeatherArray;
-
 /// 此刻气温头视图View
 @property (nonatomic, strong) CurrentWeatherView *currentWeatherView;
+
+/// 储存每个城市的实时气温头视图数据
+@property (nonatomic, strong) NSMutableArray <Weather *> *currentWeatherArray;
+
+/// 未来7天和未来25个小时气候信息所在的TableView共用一个NSArray
+@property (nonatomic, strong) NSArray *futureWeatherArray;
 
 @end
 
@@ -42,8 +45,6 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     self.currentWeatherArray = [NSMutableArray array];
-    
-    
     
     [self addViews];
     [self setPosition];
@@ -78,8 +79,7 @@
 - (void)setUIData {
     // 1.此刻气候头视图
 //    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
-    NSString *cityName = @"重庆";
-    self.currentWeatherView.cityNameLab.text = [cityName stringByAppendingString:@"市"];
+    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
     // TODO: 文字转对应图标
     self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:@"0"];
     
@@ -144,6 +144,9 @@
             
             NSLog(@"Latitude = %f", latitude);
             NSLog(@"Longitude = %f", longitude);
+            // 获取到城市经纬度信息后查询
+            NSLog(@"=======%f, =========%f", latitude, longitude);
+            [self sendRequestOfName:cityName Latitude:latitude Longitude:longitude];
         }
         else if ([placemarks count] == 0 && error == nil) {
             NSLog(@"Found no placemarks.");
@@ -151,8 +154,7 @@
             NSLog(@"An error occurred = %@", error);
         }
     }];
-    // 获取到城市经纬度信息后查询
-    [self sendRequestOfName:cityName Latitude:latitude Longitude:longitude];
+    
 }
 
 // TODO: 目前写的是当前时刻，是否需要再传入其他的WeatherDataSet
@@ -176,7 +178,7 @@
         NSDictionary *currentWeather = object[WeatherDataSetCurrentWeather];
         
         Weather *currentWeatherModel = [Weather mj_objectWithKeyValues:currentWeather];
-        currentWeatherModel.cityName = cityName;
+        currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
         
         RisingLog(R_debug, @"%@", currentWeatherModel);
         // 加入到每个城市的实时气温透视图数据数组中
@@ -199,6 +201,8 @@
     cityVC.cityNameBlock = ^(NSString * _Nonnull cityName) {
         // 用传回的城市名字查询经纬度，从而请求气候信息
         [weakSelf getLocationInformationFromCityName:cityName];
+        // 弹窗消失
+        [self dismissViewControllerAnimated:YES completion:nil];
         // TODO: 数据存储？
     };
 }
@@ -206,9 +210,9 @@
 - (void)setPosition {
     // locationBtn
     [self.locationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-30);
-        make.top.equalTo(self.view).offset(50);
-        make.size.mas_equalTo(CGSizeMake(50, 50));
+        make.right.equalTo(self.view).offset(-10);
+        make.top.equalTo(self.view).offset(25);
+        make.size.mas_equalTo(CGSizeMake(45, 45));
     }];
     // currentWeatherView
     [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -268,7 +272,7 @@
 - (UIButton *)locationBtn {
     if (_locationBtn == nil) {
         _locationBtn = [[UIButton alloc] init];
-        [_locationBtn setBackgroundImage:[UIImage systemImageNamed:@"location.fill.viewfinder"] forState:UIControlStateNormal];
+        [_locationBtn setBackgroundImage:[UIImage imageNamed:@"locationIcon"] forState:UIControlStateNormal];
         _locationBtn.tintColor = [UIColor colorWithHexString:@"#9FA0A2" alpha:1];
 //        _locationBtn.tintColor = UIColor.whiteColor;
     }

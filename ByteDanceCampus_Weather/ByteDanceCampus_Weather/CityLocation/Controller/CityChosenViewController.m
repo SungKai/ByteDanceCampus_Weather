@@ -102,6 +102,8 @@
     if (self.cityNameBlock) {
         self.cityNameBlock(cityName);
     }
+    
+    
 //    // 用UserDefaults来存储当前选择的城市
 //    [NSUserDefaults.standardUserDefaults setObject:cityName forKey:@"chosenCity"];
 }

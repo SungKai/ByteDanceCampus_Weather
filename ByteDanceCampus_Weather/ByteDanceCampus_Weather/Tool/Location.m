@@ -51,13 +51,16 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = [locations lastObject];
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
-    
+    //系统语言为英文时返回中文编码
+    NSMutableArray *defaultLanguages = [NSUserDefaults.standardUserDefaults objectForKey:@"AppleLanguages"];
+    [NSUserDefaults.standardUserDefaults setObject:[NSArray arrayWithObjects:@"zh-hans",nil] forKey:@"AppleLanguages"];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (!error) {
             NSString *cityName = placemarks.lastObject.addressDictionary[@"City"];
             NSString *str = [cityName substringToIndex:cityName.length -1];
             _saveLocationBlock(location.coordinate.latitude,location.coordinate.longitude,str);
         }
+        [NSUserDefaults.standardUserDefaults setObject:defaultLanguages forKey:@"AppleLanguages"];
     }];
     
 }
