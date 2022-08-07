@@ -82,6 +82,7 @@
     NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
     NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
     self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:weatherIconStr];
+    NSLog(@"🍐%@", weatherIconStr);
     
     // 1.2.2 背景图转化
     self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
