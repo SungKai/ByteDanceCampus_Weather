@@ -16,4 +16,6 @@
 
 #import "ExtensionHeader.h"
 
+#import "MacroHeader.h"
+
 #endif /* PrefixHeader_pch */

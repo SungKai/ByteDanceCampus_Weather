@@ -15,7 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    UIViewController *vc = [self.router controllerForRouterPath:@"main"];
+    UIViewController *vc = [self.router controllerForRouterPath:@"cityMain"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window = [[UIWindow alloc] init];
     self.window.rootViewController = nav;

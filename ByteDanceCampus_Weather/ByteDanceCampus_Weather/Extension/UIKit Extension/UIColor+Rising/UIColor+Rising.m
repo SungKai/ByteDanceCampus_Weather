@@ -15,7 +15,7 @@
 
 + (UIColor *)colorWithHexString:(NSString *)hexColor
                           alpha:(CGFloat)opacity {
-    NSAssert(opacity < 0 || opacity > 1, @"透明度应在[0,1]区间范围");
+//    NSAssert(!(opacity >= 0 && opacity <= 1), @"透明度应在[0,1]区间范围");
     
     //删除字符串中的空格
     NSString *cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];

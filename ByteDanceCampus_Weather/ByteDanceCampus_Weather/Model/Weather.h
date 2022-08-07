@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Weather : NSObject
 
+/// 城市名字
+@property (nonatomic, copy) NSString *cityName;
+
 /// 时间
 @property (nonatomic, copy) NSString *currentTime;
 
@@ -20,8 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// 云量
 @property (nonatomic) CGFloat cloudCover;
 
-/// 条件代码
+/// 条件代码:用于展示对应天气图标
 @property (nonatomic, copy) NSString *conditionCode;
+
+/// 天气背景图
+@property (nonatomic, copy) NSString *bgImageStr;
+
+/// 气象图标
+@property (nonatomic, copy) NSString *weatherIconStr;
 
 /// 是否在白天
 @property (nonatomic) BOOL daylight;
@@ -41,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 温度
 @property (nonatomic) CGFloat temperature;
 
+/// 温度，NSString
+@property (nonatomic, copy) NSString *tempertureStr;
+
 /// 表观温度
 @property (nonatomic) CGFloat temperatureApparent;
 
@@ -56,11 +68,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 风向
 @property (nonatomic) NSInteger windDirection;
 
+/// 风向汉字
+@property (nonatomic, copy) NSString *windDirectionStr;
+
 /// 阵风
 @property (nonatomic) CGFloat windGust;
 
 /// 风速
 @property (nonatomic) CGFloat windSpeed;
+
+/// 风速，NSString
+@property (nonatomic, copy) NSString *windSpeedStr;
 
 @end
 
