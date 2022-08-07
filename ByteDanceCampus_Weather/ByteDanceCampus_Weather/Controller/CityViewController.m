@@ -24,6 +24,9 @@
 /// 选择城市按钮
 @property (nonatomic, strong) UIButton *locationBtn;
 
+/// 背景图片
+@property (nonatomic, strong) UIImageView *bgImgView;
+
 /// 此刻气温头视图View
 @property (nonatomic, strong) CurrentWeatherView *currentWeatherView;
 
@@ -40,24 +43,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#4375AC" alpha:1];
     self.currentWeatherArray = [NSMutableArray array];
-    
     [self addViews];
     [self setPosition];
     [self setSEL];
+    
     // 获取用户的位置并发送请求
     [self getLoactionAndSendRequest];
     
     // 展示UI数据
-    [self setUIData];
+//    [self setUIData];
 }
 
 #pragma mark - Method
 - (void)addViews {
-    // TODO: 背景可以单独弄一个类出来
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundImageView.image = [UIImage imageNamed:@"bg_sunny_day"];
-    [self.view addSubview:backgroundImageView];
+    // 背景图片
+    [self.view addSubview:self.bgImgView];
     // 选择城市按钮
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
@@ -74,24 +76,25 @@
 /// 设置UI数据
 - (void)setUIData {
     // 1.此刻气候头视图
-//    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
+    // 1.1 城市名称
     self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
-    // TODO: 文字转对应图标
-    self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:@"0"];
+    // 1.2.1 文字转对应图标
+    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
+    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
+    self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:weatherIconStr];
     
-    // 保留一位小数，并且转化为NSString
+    // 1.2.2 背景图转化
+    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
+    
+    // 1.3 气温 保留一位小数，并且转化为NSString
     NSString *temperatureString = [self turnToOneDecimalString:self.currentWeatherArray.lastObject.temperature];
-    // 接上单位
-//    temperatureString = [temperatureString stringByAppendingString:@"℃"];
-    
     self.currentWeatherView.temperatureLab.text = temperatureString;
-    
-    // 保留一位小数，并且转化为NSString
+    // 1.4 风向
+    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
+    // 1.5 风速 保留一位小数，并且转化为NSString
     NSString *windSpeedString = [self turnToOneDecimalString:self.currentWeatherArray.lastObject.windSpeed];
     // 接上单位
     windSpeedString = [windSpeedString stringByAppendingString:@"米/秒"];
-    
-    self.currentWeatherView.windDirectionLab.text = @"东南";
     self.currentWeatherView.windSpeedLab.text = windSpeedString;
 
 }
@@ -107,7 +110,9 @@
     NSString *oneDecimalString = [formatter stringFromNumber:number];
     return oneDecimalString;
 }
+
 // MARK: SEL
+
 /// 给按钮设置指令
 - (void)setSEL {
     [self.locationBtn addTarget:self action:@selector(changeCity) forControlEvents:UIControlEventTouchUpInside];
@@ -118,8 +123,6 @@
     __weak typeof(self) weakSelf = self;
     [[Location shareInstance] getUserLocation:^(double lat, double lon,NSString *cityName) {
         NSLog(@"---------cityName = %@",cityName);  // San Francisc
-//        CLLocation *location = [[CLLocation alloc]initWithLatitude:lat longitude:lon];
-//        weakSelf.userLocation = location;
         //定位后查询
         [weakSelf sendRequestOfName:cityName Latitude:lat Longitude:lon];
     }];
@@ -174,7 +177,15 @@
         NSDictionary *currentWeather = object[WeatherDataSetCurrentWeather];
         
         Weather *currentWeatherModel = [Weather mj_objectWithKeyValues:currentWeather];
+        // 数据处理
+        // 1.城市名字加上“市”
         currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
+        // 2.天气图标转化
+        currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
+        // 3.背景图片
+        currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
+        // 4.风向转化为汉字
+        currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
         
         RisingLog(R_debug, @"%@", currentWeatherModel);
         // 加入到每个城市的实时气温透视图数据数组中
@@ -187,6 +198,50 @@
     }];
     
 }
+
+/// 转化为气候图标
+- (NSString *)turnConditionCodeToIcon:(NSString *)con {
+    NSString *sunny = @"Sunny";
+    NSString *clear = @"Clear";
+    NSString *cloudy = @"Cloudy";
+    NSString *rain = @"Rain";
+    NSString *fog = @"Fog";
+    NSString *thunder = @"Thunder";
+    NSString *wind = @"Wind";
+    NSString *snow = @"Snow";
+    
+    NSArray *iconArray = @[sunny, clear, cloudy, rain, fog, thunder, snow, wind];
+    NSString *iconStr = @"other";
+    for (int i = 0; i < iconArray.count; i++) {
+        NSRange range = [con rangeOfString:iconArray[i]];
+        if (range.location != NSNotFound) {
+            iconStr = iconArray[i];
+            break;
+        }
+    }
+    if ([iconStr isEqualToString:@"other"]) {
+        iconStr = iconArray.lastObject;
+    }
+    return iconStr;
+}
+
+/// 背景图转化
+- (NSString *)turnWeatherIconToImageBG:(NSString *)iconStr {
+    return [iconStr stringByAppendingString:@"BG"];
+}
+
+/// 风向转化为汉字
+- (NSString *)turnWindDirectionToChinese:(CGFloat)w {
+    if (w >= 10 && w <= 80) return @"西北";
+    if (w > 80 && w < 100) return @"西";
+    if (w >= 100 && w <= 170) return @"西南";
+    if (w > 170 && w < 190) return @"南";
+    if (w >= 190 && w <= 260) return @"东南";
+    if (w > 260 && w < 280) return @"东";
+    if (w >= 280 && w < 350) return @"东北";
+    else return @"北";
+}
+
 /// 选择城市
 - (void)changeCity {
     CityChosenViewController *cityVC = [[CityChosenViewController alloc] init];
@@ -283,6 +338,12 @@
     return _currentWeatherView;
 }
 
+- (UIImageView *)bgImgView {
+    if (_bgImgView == nil) {
+        _bgImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    }
+    return _bgImgView;
+}
 /*
 #pragma mark - Navigation
 

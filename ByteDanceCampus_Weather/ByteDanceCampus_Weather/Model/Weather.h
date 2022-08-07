@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 条件代码:用于展示对应天气图标
 @property (nonatomic, copy) NSString *conditionCode;
 
+/// 天气背景图
+@property (nonatomic, copy) NSString *bgImageStr;
+
+/// 气象图标
+@property (nonatomic, copy) NSString *weatherIconStr;
+
 /// 是否在白天
 @property (nonatomic) BOOL daylight;
 
@@ -58,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 风向
 @property (nonatomic) NSInteger windDirection;
+
+/// 风向汉字
+@property (nonatomic, copy) NSString *windDirectionStr;
 
 /// 阵风
 @property (nonatomic) CGFloat windGust;
