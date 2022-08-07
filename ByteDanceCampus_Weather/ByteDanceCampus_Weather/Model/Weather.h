@@ -50,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 温度
 @property (nonatomic) CGFloat temperature;
 
+/// 温度，NSString
+@property (nonatomic, copy) NSString *tempertureStr;
+
 /// 表观温度
 @property (nonatomic) CGFloat temperatureApparent;
 
@@ -73,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 风速
 @property (nonatomic) CGFloat windSpeed;
+
+/// 风速，NSString
+@property (nonatomic, copy) NSString *windSpeedStr;
 
 @end
 

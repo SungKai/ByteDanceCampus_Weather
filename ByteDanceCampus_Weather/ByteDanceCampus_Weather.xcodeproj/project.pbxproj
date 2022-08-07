@@ -30,6 +30,7 @@
 		14B2C5CD2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */; };
 		14B2C5D0289112BF005BFC7C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5CF289112BF005BFC7C /* Weather.m */; };
 		14B2C5D328911446005BFC7C /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5D228911446005BFC7C /* DaylyWeather.m */; };
+		B50BAD4C289F9A0D009208C2 /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B50BAD4B289F9A0D009208C2 /* AnimationView.m */; };
 		B51A767A289CF5F4004C9E5F /* CurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */; };
 		B51A7681289E156E004C9E5F /* futureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7680289E156E004C9E5F /* futureTableView.m */; };
 		B51A7684289E163E004C9E5F /* TemperatureChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7683289E163E004C9E5F /* TemperatureChartView.m */; };
@@ -91,6 +92,8 @@
 		14B2C5D428911608005BFC7C /* WeatherHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherHeader.h; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50BAD4A289F9A0D009208C2 /* AnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
+		B50BAD4B289F9A0D009208C2 /* AnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		B51A7676289CC90B004C9E5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B51A7678289CF5F4004C9E5F /* CurrentWeatherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentWeatherView.h; sourceTree = "<group>"; };
 		B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherView.m; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 		B51A767B289CF5FA004C9E5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B50BAD4A289F9A0D009208C2 /* AnimationView.h */,
+				B50BAD4B289F9A0D009208C2 /* AnimationView.m */,
 				B51A7678289CF5F4004C9E5F /* CurrentWeatherView.h */,
 				B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */,
 				B51A767F289E156E004C9E5F /* futureTableView.h */,
@@ -511,6 +516,7 @@
 				14B2C5B92890398B005BFC7C /* Data+Extension.swift in Sources */,
 				14B2C5C828903C13005BFC7C /* RisingJWT.swift in Sources */,
 				14B2C5A0288EC480005BFC7C /* CitySectionController.m in Sources */,
+				B50BAD4C289F9A0D009208C2 /* AnimationView.m in Sources */,
 				147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */,
 				B51A767A289CF5F4004C9E5F /* CurrentWeatherView.m in Sources */,
 				B5338EB4289B5E6A009A72EA /* CityViewController.m in Sources */,

@@ -86,30 +86,19 @@
     // 1.2.2 背景图转化
     self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
     
+    // 1.2.3 背景动画
+    
     // 1.3 气温 保留一位小数，并且转化为NSString
-    NSString *temperatureString = [self turnToOneDecimalString:self.currentWeatherArray.lastObject.temperature];
-    self.currentWeatherView.temperatureLab.text = temperatureString;
+    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
     // 1.4 风向
     self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
-    // 1.5 风速 保留一位小数，并且转化为NSString
-    NSString *windSpeedString = [self turnToOneDecimalString:self.currentWeatherArray.lastObject.windSpeed];
-    // 接上单位
-    windSpeedString = [windSpeedString stringByAppendingString:@"米/秒"];
-    self.currentWeatherView.windSpeedLab.text = windSpeedString;
+    // 1.5 风速 并接上单位
+    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
 
 }
 
-/// 保留一位小数,并且转化为NSString
-- (NSString *)turnToOneDecimalString:(CGFloat)num {
-    NSNumber *number = [NSNumber numberWithFloat:num];
-    // 这是保留1位小数，并且不会四舍五入
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setPositiveFormat:@"###0.0"];
-    formatter.maximumFractionDigits = 1;
-    formatter.roundingMode = NSNumberFormatterRoundDown;
-    NSString *oneDecimalString = [formatter stringFromNumber:number];
-    return oneDecimalString;
-}
+
+
 
 // MARK: SEL
 
@@ -186,6 +175,10 @@
         currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
         // 4.风向转化为汉字
         currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
+        // 5.气温保留一位小数，并且转化为NSString
+        currentWeatherModel.tempertureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
+        // 6.风速保留一位小数，并且转化为NSString
+        currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
         
         RisingLog(R_debug, @"%@", currentWeatherModel);
         // 加入到每个城市的实时气温透视图数据数组中
@@ -240,6 +233,18 @@
     if (w > 260 && w < 280) return @"东";
     if (w >= 280 && w < 350) return @"东北";
     else return @"北";
+}
+
+/// 保留一位小数,并且转化为NSString
+- (NSString *)turnToOneDecimalString:(CGFloat)num {
+    NSNumber *number = [NSNumber numberWithFloat:num];
+    // 这是保留1位小数，并且不会四舍五入
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setPositiveFormat:@"###0.0"];
+    formatter.maximumFractionDigits = 1;
+    formatter.roundingMode = NSNumberFormatterRoundDown;
+    NSString *oneDecimalString = [formatter stringFromNumber:number];
+    return oneDecimalString;
 }
 
 /// 选择城市
