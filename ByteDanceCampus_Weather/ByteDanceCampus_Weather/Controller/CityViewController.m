@@ -11,6 +11,7 @@
 
 // View
 #import "CurrentWeatherView.h"
+#import "AnimationView.h"
 
 // Model
 #import "DaylyWeather.h"
@@ -26,6 +27,9 @@
 
 /// 背景图片
 @property (nonatomic, strong) UIImageView *bgImgView;
+
+/// 背景动画所在的View
+@property (nonatomic, strong) AnimationView *animationView;
 
 /// 此刻气温头视图View
 @property (nonatomic, strong) CurrentWeatherView *currentWeatherView;
@@ -60,6 +64,8 @@
 - (void)addViews {
     // 背景图片
     [self.view addSubview:self.bgImgView];
+    // 背景动画所在的View
+    [self.view addSubview:self.animationView];
     // 选择城市按钮
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
@@ -85,10 +91,10 @@
     
     // 1.2.2 背景图转化
     self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
-    
     // 1.2.3 背景动画
+    [self.animationView backgroundAnimation:weatherIconStr];
     
-    // 1.3 气温 保留一位小数，并且转化为NSString
+    // 1.3 气温 
     self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
     // 1.4 风向
     self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
@@ -96,9 +102,6 @@
     self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
 
 }
-
-
-
 
 // MARK: SEL
 
@@ -348,6 +351,13 @@
         _bgImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     }
     return _bgImgView;
+}
+
+- (AnimationView *)animationView {
+    if (_animationView == nil) {
+        _animationView = [[AnimationView alloc]initWithFrame:self.view.bounds];
+    }
+    return _animationView;
 }
 /*
 #pragma mark - Navigation
