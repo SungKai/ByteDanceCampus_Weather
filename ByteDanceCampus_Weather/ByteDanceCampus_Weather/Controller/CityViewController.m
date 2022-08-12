@@ -12,7 +12,9 @@
 // View
 #import "CurrentWeatherView.h"
 #import "AnimationView.h"
-
+#import "ForecastDailyTableViewCell.h"
+#import "ForecastDailyTableViewHeader.h"
+#import "ForecastDailyTableView.h"
 // Model
 #import "DaylyWeather.h"
 
@@ -40,6 +42,9 @@
 /// 未来7天和未来25个小时气候信息所在的TableView共用一个NSArray
 @property (nonatomic, strong) NSArray *futureWeatherArray;
 
+/// 天气预报
+@property (nonatomic, strong) ForecastDailyTableView *forecastTableView;
+
 @end
 
 @implementation CityViewController
@@ -54,10 +59,11 @@
     [self setSEL];
     
     // 获取用户的位置并发送请求
+#warning 位置请求暂时停止
     [self getLoactionAndSendRequest];
     
     // 展示UI数据
-//    [self setUIData];
+    [self setUIData];
 }
 
 #pragma mark - Method
@@ -70,6 +76,8 @@
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
     [self.view addSubview:self.currentWeatherView];
+    //天气预报
+    [self.view addSubview:self.forecastTableView];
 }
 
 /// 数据存储相关
@@ -101,7 +109,6 @@
     self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
     // 1.5 风速 并接上单位
     self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
-
 }
 
 // MARK: SEL
@@ -155,8 +162,7 @@
 - (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
     NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], latitude, longitude]];
     
-    // 网络请求数据
-    // 当前时刻气温
+    /// MARK: 网络请求：CurrentWeather
     [HttpTool.shareTool
      request:requestURL
      type:HttpToolRequestTypeGet
@@ -280,7 +286,14 @@
         make.top.equalTo(self.view).offset(50);
         make.size.mas_equalTo(CGSizeMake(250, 300));
     }];
+    [self.forecastTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.currentWeatherView.mas_bottom);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
 }
+
 
 #pragma mark - RisingRouterHandler
 
@@ -359,6 +372,17 @@
         _animationView = [[AnimationView alloc]initWithFrame:self.view.bounds];
     }
     return _animationView;
+}
+
+- (ForecastDailyTableView *)forecastTableView{
+    if(_forecastTableView == nil){
+        if (@available(iOS 13.0, *)) {
+            _forecastTableView = [[ForecastDailyTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
+        } else {
+            _forecastTableView = [[ForecastDailyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        }
+    }
+    return _forecastTableView;
 }
 /*
 #pragma mark - Navigation
