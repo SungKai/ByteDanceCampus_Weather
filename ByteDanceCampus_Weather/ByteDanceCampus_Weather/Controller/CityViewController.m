@@ -15,8 +15,11 @@
 #import "ForecastDailyTableViewCell.h"
 #import "ForecastDailyTableViewHeader.h"
 #import "ForecastDailyTableView.h"
+
 // Model
+#import "WeatherRequest.h"
 #import "DaylyWeather.h"
+#import "HourlyWeather.h"
 
 // Tool
 #import "Location.h"
@@ -37,10 +40,10 @@
 @property (nonatomic, strong) CurrentWeatherView *currentWeatherView;
 
 /// 储存每个城市的实时气温头视图数据
-@property (nonatomic, strong) NSMutableArray <Weather *> *currentWeatherArray;
+@property (nonatomic, strong) NSMutableArray <HourlyWeather *> *currentWeatherArray;
 
 /// 未来7天和未来25个小时气候信息所在的TableView共用一个NSArray
-@property (nonatomic, strong) NSArray *futureWeatherArray;
+@property (nonatomic, strong) NSMutableArray *futureWeatherArray;
 
 /// 天气预报
 @property (nonatomic, strong) ForecastDailyTableView *forecastTableView;
@@ -156,105 +159,44 @@
     
 }
 
-// TODO: 目前写的是当前时刻，是否需要再传入其他的WeatherDataSet
 // TODO: 应该放到Model完成
 /// 获取到城市经纬度信息后查询
 - (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
-    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], latitude, longitude]];
-    
-    /// MARK: 网络请求：CurrentWeather
-    [HttpTool.shareTool
-     request:requestURL
-     type:HttpToolRequestTypeGet
-     serializer:AFHTTPRequestSerializer.weather
-     parameters:@{
-        @"dataSets" : WeatherDataSetCurrentWeather,
-        @"timezone" : NSTimeZone.systemTimeZone.name
-    }
-     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable object) {
-        
-        NSDictionary *currentWeather = object[WeatherDataSetCurrentWeather];
-        
-        Weather *currentWeatherModel = [Weather mj_objectWithKeyValues:currentWeather];
-        // 数据处理
-        // 1.城市名字加上“市”
-        currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
-        // 2.天气图标转化
-        currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
-        // 3.背景图片
-        currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
-        // 4.风向转化为汉字
-        currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
-        // 5.气温保留一位小数，并且转化为NSString
-        currentWeatherModel.tempertureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
-        // 6.风速保留一位小数，并且转化为NSString
-        currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
-        
-        RisingLog(R_debug, @"%@", currentWeatherModel);
-        // 加入到每个城市的实时气温透视图数据数组中
-        [self.currentWeatherArray addObject:currentWeatherModel];
-        // 展示UI数据
-        [self setUIData];
-    }
-     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-}
-
-/// 转化为气候图标
-- (NSString *)turnConditionCodeToIcon:(NSString *)con {
-    NSString *sunny = @"Sunny";
-    NSString *clear = @"Clear";
-    NSString *cloudy = @"Cloudy";
-    NSString *rain = @"Rain";
-    NSString *fog = @"Fog";
-    NSString *thunder = @"Thunder";
-    NSString *wind = @"Wind";
-    NSString *snow = @"Snow";
-    
-    NSArray *iconArray = @[sunny, clear, cloudy, rain, fog, thunder, snow, wind];
-    NSString *iconStr = @"other";
-    for (int i = 0; i < iconArray.count; i++) {
-        NSRange range = [con rangeOfString:iconArray[i]];
-        if (range.location != NSNotFound) {
-            iconStr = iconArray[i];
-            break;
+    // 1.当前时刻头视图数据
+    [[WeatherRequest shareInstance]
+     requestWithCityName:cityName
+     Latitude:latitude
+     Longitude:longitude
+     DataSet:WeatherDataSetCurrentWeather
+     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
+        if (current) {
+            // 加入到每个城市的实时气温透视图数据数组中
+            [self.currentWeatherArray addObject:current];
+            // 展示UI数据
+            [self setUIData];
         }
     }
-    if ([iconStr isEqualToString:@"other"]) {
-        iconStr = iconArray.lastObject;
+     failure:^(NSError * _Nonnull error) {
+        NSLog(@"请求此刻气候出错");
+    }];
+    
+    // 2.未来9天的数据
+    [[WeatherRequest shareInstance]
+     requestWithCityName:cityName
+     Latitude:latitude
+     Longitude:longitude
+     DataSet:WeatherDataSetForecastDaily
+     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
+        if (daily) {
+            // 加入到每个城市的实时气温透视图数据数组中
+            [self.futureWeatherArray addObject:daily];
+            // TODO: 展示UI数据
+            
+        }
     }
-    return iconStr;
-}
-
-/// 背景图转化
-- (NSString *)turnWeatherIconToImageBG:(NSString *)iconStr {
-    return [iconStr stringByAppendingString:@"BG"];
-}
-
-/// 风向转化为汉字
-- (NSString *)turnWindDirectionToChinese:(CGFloat)w {
-    if (w >= 10 && w <= 80) return @"西北";
-    if (w > 80 && w < 100) return @"西";
-    if (w >= 100 && w <= 170) return @"西南";
-    if (w > 170 && w < 190) return @"南";
-    if (w >= 190 && w <= 260) return @"东南";
-    if (w > 260 && w < 280) return @"东";
-    if (w >= 280 && w < 350) return @"东北";
-    else return @"北";
-}
-
-/// 保留一位小数,并且转化为NSString
-- (NSString *)turnToOneDecimalString:(CGFloat)num {
-    NSNumber *number = [NSNumber numberWithFloat:num];
-    // 这是保留1位小数，并且不会四舍五入
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setPositiveFormat:@"###0.0"];
-    formatter.maximumFractionDigits = 1;
-    formatter.roundingMode = NSNumberFormatterRoundDown;
-    NSString *oneDecimalString = [formatter stringFromNumber:number];
-    return oneDecimalString;
+     failure:^(NSError * _Nonnull error) {
+        NSLog(@"请求未来气候出错");
+    }];
 }
 
 /// 选择城市
@@ -384,14 +326,6 @@
     }
     return _forecastTableView;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

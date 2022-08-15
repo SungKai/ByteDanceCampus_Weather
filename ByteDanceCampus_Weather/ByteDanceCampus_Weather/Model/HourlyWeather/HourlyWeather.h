@@ -1,5 +1,5 @@
 //
-//  Weather.h
+//  HourlyWeather.h
 //  ByteDanceCampus_Weather
 //
 //  Created by SSR on 2022/7/27.
@@ -9,7 +9,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Weather : NSObject
+@class HourlyWeather;
+
+typedef HourlyWeather CurrentWeather;
+
+typedef NSArray <HourlyWeather *> ForecastHourly;
+
+/// 表名
+FOUNDATION_EXPORT NSString *WeatherTableName;
+
+@interface HourlyWeather : NSObject
+
+/// 存储路径，也是DB所在位置
+@property(nonatomic, readonly, class) NSString *tablePath;
 
 /// 城市名字
 @property (nonatomic, copy) NSString *cityName;
@@ -79,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 风速，NSString
 @property (nonatomic, copy) NSString *windSpeedStr;
+
 
 @end
 
