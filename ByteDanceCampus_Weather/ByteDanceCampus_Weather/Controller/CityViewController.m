@@ -25,6 +25,8 @@
 
 @interface CityViewController ()
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 /// 选择城市按钮
 @property (nonatomic, strong) UIButton *locationBtn;
 
@@ -73,12 +75,14 @@
     [self.view addSubview:self.bgImgView];
     // 背景动画所在的View
     [self.view addSubview:self.animationView];
+    // 上下滚动
+    [self.view addSubview:self.scrollView];
     // 选择城市按钮
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
-    [self.view addSubview:self.currentWeatherView];
+    [self.scrollView addSubview:self.currentWeatherView];
     //天气预报
-    [self.view addSubview:self.forecastDailyView];
+    [self.scrollView addSubview:self.forecastDailyView];
 }
 
 /// 数据存储相关
@@ -220,16 +224,24 @@
         make.top.equalTo(self.view).offset(25);
         make.size.mas_equalTo(CGSizeMake(45, 45));
     }];
+    self.scrollView.scrollEnabled =YES;
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view);
+    }];
     // currentWeatherView
     [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(50);
+        make.top.equalTo(self.scrollView).offset(50);
+        make.centerX.equalTo(self.scrollView);
         make.size.mas_equalTo(CGSizeMake(250, 300));
     }];
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.currentWeatherView.mas_bottom);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
+        make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
 }
 
@@ -281,6 +293,14 @@
 }
 
 #pragma mark - Getter
+
+- (UIScrollView *)scrollView{
+    if(_scrollView==nil){
+        _scrollView = [[UIScrollView alloc] init];
+    }
+    return _scrollView;
+}
+
 - (UIButton *)locationBtn {
     if (_locationBtn == nil) {
         _locationBtn = [[UIButton alloc] init];

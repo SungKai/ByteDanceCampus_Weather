@@ -30,6 +30,7 @@
 
 #pragma mark - public
 -(void) setUIData:(ForecastDaily *) array{
+    [self.column removeAllSubviews];
     self.title.text = [@"" stringByAppendingFormat:@"%lu日天气预报",(unsigned long)array.count];
     for (int i = 0; i<array.count; i++) {
         DaylyWeather *item = [array objectAtIndex:i];
@@ -40,8 +41,8 @@
             FlexContainer *cell = [[FlexContainer alloc] initWithHeaderView:header childView:child];
             cell;
         })];
-        
     }
+    self.blurContainer.alpha = 1;
 }
 
 
@@ -113,7 +114,8 @@
         _blurContainer = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         _blurContainer.layer.cornerRadius = 16;
         _blurContainer.layer.masksToBounds = YES;
-        _blurContainer.alpha = 0.7;
+        _blurContainer.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
+        _blurContainer.alpha = 0;
     }
     return _blurContainer;
 }
