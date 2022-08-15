@@ -6,11 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DaylyWeather.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ForecastDailyTableView : UITableView
-
+@interface ForecastDailyView : UIView
+-(void) setUIData:(ForecastDaily *) array;
 @end
 
 NS_ASSUME_NONNULL_END

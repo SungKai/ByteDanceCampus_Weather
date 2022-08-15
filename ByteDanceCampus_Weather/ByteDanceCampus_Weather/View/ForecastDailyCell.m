@@ -5,9 +5,9 @@
 //  Created by atom on 2022/8/12.
 //
 
-#import "ForecastDailyTableViewCell.h"
+#import "ForecastDailyCell.h"
 
-@interface ForecastDailyTableViewCell ()
+@interface ForecastDailyCell ()
 
 @property (nonatomic, strong) UIStackView *rows;
 
@@ -23,23 +23,20 @@
 
 @end
 
-@implementation ForecastDailyTableViewCell
+@implementation ForecastDailyCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+- (instancetype)init{
+    self = [super init];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.2];
         [self _addViews];
         [self _setPosition];
         [self setViewData];
     }
-
     return self;
 }
 
 -(void) _addViews{
-    [self.contentView addSubview:({
+    [self addSubview:({
         self.rows = [[UIStackView alloc] init];
         self.rows.axis = UILayoutConstraintAxisHorizontal;
         self.rows.distribution = UIStackViewDistributionFillEqually;
@@ -74,10 +71,10 @@
 
 -(void) _setPosition{
     [self.rows mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(13);
-        make.left.equalTo(self.contentView.mas_left).offset(24);
-        make.right.equalTo(self.contentView.mas_right).offset(-13);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-24);
+        make.top.equalTo(self.mas_top).offset(13);
+        make.left.equalTo(self.mas_left).offset(24);
+        make.right.equalTo(self.mas_right).offset(-24);
+        make.bottom.equalTo(self.mas_bottom).offset(-13);
     }];
 }
 

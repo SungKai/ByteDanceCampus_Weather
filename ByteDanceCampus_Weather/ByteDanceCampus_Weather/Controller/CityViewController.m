@@ -12,9 +12,7 @@
 // View
 #import "CurrentWeatherView.h"
 #import "AnimationView.h"
-#import "ForecastDailyTableViewCell.h"
-#import "ForecastDailyTableViewHeader.h"
-#import "ForecastDailyTableView.h"
+#import "ForecastDailyView.h"
 
 // Model
 #import "WeatherRequest.h"
@@ -43,10 +41,10 @@
 @property (nonatomic, strong) NSMutableArray <HourlyWeather *> *currentWeatherArray;
 
 /// 未来7天和未来25个小时气候信息所在的TableView共用一个NSArray
-@property (nonatomic, strong) NSMutableArray *futureWeatherArray;
+@property (nonatomic, strong) NSMutableArray<ForecastDaily *> *futureWeatherArray;
 
 /// 天气预报
-@property (nonatomic, strong) ForecastDailyTableView *forecastTableView;
+@property (nonatomic, strong) ForecastDailyView *forecastDailyView;
 
 @end
 
@@ -80,7 +78,7 @@
     //当前城市气温头视图
     [self.view addSubview:self.currentWeatherView];
     //天气预报
-    [self.view addSubview:self.forecastTableView];
+    [self.view addSubview:self.forecastDailyView];
 }
 
 /// 数据存储相关
@@ -190,7 +188,7 @@
         if (daily) {
             // 加入到每个城市的实时气温透视图数据数组中
             [self.futureWeatherArray addObject:daily];
-            // TODO: 展示UI数据
+            [self.forecastDailyView setUIData:daily];
             
         }
     }
@@ -228,11 +226,10 @@
         make.top.equalTo(self.view).offset(50);
         make.size.mas_equalTo(CGSizeMake(250, 300));
     }];
-    [self.forecastTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.currentWeatherView.mas_bottom);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom);
     }];
 }
 
@@ -316,15 +313,11 @@
     return _animationView;
 }
 
-- (ForecastDailyTableView *)forecastTableView{
-    if(_forecastTableView == nil){
-        if (@available(iOS 13.0, *)) {
-            _forecastTableView = [[ForecastDailyTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
-        } else {
-            _forecastTableView = [[ForecastDailyTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        }
+- (ForecastDailyView *)forecastDailyView{
+    if(_forecastDailyView == nil){
+        _forecastDailyView = [[ForecastDailyView alloc] init];
     }
-    return _forecastTableView;
+    return _forecastDailyView;
 }
 
 

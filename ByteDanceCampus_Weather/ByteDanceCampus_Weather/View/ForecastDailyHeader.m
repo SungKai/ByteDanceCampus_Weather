@@ -5,12 +5,12 @@
 //  Created by atom on 2022/8/13.
 //
 
-#import "ForecastDailyTableViewHeader.h"
-@interface ForecastDailyTableViewHeader()
+#import "ForecastDailyHeader.h"
+@interface ForecastDailyHeader()
 @property (nonatomic, strong) UILabel *title;
 @end
 
-@implementation ForecastDailyTableViewHeader
+@implementation ForecastDailyHeader
 
 - (instancetype)init{
     self = [super init];

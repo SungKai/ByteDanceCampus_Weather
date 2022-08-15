@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ForecastDailyTableViewHeader : UIView
+@interface ForecastDailyHeader : UIView
 
 @end
 
