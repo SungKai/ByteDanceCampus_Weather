@@ -68,3 +68,4 @@ fastlane/test_output
 iOSInjectionProject/
 ByteDanceCampus_Weather/Podfile.lock
 ByteDanceCampus_Weather/.idea
+ByteDanceCampus_Weather/.DS_Store
