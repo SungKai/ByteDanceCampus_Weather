@@ -7,9 +7,10 @@
 //
 
 #import "ChildView.h"
-
+#import "TemperatureChartView.h"
 @interface ChildView ()
 @property(nonatomic, strong) UILabel *text;
+@property (nonatomic, strong) TemperatureChartView *chartView;
 @end
 
 @implementation ChildView
@@ -38,6 +39,13 @@
         _text.text = @"Child";
     }
     return _text;
+}
+
+- (TemperatureChartView *)chartView{
+    if(_chartView){
+        _chartView = [[TemperatureChartView alloc] initWithFrame:CGRectZero PointArray:@[@22,@30,@25]];
+    }
+    return _chartView;
 }
 
 @end

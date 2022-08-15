@@ -239,8 +239,8 @@
     }];
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.currentWeatherView.mas_bottom);
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
+        make.left.equalTo(self.view).offset(13);
+        make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
 }
