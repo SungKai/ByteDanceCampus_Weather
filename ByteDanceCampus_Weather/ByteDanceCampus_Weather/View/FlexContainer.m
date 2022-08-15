@@ -12,10 +12,10 @@
 @interface FlexContainer ()
 
 /// 顶部一直显示的部分
-@property(nonatomic, strong) HeaderView *headerView;
+@property(nonatomic, strong) UIView *headerView;
 
 /// 点击后伸缩出来的部分
-@property(nonatomic, strong) ChildView *childView;
+@property(nonatomic, strong) UIView *childView;
 
 /// 模糊容器
 @property(nonatomic, strong) UIVisualEffectView *blurContainer;
@@ -30,12 +30,15 @@
 }
 #pragma mark - 初始化
 
-- (instancetype)initWithHeaderView:(HeaderView *)headerView childView:(ChildView *)childView {
+- (instancetype)initWithHeaderView:(UIView *)headerView childView:(UIView *)childView {
     self = [super init];
     if (self) {
         [self initConfig];
         self.headerView = headerView;
         self.childView = childView;
+        self.layer.cornerRadius = 16;
+        [self _addView];
+        [self _setPosition];
     }
     return self;
 }
@@ -51,12 +54,15 @@
 
 #pragma mark - 布局
 
-- (void)layoutSubviews {
+- (void)_addView {
     [super layoutSubviews];
     [self addSubview:self.blurContainer];
     [self addSubview:self.colsView];
     [self.colsView addArrangedSubview:self.headerView];
     [self.colsView addArrangedSubview:self.childView];
+
+}
+-(void) _setPosition{
     [self.blurContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.bottom.equalTo(self);
@@ -64,28 +70,27 @@
         make.right.equalTo(self);
     }];
     [self.colsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.blurContainer).offset(paddingContainer.top);
-        make.bottom.equalTo(self.blurContainer).offset(paddingContainer.bottom);
-        make.left.equalTo(self.blurContainer).offset(paddingContainer.left);
-        make.right.equalTo(self.blurContainer).offset(paddingContainer.right);
+        make.top.equalTo(self).offset(paddingContainer.top);
+        make.bottom.equalTo(self).offset(paddingContainer.bottom);
+        make.left.equalTo(self).offset(paddingContainer.left);
+        make.right.equalTo(self).offset(paddingContainer.right);
     }];
 }
+
 
 #pragma mark - 函数
 
 - (IBAction)show:(id)sender {
-    [UIView animateWithDuration:0.1 animations:^{
+
+    [UIView animateWithDuration:0.3 animations:^{
         if (self.childView.hidden == false) {
             self.childView.hidden = true;
+            self.childView.alpha = 0;
             self.backgroundColor = [UIColor clearColor];
-
-//            self.blurContainer.alpha = 0;
         } else {
             self.childView.hidden = false;
+            self.childView.alpha = 1;
             self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.2];
-//            self.blurContainer.alpha = 1;
-
-
         }
     }];
 }
@@ -116,14 +121,14 @@
 
 #pragma mark - Setter
 
-- (void)setHeaderView:(HeaderView *)headerView {
+- (void)setHeaderView:(UIView *)headerView {
     _headerView = headerView;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(show:)];
     _headerView.userInteractionEnabled = YES;
     [_headerView addGestureRecognizer:tap];
 }
 
-- (void)setChildView:(ChildView *)childView {
+- (void)setChildView:(UIView *)childView {
     _childView = childView;
     _childView.hidden = true;
 }

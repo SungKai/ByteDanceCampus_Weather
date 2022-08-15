@@ -8,6 +8,8 @@
 #import "HeaderView.h"
 #import "ChildView.h"
 #import "ForecastDailyView.h"
+#import "TemperatureChartView.h"
+
 @interface ForecastDailyView()
 @property (nonatomic, strong) UIStackView *column;
 @property (nonatomic, strong) UILabel *title;

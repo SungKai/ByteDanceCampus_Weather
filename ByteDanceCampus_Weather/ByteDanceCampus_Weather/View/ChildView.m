@@ -19,19 +19,24 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-//        self.backgroundColor = [UIColor greenColor];
+        [self _addView];
+        [self _setPosition];
     }
 
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+-(void) _addView{
     [self addSubview:self.text];
+}
+
+-(void) _setPosition{
     [self.text mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
+        make.height.equalTo(@300);
     }];
 }
+
 
 - (UILabel *)text {
     if (_text == NULL) {
@@ -42,7 +47,7 @@
 }
 
 - (TemperatureChartView *)chartView{
-    if(_chartView){
+    if(_chartView==NULL){
         _chartView = [[TemperatureChartView alloc] initWithFrame:CGRectZero PointArray:@[@22,@30,@25]];
     }
     return _chartView;
