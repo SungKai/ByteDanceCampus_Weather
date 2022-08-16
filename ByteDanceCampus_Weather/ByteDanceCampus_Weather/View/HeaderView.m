@@ -9,12 +9,14 @@
 #import "HeaderView.h"
 
 @interface HeaderView ()
+
 /// 今天是周几 比如："今天""周一""周二"
 @property(nonatomic, strong) UILabel *weekView;
 
 /// 天气小图标
 @property(nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, copy) NSString *conditionCode;
+
 ///最低温度
 @property(nonatomic, strong) UILabel *minView;
 
@@ -31,6 +33,7 @@
 @property (nonatomic, assign) CGFloat minAll;
 @property (nonatomic, assign) CGFloat maxAll;
 @property (nonatomic, assign) CGFloat currentTem;
+
 @end
 
 @implementation HeaderView
@@ -57,11 +60,11 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self addView];
-    [self setPosition];
+    [self _addView];
+    [self _setPosition];
 }
 
--(void)addView{
+-(void)_addView{
     [self addSubview:self.weekView];
     [self addSubview:self.iconView];
     [self addSubview:self.minView];
@@ -71,7 +74,7 @@
     [self addSubview:self.maxView];
     [self addSubview:self.lineDot];
 }
--(void)setPosition{
+-(void)_setPosition{
     NSMutableArray *rows = [[NSMutableArray alloc] init];
     [rows addObject:self.weekView];
     [rows addObject:self.iconView];

@@ -12,7 +12,9 @@
 #import "TemperatureChartView.h"
 
 @interface ForecastDailyView()
+/// 竖向排列
 @property (nonatomic, strong) UIStackView *column;
+/// 标题
 @property (nonatomic, strong) UILabel *title;
 /// 模糊容器
 @property(nonatomic, strong) UIVisualEffectView *blurContainer;
@@ -21,7 +23,7 @@
 
 @end
 @implementation ForecastDailyView
-#pragma 初始化
+#pragma mark - init
 - (instancetype)init{
     self = [super init];
     if (self) {
@@ -87,19 +89,18 @@
     }];
 }
 
+
+/// 日期转周次
+/// @param str <#str description#>
 - (NSString *)_dateStrToWeek:(NSString *)str {
     str = [str stringByReplacingOccurrencesOfString:@"Z" withString:@" "];
     str = [str stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; //设定时间的格式
     NSDate *newDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
-    
-    NSArray *weekday = [NSArray arrayWithObjects:[NSNull null], @"周日",@"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
-    
+    NSArray *weekday = [NSArray arrayWithObjects:[NSNull null], @"周一", @"周二", @"周三", @"周四", @"周五", @"周六",@"周日", nil];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:NSCalendarUnitWeekday fromDate:newDate];
-    
     NSString *weekStr = [weekday objectAtIndex:components.weekday];
     return weekStr;
 }
