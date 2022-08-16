@@ -201,6 +201,9 @@
             // 展示UI数据
             [self setUIData];
         }
+        if(daily){
+            [self.forecastDailyView setUIData:daily];
+        }
         
     }
      failure:^(NSError * _Nonnull error) {
