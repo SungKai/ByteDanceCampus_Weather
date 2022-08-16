@@ -43,6 +43,7 @@
     }
     return self;
 }
+
 #pragma mark - Method
 
 // MARK: 添加x轴，y轴数据

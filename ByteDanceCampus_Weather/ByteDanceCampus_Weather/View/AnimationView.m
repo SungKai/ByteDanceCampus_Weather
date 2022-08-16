@@ -152,7 +152,7 @@
     CGRect frame = self.cloudImgView2.frame;
     frame.size = CGSizeMake(SCREEN_HEIGHT * 0.7, SCREEN_WIDTH * 0.5);
     self.cloudImgView2.frame = frame;
-    self.cloudImgView2.center = CGPointMake(SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.7);
+    self.cloudImgView2.center = CGPointMake(SCREEN_WIDTH * 0.25, SCREEN_HEIGHT * 0.3);
     
     [self.cloudImgView1.layer addAnimation:[self horizontalAnimationWithToValue:@(SCREEN_WIDTH + 30) duration:70] forKey:nil];
     [self addSubview:self.cloudImgView1];
