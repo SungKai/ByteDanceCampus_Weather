@@ -23,7 +23,7 @@
 #import "Location.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface CityViewController ()
+@interface CityViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -59,9 +59,15 @@
 /// <#description#>
 @property (nonatomic, strong) ForecastHourly *forecastHourly;
 
+@property (nonatomic, assign) CGFloat currentWeatherY;
+
 @end
 
 @implementation CityViewController
+
+- (void)viewDidAppear:(BOOL)animated{
+    self.currentWeatherY = self.currentWeatherView.frame.origin.y;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,7 +94,7 @@
     // 选择城市按钮
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
-    [self.scrollView addSubview:self.currentWeatherView];
+    [self.view addSubview:self.currentWeatherView];
     //天气预报
     [self.scrollView addSubview:self.forecastDailyView];
 }
@@ -110,11 +116,13 @@
     }];
     // currentWeatherView
     [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView).offset(statusBarH);
-        make.centerX.equalTo(self.scrollView);
+        make.top.equalTo(self.view).offset(statusBarH);
+        make.left.right.equalTo(self.view);
+        make.centerX.equalTo(self.view);
     }];
+    [self.view layoutIfNeeded];
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.currentWeatherView.mas_bottom).offset(16);
+        make.top.equalTo(self.scrollView.mas_top).offset(200+statusBarH);
         make.left.equalTo(self.view).offset(13);
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
@@ -262,8 +270,15 @@
         // TODO: 数据存储？
     };
 }
-
-
+#pragma mark - UIScrollViewProtocol
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    NSLog(@"%f",offsetY);
+    // 广州市向上移动
+    CGFloat newHeaderY = self.currentWeatherY - offsetY/2;
+    self.currentWeatherView.origin = CGPointMake(0,newHeaderY);
+    
+}
 #pragma mark - RisingRouterHandler
 
 + (NSArray<NSString *> *)routerPath {
@@ -315,6 +330,7 @@
 - (UIScrollView *)scrollView{
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc] init];
+        _scrollView.delegate = self;
     }
     return _scrollView;
 }

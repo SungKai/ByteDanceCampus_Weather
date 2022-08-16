@@ -130,7 +130,6 @@
 - (UIImageView *)iconView {
     if (_iconView == NULL) {
         _iconView = [[UIImageView alloc] init];
-//        _iconView.backgroundColor = [UIColor redColor];
         _iconView.image = [UIImage imageNamed:self.conditionCode];
         _iconView.contentMode = UIViewContentModeScaleAspectFit;
     }
