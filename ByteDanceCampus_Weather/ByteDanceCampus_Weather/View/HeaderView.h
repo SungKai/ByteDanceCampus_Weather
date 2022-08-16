@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param max 一天的最高温度
 /// @param maxAll 10日内最高气温
 /// @param minAll 10日内最低气温
-- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max maxAll:(CGFloat)maxAll minAll:(CGFloat)minAll;
+/// @param currentTem 当前气温，用于在“今天”列表的水平温度条中添加白点
+- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max maxAll:(CGFloat)maxAll minAll:(CGFloat)minAll conditionCode:(NSString *)conditionCode currentTem:(CGFloat)currentTem;
 
 
 @end

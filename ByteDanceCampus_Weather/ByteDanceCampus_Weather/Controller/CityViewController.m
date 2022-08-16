@@ -200,9 +200,9 @@
         if (current) {
             // 展示UI数据
             [self setUIData];
-        }
-        if(daily){
-            [self.forecastDailyView setUIData:daily];
+            if(daily){
+                [self.forecastDailyView setUIDataFromDaily:daily current:current];
+            }
         }
         
     }
@@ -242,7 +242,6 @@
         if (daily) {
             // 加入到每个城市的实时气温透视图数据数组中
             [self.futureWeatherArray addObject:daily];
-            [self.forecastDailyView setUIData:daily];
             
         }
     }

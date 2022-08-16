@@ -7,6 +7,7 @@
 #import "FlexContainer.h"
 #import "HeaderView.h"
 #import "ChildView.h"
+#import "HourlyWeather.h"
 #import "ForecastDailyView.h"
 #import "TemperatureChartView.h"
 
@@ -31,8 +32,9 @@
 }
 
 #pragma mark - public
--(void) setUIData:(ForecastDaily *) array{
+-(void) setUIDataFromDaily:(ForecastDaily *) array current:(CurrentWeather *) current{
     [self.column removeAllSubviews];
+    
     // 10日最高与最低气温
     CGFloat maxAll = 0;
     CGFloat minAll = 100;
@@ -49,7 +51,7 @@
         NSString *week = i==0?@"今天":[self _dateStrToWeek:item.forecastStart];
         [self.column addArrangedSubview:({
             ChildView *child = [[ChildView alloc] init];
-            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax maxAll:maxAll minAll:minAll];
+            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax maxAll:maxAll minAll:minAll conditionCode:item.conditionCode currentTem:current.temperature];
             FlexContainer *cell = [[FlexContainer alloc] initWithHeaderView:header childView:child];
             cell;
         })];

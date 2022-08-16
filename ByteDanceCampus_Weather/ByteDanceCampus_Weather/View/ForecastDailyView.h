@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DaylyWeather.h"
+#import "HourlyWeather.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ForecastDailyView : UIView
--(void) setUIData:(ForecastDaily *) array;
+-(void) setUIDataFromDaily:(ForecastDaily *) array current:(CurrentWeather *) current;
 @end
 
 NS_ASSUME_NONNULL_END

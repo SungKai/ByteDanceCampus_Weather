@@ -14,7 +14,7 @@
 
 /// 天气小图标
 @property(nonatomic, strong) UIImageView *iconView;
-
+@property (nonatomic, copy) NSString *conditionCode;
 ///最低温度
 @property(nonatomic, strong) UILabel *minView;
 
@@ -22,19 +22,20 @@
 @property(nonatomic, strong) UILabel *maxView;
 
 ///最低最高气温 横线
-@property(nonatomic, strong) UIView *lineBottom;
-@property(nonatomic, strong) UIView *lineTop;
-@property (nonatomic, strong)UIView * lineContainer;
-
+@property (nonatomic, strong) UIView *lineBottom;
+@property (nonatomic, strong) UIView *lineDot;
+@property (nonatomic, strong) UIView *lineTop;
+@property (nonatomic, strong) UIView * lineContainer;
 @property (nonatomic, assign) CGFloat min;
 @property (nonatomic, assign) CGFloat max;
 @property (nonatomic, assign) CGFloat minAll;
 @property (nonatomic, assign) CGFloat maxAll;
+@property (nonatomic, assign) CGFloat currentTem;
 @end
 
 @implementation HeaderView
 
-- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max maxAll:(CGFloat)maxAll minAll:(CGFloat)minAll{
+- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max maxAll:(CGFloat)maxAll minAll:(CGFloat)minAll conditionCode:(NSString *)conditionCode currentTem:(CGFloat)currentTem{
     self = [super init];
     if(self){
         self.weekView.text = week;
@@ -44,11 +45,13 @@
         self.max = max;
         self.minAll = minAll;
         self.maxAll = maxAll;
+        self.conditionCode = conditionCode;
+        self.currentTem = currentTem;
     }
     return self;
 }
 - (instancetype)init {
-    self = [self initWithWeek:@"某天" minTem:0 maxTem:0 maxAll:40 minAll:30];
+    self = [self initWithWeek:@"某天" minTem:0 maxTem:0 maxAll:40 minAll:30 conditionCode:@"Clear" currentTem:0];
     return self;
 }
 
@@ -66,6 +69,7 @@
     [self.lineContainer addSubview:self.lineBottom];
     [self.lineBottom addSubview:self.lineTop];
     [self addSubview:self.maxView];
+    [self addSubview:self.lineDot];
 }
 -(void)setPosition{
     NSMutableArray *rows = [[NSMutableArray alloc] init];
@@ -83,7 +87,7 @@
     [rows mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
     [rows mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
-        make.height.equalTo(@21);
+        make.height.equalTo(@25);
         make.bottom.equalTo(self);
     }];
     [self layoutIfNeeded];
@@ -92,7 +96,20 @@
         make.right.equalTo(self.lineBottom.mas_right).offset(-self.lineBottom.frame.size.width * ((self.maxAll-self.max)/(self.maxAll-self.minAll)));
         make.height.equalTo(@5);
     }];
-    NSLog(@"Text");
+    [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@25);
+        make.height.equalTo(@25);
+    }];
+    if([self.weekView.text isEqual: @"今天"]){
+        [self.lineDot mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make centerY];
+            make.left.equalTo(self.lineBottom.mas_left).offset(self.lineBottom.frame.size.width * ((self.currentTem-self.minAll)/(self.maxAll-self.minAll)));
+            make.height.width.equalTo(@7);
+        }];
+    }else{
+        self.lineDot.alpha = 0;
+    }
+
 }
 #pragma mark - Getter
 - (UILabel *)weekView {
@@ -110,7 +127,8 @@
 - (UIImageView *)iconView {
     if (_iconView == NULL) {
         _iconView = [[UIImageView alloc] init];
-        _iconView.image = [UIImage imageNamed:@"sun.max.fill"];
+//        _iconView.backgroundColor = [UIColor redColor];
+        _iconView.image = [UIImage imageNamed:self.conditionCode];
         _iconView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _iconView;
@@ -144,6 +162,18 @@
     }
     return _lineTop;
 }
+
+- (UIView *)lineDot{
+    if (_lineDot==NULL) {
+        _lineDot = [[UIView alloc] init];
+        _lineDot.backgroundColor = [UIColor whiteColor];
+        _lineDot.layer.cornerRadius = 3;
+        _lineDot.layer.borderColor = [[UIColor grayColor]CGColor];
+        _lineDot.layer.borderWidth =1;
+    }
+    return _lineDot;
+}
+
 - (UIView *)lineContainer {
     if (_lineContainer == NULL) {
         _lineContainer = [[UIView alloc] init];
