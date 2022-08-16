@@ -56,7 +56,6 @@
     RisingLog(R_success, @"%@", NSTimeZone.systemTimeZone.name);
     
     DaylyWeather *a = [[DaylyWeather alloc] init];
-    [a test];
 }
 
 

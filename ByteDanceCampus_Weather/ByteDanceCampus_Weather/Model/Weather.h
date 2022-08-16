@@ -9,6 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Weather;
+
+/// 当前温度
+typedef Weather CurrentWeather;
+
+/// 25H温度
+typedef NSArray <Weather *> ForecastHourly;
+
 @interface Weather : NSObject
 
 /// 城市名字
@@ -16,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 时间
 @property (nonatomic, copy) NSString *currentTime;
-
 /// 时间（计算属性）
 @property (nonatomic, readonly) NSDate *currentDate;
 
