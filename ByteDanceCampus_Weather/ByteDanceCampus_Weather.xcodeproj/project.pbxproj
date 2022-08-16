@@ -30,8 +30,8 @@
 		14B2C5CD2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 14B2C5CC2890C3E7005BFC7C /* AuthKey_DQ362YMNMP.p8 */; };
 		14B2C5D0289112BF005BFC7C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B2C5CF289112BF005BFC7C /* Weather.m */; };
 		14FB5F9B28AB35B90006A02B /* WeatherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB5F9428AB35B90006A02B /* WeatherRequest.m */; };
-		14FB5F9C28AB35B90006A02B /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB5F9728AB35B90006A02B /* DaylyWeather.m */; };
-		14FB5F9D28AB35B90006A02B /* DaylyPerWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB5F9928AB35B90006A02B /* DaylyPerWeather.m */; };
+		14FB5FA828AB4B6A0006A02B /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB5FA728AB4B6A0006A02B /* DaylyWeather.m */; };
+		14FB5FAB28AB4B710006A02B /* DaylyPerWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FB5FA928AB4B710006A02B /* DaylyPerWeather.m */; };
 		B50BAD4C289F9A0D009208C2 /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B50BAD4B289F9A0D009208C2 /* AnimationView.m */; };
 		B51A767A289CF5F4004C9E5F /* CurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */; };
 		B51A7681289E156E004C9E5F /* futureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7680289E156E004C9E5F /* futureTableView.m */; };
@@ -92,10 +92,10 @@
 		14B2C5D428911608005BFC7C /* WeatherHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherHeader.h; sourceTree = "<group>"; };
 		14FB5F9328AB35B90006A02B /* WeatherRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherRequest.h; sourceTree = "<group>"; };
 		14FB5F9428AB35B90006A02B /* WeatherRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherRequest.m; sourceTree = "<group>"; };
-		14FB5F9628AB35B90006A02B /* DaylyWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaylyWeather.h; sourceTree = "<group>"; };
-		14FB5F9728AB35B90006A02B /* DaylyWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaylyWeather.m; sourceTree = "<group>"; };
-		14FB5F9928AB35B90006A02B /* DaylyPerWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaylyPerWeather.m; sourceTree = "<group>"; };
-		14FB5F9A28AB35B90006A02B /* DaylyPerWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaylyPerWeather.h; sourceTree = "<group>"; };
+		14FB5FA628AB4B6A0006A02B /* DaylyWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaylyWeather.h; sourceTree = "<group>"; };
+		14FB5FA728AB4B6A0006A02B /* DaylyWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaylyWeather.m; sourceTree = "<group>"; };
+		14FB5FA928AB4B710006A02B /* DaylyPerWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaylyPerWeather.m; sourceTree = "<group>"; };
+		14FB5FAA28AB4B710006A02B /* DaylyPerWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaylyPerWeather.h; sourceTree = "<group>"; };
 		4F4DFFE3505B4E39B298FE71 /* Pods-ByteDanceCampus_Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.debug.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50BAD4A289F9A0D009208C2 /* AnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
@@ -233,26 +233,6 @@
 			path = RisingJWT;
 			sourceTree = "<group>";
 		};
-		14FB5F9528AB35B90006A02B /* DaylyWeather */ = {
-			isa = PBXGroup;
-			children = (
-				14FB5F9628AB35B90006A02B /* DaylyWeather.h */,
-				14FB5F9728AB35B90006A02B /* DaylyWeather.m */,
-				14FB5F9828AB35B90006A02B /* DaylyPerWeather */,
-			);
-			name = DaylyWeather;
-			path = "../../../../../../Downloads/归档/DaylyWeather";
-			sourceTree = "<group>";
-		};
-		14FB5F9828AB35B90006A02B /* DaylyPerWeather */ = {
-			isa = PBXGroup;
-			children = (
-				14FB5F9928AB35B90006A02B /* DaylyPerWeather.m */,
-				14FB5F9A28AB35B90006A02B /* DaylyPerWeather.h */,
-			);
-			path = DaylyPerWeather;
-			sourceTree = "<group>";
-		};
 		8AA4E2FF70A89252F4390E76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,7 +277,10 @@
 			children = (
 				14FB5F9328AB35B90006A02B /* WeatherRequest.h */,
 				14FB5F9428AB35B90006A02B /* WeatherRequest.m */,
-				14FB5F9528AB35B90006A02B /* DaylyWeather */,
+				14FB5FA628AB4B6A0006A02B /* DaylyWeather.h */,
+				14FB5FA728AB4B6A0006A02B /* DaylyWeather.m */,
+				14FB5FAA28AB4B710006A02B /* DaylyPerWeather.h */,
+				14FB5FA928AB4B710006A02B /* DaylyPerWeather.m */,
 				14B2C5CE289112BE005BFC7C /* Weather.h */,
 				14B2C5CF289112BF005BFC7C /* Weather.m */,
 				14B2C5D428911608005BFC7C /* WeatherHeader.h */,
@@ -558,7 +541,7 @@
 				147671C6288D185800A4FCAF /* RisingRouter.m in Sources */,
 				14B2C5BC2890398B005BFC7C /* P8.swift in Sources */,
 				14B2C597288E6AEF005BFC7C /* RisingRouter+Extension.m in Sources */,
-				14FB5F9D28AB35B90006A02B /* DaylyPerWeather.m in Sources */,
+				14FB5FAB28AB4B710006A02B /* DaylyPerWeather.m in Sources */,
 				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
 				14B2C5D0289112BF005BFC7C /* Weather.m in Sources */,
 				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
@@ -568,7 +551,7 @@
 				14B2C59A288E78E7005BFC7C /* HttpTool.m in Sources */,
 				14FB5F9B28AB35B90006A02B /* WeatherRequest.m in Sources */,
 				14A9021C28922D8500DC3C1A /* NSDate+Rising.m in Sources */,
-				14FB5F9C28AB35B90006A02B /* DaylyWeather.m in Sources */,
+				14FB5FA828AB4B6A0006A02B /* DaylyWeather.m in Sources */,
 				14B2C5A6288EDAFE005BFC7C /* CityWeatherItem.m in Sources */,
 				B5338EC9289B7481009A72EA /* CitiesModel.m in Sources */,
 				14A902152892183100DC3C1A /* UIColor+Rising.m in Sources */,
