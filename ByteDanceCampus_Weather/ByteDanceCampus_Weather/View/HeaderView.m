@@ -25,21 +25,30 @@
 @property(nonatomic, strong) UIView *lineBottom;
 @property(nonatomic, strong) UIView *lineTop;
 @property (nonatomic, strong)UIView * lineContainer;
+
+@property (nonatomic, assign) CGFloat min;
+@property (nonatomic, assign) CGFloat max;
+@property (nonatomic, assign) CGFloat minAll;
+@property (nonatomic, assign) CGFloat maxAll;
 @end
 
 @implementation HeaderView
 
-- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max{
+- (instancetype)initWithWeek:(NSString *)week minTem:(CGFloat)min maxTem:(CGFloat)max maxAll:(CGFloat)maxAll minAll:(CGFloat)minAll{
     self = [super init];
     if(self){
         self.weekView.text = week;
         self.minView.text = [NSString stringWithFormat:@"%.f°",min];
         self.maxView.text = [NSString stringWithFormat:@"%.f°",max];
+        self.min = min;
+        self.max = max;
+        self.minAll = minAll;
+        self.maxAll = maxAll;
     }
     return self;
 }
 - (instancetype)init {
-    self = [self initWithWeek:@"某天" minTem:0 maxTem:0];
+    self = [self initWithWeek:@"某天" minTem:0 maxTem:0 maxAll:40 minAll:30];
     return self;
 }
 
@@ -70,19 +79,20 @@
         [make centerY];
         make.height.equalTo(@5);
     }];
-    [self.lineTop mas_makeConstraints:^(MASConstraintMaker *make) {
 
-        make.left.equalTo(self.lineBottom.mas_left).offset(10);
-        make.right.equalTo(self.lineBottom.mas_right).offset(-10);
-        make.height.equalTo(@5);
-    }];
-    [rows mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:5 leadSpacing:0 tailSpacing:0];
+    [rows mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
     [rows mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.height.equalTo(@21);
         make.bottom.equalTo(self);
     }];
-
+    [self layoutIfNeeded];
+    [self.lineTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.lineBottom.mas_left).offset(self.lineBottom.frame.size.width * ((self.min-self.minAll)/(self.maxAll-self.minAll)));
+        make.right.equalTo(self.lineBottom.mas_right).offset(-self.lineBottom.frame.size.width * ((self.maxAll-self.max)/(self.maxAll-self.minAll)));
+        make.height.equalTo(@5);
+    }];
+    NSLog(@"Text");
 }
 #pragma mark - Getter
 - (UILabel *)weekView {
@@ -120,7 +130,7 @@
 - (UIView *)lineBottom {
     if (_lineBottom == NULL) {
         _lineBottom = [[UIView alloc] init];
-        _lineBottom.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
+        _lineBottom.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
         _lineBottom.layer.cornerRadius = 2.5;
     }
     return _lineBottom;

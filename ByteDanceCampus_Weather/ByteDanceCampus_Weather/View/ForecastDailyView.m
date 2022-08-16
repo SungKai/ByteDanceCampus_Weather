@@ -33,13 +33,23 @@
 #pragma mark - public
 -(void) setUIData:(ForecastDaily *) array{
     [self.column removeAllSubviews];
+    // 10日最高与最低气温
+    CGFloat maxAll = 0;
+    CGFloat minAll = 100;
+    for (int i = 0; i<array.count; i++) {
+        DaylyWeather *item = [array objectAtIndex:i];
+        maxAll = MAX(maxAll, item.temperatureMax);
+        minAll = MIN(minAll, item.temperatureMin);
+    }
+    // 标题
     self.title.text = [@"" stringByAppendingFormat:@"%lu日天气预报",(unsigned long)array.count];
+    // 循环创建列表项
     for (int i = 0; i<array.count; i++) {
         DaylyWeather *item = [array objectAtIndex:i];
         NSString *week = i==0?@"今天":[self _dateStrToWeek:item.forecastStart];
         [self.column addArrangedSubview:({
             ChildView *child = [[ChildView alloc] init];
-            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax];
+            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax maxAll:maxAll minAll:minAll];
             FlexContainer *cell = [[FlexContainer alloc] initWithHeaderView:header childView:child];
             cell;
         })];
