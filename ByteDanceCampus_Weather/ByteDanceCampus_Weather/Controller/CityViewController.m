@@ -89,14 +89,15 @@
     [self.view addSubview:self.bgImgView];
     // 背景动画所在的View
     [self.view addSubview:self.animationView];
-    // 上下滚动
-    [self.view addSubview:self.scrollView];
-    // 选择城市按钮
-    [self.view addSubview:self.locationBtn];
+
     //当前城市气温头视图
     [self.view addSubview:self.currentWeatherView];
+    // 上下滚动
+    [self.view addSubview:self.scrollView];
     //天气预报
     [self.scrollView addSubview:self.forecastDailyView];
+    // 选择城市按钮
+    [self.view addSubview:self.locationBtn];
 }
 
 - (void)setPosition {
@@ -109,7 +110,7 @@
     }];
     // scrollView
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
+        make.top.equalTo(self.view).offset(statusBarH);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.bottom.equalTo(self.view);
@@ -122,11 +123,12 @@
     }];
     [self.view layoutIfNeeded];
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView.mas_top).offset(200+statusBarH);
+        make.top.equalTo(self.scrollView.mas_top).offset(200);
         make.left.equalTo(self.view).offset(13);
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
+    NSLog(@"Text");
 }
 
 /// 数据存储相关
