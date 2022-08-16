@@ -104,4 +104,82 @@ WCDB_SYNTHESIZE(HourlyWeather, windSpeed)
     self->_currentDate = [NSDate dateString:currentTime fromFormatter:NSDateFormatter.defaultFormatter withDateFormat:@"YYYY-MM-DD'T'HH:mm:ss'Z'"];
 }
 
+- (void)setConditionCode:(NSString *)conditionCode {
+    _conditionCode = conditionCode;
+    
+    static NSArray *iconArray;
+    if (iconArray == nil) {
+        NSString *sunny = @"Sunny";
+        NSString *clear = @"Clear";
+        NSString *cloudy = @"Cloudy";
+        NSString *rain = @"Rain";
+        NSString *fog = @"Fog";
+        NSString *thunder = @"Thunder";
+        NSString *wind = @"Wind";
+        NSString *snow = @"Snow";
+        
+        iconArray = @[sunny, clear, cloudy, rain, fog, thunder, snow, wind];
+    }
+    
+    NSString *iconStr = @"other";
+    for (int i = 0; i < iconArray.count; i++) {
+        NSRange range = [_conditionCode rangeOfString:iconArray[i]];
+        if (range.location != NSNotFound) {
+            iconStr = iconArray[i];
+            break;
+        }
+    }
+    if ([iconStr isEqualToString:@"other"]) {
+        iconStr = iconArray.lastObject;
+    }
+    
+    self.weatherIconStr = iconStr.copy;
+}
+
+- (void)setWeatherIconStr:(NSString *)weatherIconStr {
+    _weatherIconStr = weatherIconStr;
+    
+    _bgImageStr = [weatherIconStr stringByAppendingString:@"BG"];
+}
+
+- (void)setWindDirection:(NSInteger)windDirection {
+    _windDirection = windDirection;
+    
+    _windDirectionStr = [self __turnWindDirectionToChinese:_windDirection];
+}
+
+- (void)setTemperature:(CGFloat)temperature {
+    _temperature = temperature;
+    
+    _tempertureStr = [self __turnToOneDecimalString:temperature];
+}
+
+- (void)setWindSpeed:(CGFloat)windSpeed {
+    _windSpeed = windSpeed;
+    
+    _windSpeedStr = [self __turnToOneDecimalString:windSpeed];
+}
+
+- (NSString *)__turnWindDirectionToChinese:(CGFloat)w {
+    if (w >= 10 && w <= 80) return @"西北";
+    if (w > 80 && w < 100) return @"西";
+    if (w >= 100 && w <= 170) return @"西南";
+    if (w > 170 && w < 190) return @"南";
+    if (w >= 190 && w <= 260) return @"东南";
+    if (w > 260 && w < 280) return @"东";
+    if (w >= 280 && w < 350) return @"东北";
+    else return @"北";
+}
+
+- (NSString *)__turnToOneDecimalString:(CGFloat)num {
+    NSNumber *number = [NSNumber numberWithFloat:num];
+    // 这是保留1位小数，并且不会四舍五入
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setPositiveFormat:@"###0.0"];
+    formatter.maximumFractionDigits = 1;
+    formatter.roundingMode = NSNumberFormatterRoundDown;
+    NSString *oneDecimalString = [formatter stringFromNumber:number];
+    return oneDecimalString;
+}
+
 @end

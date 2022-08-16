@@ -33,6 +33,8 @@ typedef NS_OPTIONS(NSUInteger, WeatherRequestType) {
     WeatherAbleAll          = 0x7
 };
 
+FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestType type);
+
 #pragma mark - WeatherRequest
 
 @interface WeatherRequest : NSObject
@@ -55,6 +57,14 @@ typedef NS_OPTIONS(NSUInteger, WeatherRequestType) {
                                      ForecastDaily * _Nullable daily,
                                      ForecastHourly * _Nullable hourly))success
                     failure:(void (^)(NSError *error))failure;
+
++ (void)requestCityName:(NSString *)name
+               location:(CLLocationCoordinate2D)location
+               dataSets:(WeatherRequestType)type
+                success:(void (^)(CurrentWeather * _Nullable current,
+                                  ForecastDaily * _Nullable daily,
+                                  ForecastHourly * _Nullable hourly))success
+                failure:(void (^)(NSError *error))failure;
 
 @end
 

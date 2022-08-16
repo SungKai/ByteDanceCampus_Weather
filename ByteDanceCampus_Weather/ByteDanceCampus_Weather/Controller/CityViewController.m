@@ -48,6 +48,17 @@
 /// 天气预报
 @property (nonatomic, strong) ForecastDailyView *forecastDailyView;
 
+// MARK: Rebuild Try By SSR
+
+/// <#description#>
+@property (nonatomic, strong) CurrentWeather *currentWeather;
+
+/// <#description#>
+@property (nonatomic, strong) ForecastDaily *forecastDaily;
+
+/// <#description#>
+@property (nonatomic, strong) ForecastHourly *forecastHourly;
+
 @end
 
 @implementation CityViewController
@@ -96,24 +107,33 @@
 - (void)setUIData {
     // 1.此刻气候头视图
     // 1.1 城市名称
-    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
+//    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
+    self.currentWeatherView.cityNameLab.text = self.currentWeather.cityName;
     // 1.2.1 文字转对应图标
-    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
-    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
+//    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
+//    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
+    NSString *weatherIconStr = self.currentWeather.weatherIconStr;
     self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:weatherIconStr];
-    NSLog(@"🍐%@", weatherIconStr);
+//    NSLog(@"🍐%@", weatherIconStr);
     
     // 1.2.2 背景图转化
-    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
+//    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
+    self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
+
     // 1.2.3 背景动画
     [self.animationView backgroundAnimation:weatherIconStr];
     
     // 1.3 气温 
-    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
+//    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
+    self.currentWeatherView.temperatureLab.text = self.currentWeather.tempertureStr;
+
     // 1.4 风向
-    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
+//    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
+    self.currentWeatherView.windDirectionLab.text = self.currentWeather.windDirectionStr;
+
     // 1.5 风速 并接上单位
-    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
+//    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
+        self.currentWeatherView.windSpeedLab.text = [self.currentWeather.windSpeedStr stringByAppendingString:@"米/秒"];;
 }
 
 // MARK: SEL
@@ -136,21 +156,25 @@
 /// 根据城市名字获取经纬度，并查询
 - (void)getLocationInformationFromCityName:(NSString *)cityName {
     CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
-    __block CGFloat latitude;
-    __block CGFloat longitude;
+//    __block CGFloat latitude;
+//    __block CGFloat longitude;
     [myGeocoder geocodeAddressString:cityName completionHandler:^(NSArray *placemarks, NSError *error) {
         if ([placemarks count] > 0 && error == nil) {
             NSLog(@"Found %lu placemark(s).", (unsigned long)[placemarks count]);
             CLPlacemark *firstPlacemark = [placemarks objectAtIndex:0];
             
-            latitude = firstPlacemark.location.coordinate.latitude;
-            longitude = firstPlacemark.location.coordinate.longitude;
+            // RETRY by SSR
+            [self __requestName:cityName location:firstPlacemark.location.coordinate];
             
-            NSLog(@"Latitude = %f", latitude);
-            NSLog(@"Longitude = %f", longitude);
-            // 获取到城市经纬度信息后查询
-            NSLog(@"=======%f, =========%f", latitude, longitude);
-            [self sendRequestOfName:cityName Latitude:latitude Longitude:longitude];
+            
+//            latitude = firstPlacemark.location.coordinate.latitude;
+//            longitude = firstPlacemark.location.coordinate.longitude;
+//
+//            NSLog(@"Latitude = %f", latitude);
+//            NSLog(@"Longitude = %f", longitude);
+//            // 获取到城市经纬度信息后查询
+//            NSLog(@"=======%f, =========%f", latitude, longitude);
+//            [self sendRequestOfName:cityName Latitude:latitude Longitude:longitude];
         }
         else if ([placemarks count] == 0 && error == nil) {
             NSLog(@"Found no placemarks.");
@@ -159,6 +183,29 @@
         }
     }];
     
+}
+
+- (void)__requestName:(NSString *)name location:(CLLocationCoordinate2D)location {
+    [WeatherRequest
+     requestCityName:name.copy
+     location:location
+     dataSets:WeatherAbleAll
+     success:^(CurrentWeather * _Nullable current,
+               ForecastDaily * _Nullable daily,
+               ForecastHourly * _Nullable hourly) {
+        self.currentWeather = current;
+        self.forecastDaily = daily;
+        self.forecastHourly = hourly;
+        
+        if (current) {
+            // 展示UI数据
+            [self setUIData];
+        }
+        
+    }
+     failure:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 // TODO: 应该放到Model完成

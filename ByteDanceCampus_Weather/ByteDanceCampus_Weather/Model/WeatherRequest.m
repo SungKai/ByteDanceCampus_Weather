@@ -13,13 +13,138 @@ const WeatherDataSet WeatherDataSetForecastHourly = @"forecastHourly";
 const WeatherDataSet WeatherDataSetForecastNextHour = @"forecastNextHour";
 const WeatherDataSet WeatherDataSetWeatherAlerts = @"weatherAlerts";
 
-#pragma mark - DaylyWeather ()
-
-@interface WeatherRequest ()
-
-@end
+FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestType type) {
+    switch (type) {
+        case WeatherCurrentWeather:
+            return WeatherDataSetCurrentWeather;
+        case WeatherForecastDaily:
+            return WeatherDataSetForecastDaily;
+        case WeatherForecastHourly:
+            return WeatherDataSetForecastHourly;
+        case WeatherForecastNextHour:
+            return WeatherDataSetForecastNextHour;
+        case WeatherAlerts:
+            return WeatherDataSetWeatherAlerts;
+        default:
+            return @"";
+    }
+    return @"";
+}
 
 @implementation WeatherRequest
+
++ (void)requestCityName:(NSString *)name
+               location:(CLLocationCoordinate2D)location
+               dataSets:(WeatherRequestType)type
+                success:(void (^)(CurrentWeather * _Nullable current,
+                                  ForecastDaily * _Nullable daily,
+                                  ForecastHourly * _Nullable hourly))success
+                failure:(void (^)(NSError *error))failure {
+    
+    __block NSString *blockName = name.copy;
+    
+    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], location.latitude, location.longitude]];
+    
+    NSMutableString *string = NSMutableString.string;
+    BOOL pul = NO;
+    for (int i = 0; i < 5; i++) {
+        if (type & (1 << i)) {
+            if (pul) {
+                [string appendString:@","];
+            }
+            pul = YES;
+            [string appendString:RowValueForWeatherRequestType(1 << i)];
+        }
+    }
+    
+    [HttpTool.shareTool
+     request:requestURL
+     type:HttpToolRequestTypeGet
+     serializer:AFHTTPRequestSerializer.weather
+     parameters:@{
+        @"dataSets" : string.copy,
+        @"timezone" : NSTimeZone.systemTimeZone.name
+    }
+     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable object) {
+        
+        CurrentWeather *current;
+        ForecastDaily *daily;
+        ForecastHourly *hourly;
+        
+        // MARK: WeatherDataSetCurrentWeather
+        if (object[WeatherDataSetCurrentWeather]) {
+            
+            NSMutableDictionary *currentWeatherDic = [object[WeatherDataSetCurrentWeather] mutableCopy];
+            currentWeatherDic[@"forecastStart"] = currentWeatherDic[@"asOf"];
+            currentWeatherDic[@"cityName"] = [blockName stringByAppendingString:@"市"];
+            HourlyWeather *currentWeatherModel = [HourlyWeather mj_objectWithKeyValues:currentWeatherDic];
+            
+            current = currentWeatherModel;
+        }
+        // MARK: WeatherDataSetForecastDaily
+        if (object[WeatherDataSetForecastDaily]) {
+            NSArray *daysAry = object[WeatherDataSetForecastDaily][@"days"];
+//            NSMutableArray <DaylyWeather *> *daylys = NSMutableArray.array;
+            NSMutableArray <DaylyWeather *> *tdaylys = NSMutableArray.array;
+            for (NSDictionary *dic in daysAry) {
+                DaylyWeather *daylyModel = [DaylyWeather mj_objectWithKeyValues:dic];
+                
+                [tdaylys addObject:daylyModel];
+            }
+//            // 今日最低气温，今日最高气温，明日最高气温数组
+//            for (int i = 0; i < tdaylys.count - 1; i++) {
+//                NSMutableArray *tempertureArray = NSMutableArray.array;
+//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMin]];  //转化为NSNumber
+//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMax]];
+//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i + 1].temperatureMin]];
+//                tdaylys[i].temperatureArray = tempertureArray;
+//                [daylys addObject:tdaylys[i]];
+//            }
+            
+            daily = tdaylys.copy;
+        }
+        // MARK: WeatherDataSetForecastHourly
+        if (object[WeatherDataSetForecastHourly]) {
+            
+            NSArray *hoursAry = object[WeatherDataSetForecastHourly][@"hours"];
+            NSMutableArray <HourlyWeather *> *weathers = NSMutableArray.array;
+            for (NSDictionary *dic in hoursAry) {
+                HourlyWeather *weather = [HourlyWeather mj_objectWithKeyValues:dic];
+                [weathers addObject:weather];
+            }
+            
+            hourly = weathers.copy;
+        }
+        // MARK: Success
+        if (success) {
+            success(current, daily, hourly);
+        }
+    }
+     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 + (instancetype)shareInstance {
     static WeatherRequest *instance = nil;
