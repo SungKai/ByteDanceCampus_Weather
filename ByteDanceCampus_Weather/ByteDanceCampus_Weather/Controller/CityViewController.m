@@ -12,20 +12,15 @@
 // View
 #import "CurrentWeatherView.h"
 #import "AnimationView.h"
-#import "ForecastDailyView.h"
 
 // Model
 #import "WeatherRequest.h"
-#import "DaylyWeather.h"
-#import "HourlyWeather.h"
 
 // Tool
 #import "Location.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface CityViewController ()
-
-@property (nonatomic, strong) UIScrollView *scrollView;
 
 /// 选择城市按钮
 @property (nonatomic, strong) UIButton *locationBtn;
@@ -40,13 +35,23 @@
 @property (nonatomic, strong) CurrentWeatherView *currentWeatherView;
 
 /// 储存每个城市的实时气温头视图数据
-@property (nonatomic, strong) NSMutableArray <HourlyWeather *> *currentWeatherArray;
+@property (nonatomic, strong) NSMutableArray <Weather *> *currentWeatherArray;
 
 /// 未来7天和未来25个小时气候信息所在的TableView共用一个NSArray
-@property (nonatomic, strong) NSMutableArray<ForecastDaily *> *futureWeatherArray;
+@property (nonatomic, strong) NSArray *futureWeatherArray;
 
-/// 天气预报
-@property (nonatomic, strong) ForecastDailyView *forecastDailyView;
+// MARK: Reuse Model By SSR
+/// 你可以使用__searchCityName:location:请求数据，并在这里强持有该数据
+/// 在强持有数据后进行刷新UI的操作，每个UI应有对应刷UI的方法
+
+/// <#description#>
+@property (nonatomic, strong) CurrentWeather *currentWeather;
+
+/// <#description#>
+@property (nonatomic, strong) ForecastDaily *forecastDaily;
+
+/// <#description#>
+@property (nonatomic, strong) ForecastHourly *forcaseHourly;
 
 @end
 
@@ -62,11 +67,10 @@
     [self setSEL];
     
     // 获取用户的位置并发送请求
-#warning 位置请求暂时停止
     [self getLoactionAndSendRequest];
     
     // 展示UI数据
-    [self setUIData];
+//    [self setUIData];
 }
 
 #pragma mark - Method
@@ -75,14 +79,10 @@
     [self.view addSubview:self.bgImgView];
     // 背景动画所在的View
     [self.view addSubview:self.animationView];
-    // 上下滚动
-    [self.view addSubview:self.scrollView];
     // 选择城市按钮
     [self.view addSubview:self.locationBtn];
     //当前城市气温头视图
-    [self.scrollView addSubview:self.currentWeatherView];
-    //天气预报
-    [self.scrollView addSubview:self.forecastDailyView];
+    [self.view addSubview:self.currentWeatherView];
 }
 
 /// 数据存储相关
@@ -96,24 +96,32 @@
 - (void)setUIData {
     // 1.此刻气候头视图
     // 1.1 城市名称
-    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
+//    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
+    self.currentWeatherView.cityNameLab.text = self.currentWeather.cityName;
+    
     // 1.2.1 文字转对应图标
-    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
-    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
+//    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
+    RisingDetailLog(@"🫠");
+//    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
+    NSString *weatherIconStr = self.currentWeather.weatherIconStr;
     self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:weatherIconStr];
-    NSLog(@"🍐%@", weatherIconStr);
     
     // 1.2.2 背景图转化
-    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
+//    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
+    self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
     // 1.2.3 背景动画
     [self.animationView backgroundAnimation:weatherIconStr];
     
     // 1.3 气温 
-    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
+//    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
+    self.currentWeatherView.temperatureLab.text = self.currentWeather.tempertureStr;
     // 1.4 风向
-    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
+//    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
+    self.currentWeatherView.windDirectionLab.text = self.currentWeather.windDirectionStr;
     // 1.5 风速 并接上单位
-    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
+//    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
+    self.currentWeatherView.windSpeedLab.text = [self.currentWeather.windSpeedStr stringByAppendingString:@"米/秒"];
+
 }
 
 // MARK: SEL
@@ -143,6 +151,9 @@
             NSLog(@"Found %lu placemark(s).", (unsigned long)[placemarks count]);
             CLPlacemark *firstPlacemark = [placemarks objectAtIndex:0];
             
+            [self __searchCityName:cityName location:firstPlacemark.location.coordinate];
+            // retry by SSR
+            
             latitude = firstPlacemark.location.coordinate.latitude;
             longitude = firstPlacemark.location.coordinate.longitude;
             
@@ -161,44 +172,158 @@
     
 }
 
-// TODO: 应该放到Model完成
-/// 获取到城市经纬度信息后查询
-- (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
-    // 1.当前时刻头视图数据
-    [[WeatherRequest shareInstance]
-     requestWithCityName:cityName
-     Latitude:latitude
-     Longitude:longitude
-     DataSet:WeatherDataSetCurrentWeather
-     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-        if (current) {
-            // 加入到每个城市的实时气温透视图数据数组中
-            [self.currentWeatherArray addObject:current];
+// MARK: Test By SSR
+
+- (void)__searchCityName:(NSString *)name location:(CLLocationCoordinate2D)location {
+    __block NSString *blockName = name.copy;
+    
+    /// 例如这里请求了AbleAll，也就是三种数据都会存在
+    [WeatherRequest
+     requestLocation:location
+     WithType:WeatherAbleAll
+     success:^(CurrentWeather * _Nullable current,
+               ForecastDaily * _Nullable daily,
+               ForecastHourly * _Nullable hourly) {
+        self.currentWeather = current;
+        self.forecastDaily = daily;
+        self.forcaseHourly = hourly;
+        /// 根据老代码，这里做一点适配工作
+        { // _currentWeather REBUILD: 应将模型的处理交给模型本身
+            // 数据处理
+            // 1.城市名字加上“市”
+            current.cityName = [blockName stringByAppendingString:@"市"];
+            // 2.天气图标转化
+            current.weatherIconStr = [self turnConditionCodeToIcon:current.conditionCode];
+            // 3.背景图片
+            current.bgImageStr = [self turnWeatherIconToImageBG:current.weatherIconStr];
+            // 4.风向转化为汉字
+            current.windDirectionStr = [self turnWindDirectionToChinese:current.windDirection];
+            // 5.气温保留一位小数，并且转化为NSString
+            current.tempertureStr = [self turnToOneDecimalString:current.temperature];
+            // 6.风速保留一位小数，并且转化为NSString
+            current.windSpeedStr = [self turnToOneDecimalString:current.windSpeed];
+            
             // 展示UI数据
             [self setUIData];
         }
+        
     }
      failure:^(NSError * _Nonnull error) {
-        NSLog(@"请求此刻气候出错");
+        
+    }];
+}
+
+
+
+
+
+
+
+
+
+
+
+// TODO: 目前写的是当前时刻，是否需要再传入其他的WeatherDataSet
+// TODO: 应该放到Model完成
+/// 获取到城市经纬度信息后查询
+- (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
+    
+    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], latitude, longitude]];
+    
+    // 网络请求数据
+    // 当前时刻气温
+    [HttpTool.shareTool
+     request:requestURL
+     type:HttpToolRequestTypeGet
+     serializer:AFHTTPRequestSerializer.weather
+     parameters:@{
+        @"dataSets" : WeatherDataSetCurrentWeather,
+        @"timezone" : NSTimeZone.systemTimeZone.name
+    }
+     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable object) {
+        
+        NSDictionary *currentWeather = object[WeatherDataSetCurrentWeather];
+        
+        Weather *currentWeatherModel = [Weather mj_objectWithKeyValues:currentWeather];
+        // 数据处理
+        // 1.城市名字加上“市”
+        currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
+        // 2.天气图标转化
+        currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
+        // 3.背景图片
+        currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
+        // 4.风向转化为汉字
+        currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
+        // 5.气温保留一位小数，并且转化为NSString
+        currentWeatherModel.tempertureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
+        // 6.风速保留一位小数，并且转化为NSString
+        currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
+        
+        RisingLog(R_debug, @"%@", currentWeatherModel);
+        // 加入到每个城市的实时气温透视图数据数组中
+        [self.currentWeatherArray addObject:currentWeatherModel];
+        // 展示UI数据
+        [self setUIData];
+    }
+     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
     }];
     
-    // 2.未来9天的数据
-    [[WeatherRequest shareInstance]
-     requestWithCityName:cityName
-     Latitude:latitude
-     Longitude:longitude
-     DataSet:WeatherDataSetForecastDaily
-     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-        if (daily) {
-            // 加入到每个城市的实时气温透视图数据数组中
-            [self.futureWeatherArray addObject:daily];
-            [self.forecastDailyView setUIData:daily];
-            
+}
+
+/// 转化为气候图标
+- (NSString *)turnConditionCodeToIcon:(NSString *)con {
+    NSString *sunny = @"Sunny";
+    NSString *clear = @"Clear";
+    NSString *cloudy = @"Cloudy";
+    NSString *rain = @"Rain";
+    NSString *fog = @"Fog";
+    NSString *thunder = @"Thunder";
+    NSString *wind = @"Wind";
+    NSString *snow = @"Snow";
+    
+    NSArray *iconArray = @[sunny, clear, cloudy, rain, fog, thunder, snow, wind];
+    NSString *iconStr = @"other";
+    for (int i = 0; i < iconArray.count; i++) {
+        NSRange range = [con rangeOfString:iconArray[i]];
+        if (range.location != NSNotFound) {
+            iconStr = iconArray[i];
+            break;
         }
     }
-     failure:^(NSError * _Nonnull error) {
-        NSLog(@"请求未来气候出错");
-    }];
+    if ([iconStr isEqualToString:@"other"]) {
+        iconStr = iconArray.lastObject;
+    }
+    return iconStr;
+}
+
+/// 背景图转化
+- (NSString *)turnWeatherIconToImageBG:(NSString *)iconStr {
+    return [iconStr stringByAppendingString:@"BG"];
+}
+
+/// 风向转化为汉字
+- (NSString *)turnWindDirectionToChinese:(CGFloat)w {
+    if (w >= 10 && w <= 80) return @"西北";
+    if (w > 80 && w < 100) return @"西";
+    if (w >= 100 && w <= 170) return @"西南";
+    if (w > 170 && w < 190) return @"南";
+    if (w >= 190 && w <= 260) return @"东南";
+    if (w > 260 && w < 280) return @"东";
+    if (w >= 280 && w < 350) return @"东北";
+    else return @"北";
+}
+
+/// 保留一位小数,并且转化为NSString
+- (NSString *)turnToOneDecimalString:(CGFloat)num {
+    NSNumber *number = [NSNumber numberWithFloat:num];
+    // 这是保留1位小数，并且不会四舍五入
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setPositiveFormat:@"###0.0"];
+    formatter.maximumFractionDigits = 1;
+    formatter.roundingMode = NSNumberFormatterRoundDown;
+    NSString *oneDecimalString = [formatter stringFromNumber:number];
+    return oneDecimalString;
 }
 
 /// 选择城市
@@ -224,27 +349,13 @@
         make.top.equalTo(self.view).offset(25);
         make.size.mas_equalTo(CGSizeMake(45, 45));
     }];
-    self.scrollView.scrollEnabled =YES;
-    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view);
-    }];
     // currentWeatherView
     [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView).offset(50);
-        make.centerX.equalTo(self.scrollView);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(50);
         make.size.mas_equalTo(CGSizeMake(250, 300));
     }];
-    [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.currentWeatherView.mas_bottom);
-        make.left.equalTo(self.view).offset(13);
-        make.right.equalTo(self.view).offset(-13);
-        make.bottom.equalTo(self.scrollView.mas_bottom);
-    }];
 }
-
 
 #pragma mark - RisingRouterHandler
 
@@ -293,14 +404,6 @@
 }
 
 #pragma mark - Getter
-
-- (UIScrollView *)scrollView{
-    if(_scrollView==nil){
-        _scrollView = [[UIScrollView alloc] init];
-    }
-    return _scrollView;
-}
-
 - (UIButton *)locationBtn {
     if (_locationBtn == nil) {
         _locationBtn = [[UIButton alloc] init];
@@ -332,13 +435,14 @@
     }
     return _animationView;
 }
+/*
+#pragma mark - Navigation
 
-- (ForecastDailyView *)forecastDailyView{
-    if(_forecastDailyView == nil){
-        _forecastDailyView = [[ForecastDailyView alloc] init];
-    }
-    return _forecastDailyView;
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
+*/
 
 @end

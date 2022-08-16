@@ -17,24 +17,6 @@ typedef NSArray <DaylyWeather *> ForecastDaily;
 
 @interface DaylyWeather : NSObject
 
-/// 今日最低气温，今日最高气温，明日最高气温数组
-@property (nonatomic, strong) NSArray <NSNumber *> *temperatureArray;
-
-/// 气象图标,   NSString
-@property (nonatomic, copy) NSString *weatherIconStr;
-
-/// 最低气温，NSString
-@property (nonatomic, copy) NSString *temperatureMinStr;
-
-/// 最高气温，NSString
-@property (nonatomic, copy) NSString *temperatureMaxStr;
-
-/// 风向，NSString
-@property (nonatomic, copy) NSString *windDirectionStr;
-
-/// 风速，NSString
-@property (nonatomic, copy) NSString *windSpeedStr;
-
 /// 降雪量
 @property (nonatomic, strong) id snowfallAmount;
 

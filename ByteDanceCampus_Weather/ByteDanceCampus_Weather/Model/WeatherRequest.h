@@ -9,7 +9,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-#import "HourlyWeather.h"
+#import "Weather.h"
 
 #import "DaylyWeather.h"
 
@@ -33,28 +33,25 @@ typedef NS_OPTIONS(NSUInteger, WeatherRequestType) {
     WeatherAbleAll          = 0x7
 };
 
+FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestType);
+
 #pragma mark - WeatherRequest
 
 @interface WeatherRequest : NSObject
-///单例
-+ (instancetype)shareInstance;
 
-/// 请求
-/// @param cityName 城市中文名称
-/// @param latitude 纬度
-/// @param longitude 经度
-/// @param dataset 请求的类型
-/// @param success 成功后返回的数据
-/// @param failure 失败
-- (void)requestWithCityName:(NSString *)cityName
-                   Latitude:(CGFloat)latitude
-                  Longitude:(CGFloat)longitude
-                    DataSet:(WeatherDataSet)dataset
-                    success:(void (^)(WeatherDataSet set,
++ (void)requestWithDataSet:(WeatherDataSet)dataset
+                   success:(void (^)(WeatherDataSet set,
                                      CurrentWeather * _Nullable current,
                                      ForecastDaily * _Nullable daily,
                                      ForecastHourly * _Nullable hourly))success
-                    failure:(void (^)(NSError *error))failure;
+                   failure:(void (^)(NSError *error))failure;
+
++ (void)requestLocation:(CLLocationCoordinate2D)location
+               WithType:(WeatherRequestType)dataset
+                success:(void (^)(CurrentWeather * _Nullable current,
+                                  ForecastDaily * _Nullable daily,
+                                  ForecastHourly * _Nullable hourly))success
+                failure:(void (^)(NSError *error))failure;
 
 @end
 

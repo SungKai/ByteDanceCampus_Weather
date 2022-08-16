@@ -45,18 +45,17 @@
 }
 
 - (void)test {
-//    
-//    NSString *str = [RisingJWT tokenWithAuto:YES];
-//    
-//    NSString *language = [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode];
-////    NSString *language = NSLocale.preferredLanguages[0];
-//    
-//    RisingLog(R_success, @"%@", str);
-//    
-//    RisingLog(R_success, @"%@", NSTimeZone.systemTimeZone.name);
-//    
-//    DaylyWeather *a = [[DaylyWeather alloc] init];
-//    [a test];
+    
+    NSString *str = [RisingJWT tokenWithAuto:YES];
+    
+    NSString *language = [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode];
+//    NSString *language = NSLocale.preferredLanguages[0];
+    
+    RisingLog(R_success, @"%@", str);
+    
+    RisingLog(R_success, @"%@", NSTimeZone.systemTimeZone.name);
+    
+    DaylyWeather *a = [[DaylyWeather alloc] init];
 }
 
 
