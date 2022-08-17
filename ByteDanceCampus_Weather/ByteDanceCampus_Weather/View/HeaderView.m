@@ -15,6 +15,7 @@
 
 /// 天气小图标
 @property(nonatomic, strong) UIImageView *iconView;
+@property (nonatomic, strong) UIView *iconContainer;
 @property (nonatomic, copy) NSString *conditionCode;
 
 ///最低温度
@@ -66,18 +67,21 @@
 
 -(void)_addView{
     [self addSubview:self.weekView];
-    [self addSubview:self.iconView];
+    [self addSubview:self.iconContainer];
     [self addSubview:self.minView];
     [self addSubview:self.lineContainer];
-    [self.lineContainer addSubview:self.lineBottom];
-    [self.lineBottom addSubview:self.lineTop];
     [self addSubview:self.maxView];
     [self addSubview:self.lineDot];
+    
+    [self.lineContainer addSubview:self.lineBottom];
+    [self.lineBottom addSubview:self.lineTop];
+    
+    [self.iconContainer addSubview:self.iconView];
 }
 -(void)_setPosition{
     NSMutableArray *rows = [[NSMutableArray alloc] init];
     [rows addObject:self.weekView];
-    [rows addObject:self.iconView];
+    [rows addObject:self.iconContainer];
     [rows addObject:self.minView];
     [rows addObject:self.lineContainer];
     [rows addObject:self.maxView];
@@ -100,8 +104,10 @@
         make.height.equalTo(@5);
     }];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@25);
         make.height.equalTo(@25);
+        make.width.equalTo(@25);
+        [make center];
+
     }];
     if([self.weekView.text isEqual: @"今天"]){
         [self.lineDot mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,6 +140,13 @@
         _iconView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _iconView;
+}
+
+- (UIView *)iconContainer{
+    if (_iconContainer == NULL) {
+        _iconContainer = [[UIView alloc] init];
+    }
+    return _iconContainer;
 }
 
 - (UILabel *)minView {
