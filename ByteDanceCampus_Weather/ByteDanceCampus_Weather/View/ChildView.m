@@ -9,7 +9,7 @@
 #import "ChildView.h"
 #import "TemperatureChartView.h"
 @interface ChildView ()
-@property(nonatomic, strong) UILabel *text;
+
 @property (nonatomic, strong) TemperatureChartView *chartView;
 @end
 
@@ -26,29 +26,28 @@
     return self;
 }
 
+#pragma mark - Method
+
 -(void) _addView{
-    [self addSubview:self.text];
+    [self addSubview:self.chartView];
 }
 
 -(void) _setPosition{
-    [self.text mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.chartView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
-        make.height.equalTo(@300);
+        make.height.equalTo(@200);
     }];
 }
 
-
-- (UILabel *)text {
-    if (_text == NULL) {
-        _text = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 200)];
-        _text.text = @"Child";
-    }
-    return _text;
+- (void)showAnimation {
+    [self.chartView showOpacityAnimation];
 }
+
+#pragma mark - Getter
 
 - (TemperatureChartView *)chartView{
     if(_chartView==NULL){
-        _chartView = [[TemperatureChartView alloc] initWithFrame:CGRectZero PointArray:@[@22,@30,@25]];
+        _chartView = [[TemperatureChartView alloc] initWithFrame:CGRectMake(0, 0, 300, 200) PointArray:@[@22,@30,@25]];
     }
     return _chartView;
 }

@@ -226,7 +226,6 @@
     return rotationAnimation;
 }
 
-
 /// 动画横向移动方法（鸟和云横向移动）
 - (CABasicAnimation *)horizontalAnimationWithToValue:(NSNumber *)toValue duration:(NSInteger)duration {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
