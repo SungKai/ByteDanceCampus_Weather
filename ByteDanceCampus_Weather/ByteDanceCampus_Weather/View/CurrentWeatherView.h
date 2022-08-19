@@ -13,20 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CurrentWeatherView : UIView
 
-/// 城市名称
-@property (nonatomic, strong) UILabel *cityNameLab;
-
-/// 天气图标
-@property (nonatomic, strong) UIImageView *weatherImgView;
-
-/// 实时气温
-@property (nonatomic, strong) UILabel *temperatureLab;
-
-/// 风向
-@property (nonatomic, strong) UILabel *windDirectionLab;
-
-/// 风速
-@property (nonatomic, strong) UILabel *windSpeedLab;
+/// 设置基本属性
+/// @param cityName 城市名
+/// @param temperature 当前温度
+/// @param windDirection 风向
+/// @param windSpeed 风速
+-(void) setCity:(NSString *)cityName temperature:(CGFloat)temperature windDirection:(NSString *)windDirection windSpeed:(NSString *)windSpeed;
 
 @end
 

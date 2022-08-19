@@ -7,11 +7,14 @@
 #import "FlexContainer.h"
 #import "HeaderView.h"
 #import "ChildView.h"
+#import "HourlyWeather.h"
 #import "ForecastDailyView.h"
 #import "TemperatureChartView.h"
 
 @interface ForecastDailyView()
+/// 竖向排列
 @property (nonatomic, strong) UIStackView *column;
+/// 标题
 @property (nonatomic, strong) UILabel *title;
 /// 模糊容器
 @property(nonatomic, strong) UIVisualEffectView *blurContainer;
@@ -20,7 +23,7 @@
 
 @end
 @implementation ForecastDailyView
-#pragma 初始化
+#pragma mark - init
 - (instancetype)init{
     self = [super init];
     if (self) {
@@ -32,15 +35,26 @@
 }
 
 #pragma mark - public
--(void) setUIData:(ForecastDaily *) array{
+-(void) setUIDataFromDaily:(ForecastDaily *) array current:(CurrentWeather *) current{
     [self.column removeAllSubviews];
+    
+    // 10日最高与最低气温
+    CGFloat maxAll = 0;
+    CGFloat minAll = 100;
+    for (int i = 0; i<array.count; i++) {
+        DaylyWeather *item = [array objectAtIndex:i];
+        maxAll = MAX(maxAll, item.temperatureMax);
+        minAll = MIN(minAll, item.temperatureMin);
+    }
+    // 标题
     self.title.text = [@"" stringByAppendingFormat:@"%lu日天气预报",(unsigned long)array.count];
+    // 循环创建列表项
     for (int i = 0; i<array.count; i++) {
         DaylyWeather *item = [array objectAtIndex:i];
         NSString *week = i==0?@"今天":[self _dateStrToWeek:item.forecastStart];
         [self.column addArrangedSubview:({
             ChildView *child = [[ChildView alloc] init];
-            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax];
+            HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax maxAll:maxAll minAll:minAll conditionCode:item.conditionCode currentTem:current.temperature];
             FlexContainer *cell = [[FlexContainer alloc] initWithHeaderView:header childView:child];
             cell;
         })];
@@ -76,19 +90,18 @@
     }];
 }
 
+
+/// 日期转周次
+/// @param str <#str description#>
 - (NSString *)_dateStrToWeek:(NSString *)str {
     str = [str stringByReplacingOccurrencesOfString:@"Z" withString:@" "];
     str = [str stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; //设定时间的格式
     NSDate *newDate = [dateFormatter dateFromString:str];//将字符串转换为时间对象
-    
-    NSArray *weekday = [NSArray arrayWithObjects:[NSNull null], @"周日",@"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
-    
+    NSArray *weekday = [NSArray arrayWithObjects:[NSNull null], @"周一", @"周二", @"周三", @"周四", @"周五", @"周六",@"周日", nil];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:NSCalendarUnitWeekday fromDate:newDate];
-    
     NSString *weekStr = [weekday objectAtIndex:components.weekday];
     return weekStr;
 }

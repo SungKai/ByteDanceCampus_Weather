@@ -23,7 +23,7 @@
 #import "Location.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface CityViewController ()
+@interface CityViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -59,9 +59,15 @@
 /// <#description#>
 @property (nonatomic, strong) ForecastHourly *forecastHourly;
 
+@property (nonatomic, assign) CGFloat currentWeatherY;
+
 @end
 
 @implementation CityViewController
+
+- (void)viewDidAppear:(BOOL)animated{
+    self.currentWeatherY = self.currentWeatherView.frame.origin.y;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,9 +81,6 @@
     // 获取用户的位置并发送请求
 #warning 位置请求暂时停止
     [self getLoactionAndSendRequest];
-    
-    // 展示UI数据
-    [self setUIData];
 }
 
 #pragma mark - Method
@@ -86,14 +89,46 @@
     [self.view addSubview:self.bgImgView];
     // 背景动画所在的View
     [self.view addSubview:self.animationView];
+
+    //当前城市气温头视图
+    [self.view addSubview:self.currentWeatherView];
     // 上下滚动
     [self.view addSubview:self.scrollView];
-    // 选择城市按钮
-    [self.view addSubview:self.locationBtn];
-    //当前城市气温头视图
-    [self.scrollView addSubview:self.currentWeatherView];
     //天气预报
     [self.scrollView addSubview:self.forecastDailyView];
+    // 选择城市按钮
+    [self.view addSubview:self.locationBtn];
+}
+
+- (void)setPosition {
+    CGFloat statusBarH = [[UIApplication sharedApplication]statusBarFrame].size.height;
+    // locationBtn
+    [self.locationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-10);
+        make.top.equalTo(self.view).offset(statusBarH);
+        make.size.mas_equalTo(CGSizeMake(45, 45));
+    }];
+    // scrollView
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(statusBarH);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    // currentWeatherView
+    [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(statusBarH);
+        make.left.right.equalTo(self.view);
+        make.centerX.equalTo(self.view);
+    }];
+    [self.view layoutIfNeeded];
+    [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.scrollView.mas_top).offset(200);
+        make.left.equalTo(self.view).offset(13);
+        make.right.equalTo(self.view).offset(-13);
+        make.bottom.equalTo(self.scrollView.mas_bottom);
+    }];
+    NSLog(@"Text");
 }
 
 /// 数据存储相关
@@ -101,39 +136,6 @@
 - (void)getCityNameFromUserDefault {
 //    NSString *cityName = [NSUserDefaults.standardUserDefaults objectForKey:@"chosenCity"];
 //    [self getLocationInformationFromCityName:cityName];
-}
-
-/// 设置UI数据
-- (void)setUIData {
-    // 1.此刻气候头视图
-    // 1.1 城市名称
-//    self.currentWeatherView.cityNameLab.text = self.currentWeatherArray.lastObject.cityName;
-    self.currentWeatherView.cityNameLab.text = self.currentWeather.cityName;
-    // 1.2.1 文字转对应图标
-//    NSLog(@"🍣%@", self.currentWeatherArray.lastObject.conditionCode);
-//    NSString *weatherIconStr = self.currentWeatherArray.lastObject.weatherIconStr;
-    NSString *weatherIconStr = self.currentWeather.weatherIconStr;
-    self.currentWeatherView.weatherImgView.image = [UIImage imageNamed:weatherIconStr];
-//    NSLog(@"🍐%@", weatherIconStr);
-    
-    // 1.2.2 背景图转化
-//    self.bgImgView.image = [UIImage imageNamed:self.currentWeatherArray.lastObject.bgImageStr];
-    self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
-
-    // 1.2.3 背景动画
-    [self.animationView backgroundAnimation:weatherIconStr];
-    
-    // 1.3 气温 
-//    self.currentWeatherView.temperatureLab.text = self.currentWeatherArray.lastObject.tempertureStr;
-    self.currentWeatherView.temperatureLab.text = self.currentWeather.tempertureStr;
-
-    // 1.4 风向
-//    self.currentWeatherView.windDirectionLab.text = self.currentWeatherArray.lastObject.windDirectionStr;
-    self.currentWeatherView.windDirectionLab.text = self.currentWeather.windDirectionStr;
-
-    // 1.5 风速 并接上单位
-//    self.currentWeatherView.windSpeedLab.text = [self.currentWeatherArray.lastObject.windSpeedStr stringByAppendingString:@"米/秒"];;
-        self.currentWeatherView.windSpeedLab.text = [self.currentWeather.windSpeedStr stringByAppendingString:@"米/秒"];;
 }
 
 // MARK: SEL
@@ -198,11 +200,16 @@
         self.forecastHourly = hourly;
         
         if (current) {
-            // 展示UI数据
-            [self setUIData];
-        }
-        if(daily){
-            [self.forecastDailyView setUIData:daily];
+            // 背景图
+            NSString *weatherIconStr = self.currentWeather.weatherIconStr;
+            self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
+            [self.animationView backgroundAnimation:weatherIconStr];
+            // 顶部CurrentWeather
+            [self.currentWeatherView setCity:current.cityName temperature:current.temperature windDirection:current.windDirectionStr windSpeed:current.windSpeedStr];
+            // 10日天气预报
+            if(daily){
+                [self.forecastDailyView setUIDataFromDaily:daily current:current];
+            }
         }
         
     }
@@ -225,7 +232,7 @@
             // 加入到每个城市的实时气温透视图数据数组中
             [self.currentWeatherArray addObject:current];
             // 展示UI数据
-            [self setUIData];
+//            [self setUIData];
         }
     }
      failure:^(NSError * _Nonnull error) {
@@ -242,7 +249,6 @@
         if (daily) {
             // 加入到每个城市的实时气温透视图数据数组中
             [self.futureWeatherArray addObject:daily];
-            [self.forecastDailyView setUIData:daily];
             
         }
     }
@@ -266,36 +272,15 @@
         // TODO: 数据存储？
     };
 }
-
-- (void)setPosition {
-    // locationBtn
-    [self.locationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-10);
-        make.top.equalTo(self.view).offset(25);
-        make.size.mas_equalTo(CGSizeMake(45, 45));
-    }];
-    self.scrollView.scrollEnabled =YES;
-    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view);
-    }];
-    // currentWeatherView
-    [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView).offset(50);
-        make.centerX.equalTo(self.scrollView);
-        make.size.mas_equalTo(CGSizeMake(250, 300));
-    }];
-    [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.currentWeatherView.mas_bottom);
-        make.left.equalTo(self.view).offset(13);
-        make.right.equalTo(self.view).offset(-13);
-        make.bottom.equalTo(self.scrollView.mas_bottom);
-    }];
+#pragma mark - UIScrollViewProtocol
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    NSLog(@"%f",offsetY);
+    // 广州市向上移动
+    CGFloat newHeaderY = self.currentWeatherY - offsetY/2;
+    self.currentWeatherView.origin = CGPointMake(0,newHeaderY);
+    
 }
-
-
 #pragma mark - RisingRouterHandler
 
 + (NSArray<NSString *> *)routerPath {
@@ -347,6 +332,7 @@
 - (UIScrollView *)scrollView{
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc] init];
+        _scrollView.delegate = self;
     }
     return _scrollView;
 }
