@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChildView : UIView
 
+/// 展开后的曲线动画
+- (void)showAnimation;
 
 @end
 

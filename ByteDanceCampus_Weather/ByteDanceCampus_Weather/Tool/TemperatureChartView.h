@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param pointArray 三个气温的数组
 - (instancetype)initWithFrame:(CGRect)frame PointArray:(NSArray<NSNumber *> *)pointArray;
 
+/// 点击展开后会出现动画
+- (void)showOpacityAnimation;
+
 @end
 
 NS_ASSUME_NONNULL_END

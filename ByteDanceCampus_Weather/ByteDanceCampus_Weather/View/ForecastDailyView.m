@@ -27,6 +27,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
+        NSLog(@"🌮%f", self.frame.size.width);
         [self _addView];
         [self _setPosition];
     }
