@@ -43,7 +43,7 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
     
     __block NSString *blockName = name.copy;
     
-    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], location.latitude, location.longitude]];
+    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", @"zh-cn", location.latitude, location.longitude]];
     
     NSMutableString *string = NSMutableString.string;
     BOOL pul = NO;
