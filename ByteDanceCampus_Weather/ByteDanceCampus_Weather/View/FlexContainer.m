@@ -34,7 +34,6 @@
 - (instancetype)initWithHeaderView:(UIView *)headerView childView:(ChildView *)childView {
     self = [super init];
     if (self) {
-        NSLog(@"🍱%f", self.frame.size.width);
         [self initConfig];
         self.headerView = headerView;
         self.childView = childView;

@@ -128,7 +128,6 @@
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
-    NSLog(@"Text");
 }
 
 /// 数据存储相关
@@ -148,10 +147,10 @@
 /// 获取用户的位置并发送请求
 - (void)getLoactionAndSendRequest {
     __weak typeof(self) weakSelf = self;
-    [[Location shareInstance] getUserLocation:^(double lat, double lon,NSString *cityName) {
+    [[Location shareInstance] getUserLocation:^(CLLocationCoordinate2D location, NSString * _Nonnull cityName) {
         NSLog(@"---------cityName = %@",cityName);  // San Francisc
         //定位后查询
-        [weakSelf sendRequestOfName:cityName Latitude:lat Longitude:lon];
+        [weakSelf __requestName:cityName location:location];
     }];
 }
 
@@ -167,16 +166,6 @@
             
             // RETRY by SSR
             [self __requestName:cityName location:firstPlacemark.location.coordinate];
-            
-            
-//            latitude = firstPlacemark.location.coordinate.latitude;
-//            longitude = firstPlacemark.location.coordinate.longitude;
-//
-//            NSLog(@"Latitude = %f", latitude);
-//            NSLog(@"Longitude = %f", longitude);
-//            // 获取到城市经纬度信息后查询
-//            NSLog(@"=======%f, =========%f", latitude, longitude);
-//            [self sendRequestOfName:cityName Latitude:latitude Longitude:longitude];
         }
         else if ([placemarks count] == 0 && error == nil) {
             NSLog(@"Found no placemarks.");
@@ -204,10 +193,11 @@
             NSString *weatherIconStr = self.currentWeather.weatherIconStr;
             self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
             [self.animationView backgroundAnimation:weatherIconStr];
+            
             // 顶部CurrentWeather
             [self.currentWeatherView setCity:current.cityName temperature:current.temperature windDirection:current.windDirectionStr windSpeed:current.windSpeedStr];
             // 10日天气预报
-            if(daily){
+            if (daily){
                 [self.forecastDailyView setUIDataFromDaily:daily current:current];
             }
         }
@@ -218,44 +208,43 @@
     }];
 }
 
-// TODO: 应该放到Model完成
-/// 获取到城市经纬度信息后查询
-- (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
-    // 1.当前时刻头视图数据
-    [[WeatherRequest shareInstance]
-     requestWithCityName:cityName
-     Latitude:latitude
-     Longitude:longitude
-     DataSet:WeatherDataSetCurrentWeather
-     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-        if (current) {
-            // 加入到每个城市的实时气温透视图数据数组中
-            [self.currentWeatherArray addObject:current];
-            // 展示UI数据
-//            [self setUIData];
-        }
-    }
-     failure:^(NSError * _Nonnull error) {
-        NSLog(@"请求此刻气候出错");
-    }];
-    
-    // 2.未来9天的数据
-    [[WeatherRequest shareInstance]
-     requestWithCityName:cityName
-     Latitude:latitude
-     Longitude:longitude
-     DataSet:WeatherDataSetForecastDaily
-     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-        if (daily) {
-            // 加入到每个城市的实时气温透视图数据数组中
-            [self.futureWeatherArray addObject:daily];
-            
-        }
-    }
-     failure:^(NSError * _Nonnull error) {
-        NSLog(@"请求未来气候出错");
-    }];
-}
+///// 获取到城市经纬度信息后查询
+//- (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
+//    // 1.当前时刻头视图数据
+//    [[WeatherRequest shareInstance]
+//     requestWithCityName:cityName
+//     Latitude:latitude
+//     Longitude:longitude
+//     DataSet:WeatherDataSetCurrentWeather
+//     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
+//        if (current) {
+//            // 加入到每个城市的实时气温透视图数据数组中
+//            [self.currentWeatherArray addObject:current];
+//            // 展示UI数据
+////            [self setUIData];
+//        }
+//    }
+//     failure:^(NSError * _Nonnull error) {
+//        NSLog(@"请求此刻气候出错");
+//    }];
+//
+//    // 2.未来9天的数据
+//    [[WeatherRequest shareInstance]
+//     requestWithCityName:cityName
+//     Latitude:latitude
+//     Longitude:longitude
+//     DataSet:WeatherDataSetForecastDaily
+//     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
+//        if (daily) {
+//            // 加入到每个城市的实时气温透视图数据数组中
+//            [self.futureWeatherArray addObject:daily];
+//
+//        }
+//    }
+//     failure:^(NSError * _Nonnull error) {
+//        NSLog(@"请求未来气候出错");
+//    }];
+//}
 
 /// 选择城市
 - (void)changeCity {
@@ -272,6 +261,7 @@
         // TODO: 数据存储？
     };
 }
+
 #pragma mark - UIScrollViewProtocol
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.y;

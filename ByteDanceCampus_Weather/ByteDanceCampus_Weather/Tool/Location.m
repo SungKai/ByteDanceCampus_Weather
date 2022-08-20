@@ -11,7 +11,7 @@
 
 @property (nonatomic, strong) CLLocationManager *manager;
 
-@property (nonatomic) void(^saveLocationBlock)(double lat,double lon ,NSString *cityName);
+@property (nonatomic) void(^saveLocationBlock)(CLLocationCoordinate2D loction, NSString *cityName);
 
 @end
 
@@ -31,7 +31,7 @@
     return instance;
 }
 
-- (void)getUserLocation:(void(^)(double lat, double lon, NSString *cityName))locationBlock {
+- (void)getUserLocation:(void (^)(CLLocationCoordinate2D * _Nonnull, NSString * _Nonnull))locationBlock {
     if (![CLLocationManager locationServicesEnabled]) {
         return;
     }
@@ -39,13 +39,17 @@
     if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
         // 位置服务是在设置中禁用，禁用时默认北京
         _saveLocationBlock = [locationBlock copy];
-        _saveLocationBlock(39.9110130000,116.4135540000,@"北京");
+        
+//        _saveLocationBlock(39.9110130/000,116.4135540000,@"北京");
         return;
     }
     _saveLocationBlock = [locationBlock copy];
     self.manager.distanceFilter = 100;
     [self.manager startUpdatingLocation];
 }
+
+
+
 
 #pragma mark - CLLocatoinManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -58,7 +62,8 @@
         if (!error) {
             NSString *cityName = placemarks.lastObject.addressDictionary[@"City"];
             NSString *str = [cityName substringToIndex:cityName.length -1];
-            _saveLocationBlock(location.coordinate.latitude,location.coordinate.longitude,str);
+//            _saveLocationBlock(location.coordinate.latitude,location.coordinate.longitude,str);
+            _saveLocationBlock(location.coordinate, str);
         }
         [NSUserDefaults.standardUserDefaults setObject:defaultLanguages forKey:@"AppleLanguages"];
     }];

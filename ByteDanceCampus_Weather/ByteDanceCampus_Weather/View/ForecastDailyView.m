@@ -27,7 +27,6 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        NSLog(@"🌮%f", self.frame.size.width);
         [self _addView];
         [self _setPosition];
     }
@@ -54,6 +53,14 @@
         NSString *week = i==0?@"今天":[self _dateStrToWeek:item.forecastStart];
         [self.column addArrangedSubview:({
             ChildView *child = [[ChildView alloc] init];
+            NSString *cloudyStr = [NSString stringWithFormat:@"%.1f", item.daytimeForecast.cloudCover];
+            NSString *maxUvStr = [NSString stringWithFormat:@"%.1ld", (long)item.maxUvIndex];
+            NSString *humidityStr = [NSString stringWithFormat:@"%.1f", item.daytimeForecast.humidity];
+            // 气温图表数据
+            [child setChartArray:item.temperatureArray];
+            // 风云指数
+            [child.windCloudView setDataWithWindDirection:item.windDirectionStr WindSpeed:item.windSpeedStr Cloudy:cloudyStr MaxUvIndex:maxUvStr Humidity:humidityStr];
+            
             HeaderView *header = [[HeaderView alloc] initWithWeek:week minTem:item.temperatureMin maxTem:item.temperatureMax maxAll:maxAll minAll:minAll conditionCode:item.conditionCode currentTem:current.temperature];
             FlexContainer *cell = [[FlexContainer alloc] initWithHeaderView:header childView:child];
             cell;

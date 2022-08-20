@@ -43,8 +43,6 @@
         [self setDataInXY];
         [self drawXYLine];
         [self drawCircleLine];
-        NSLog(@"🍷%f", self.frame.size.width);
-        NSLog(@"🫖%f", self.frame.size.height);
         
     }
     return self;
@@ -151,8 +149,8 @@
     CGPoint startPoint = CGPointMake(0, 0);
         for (int i = 0; i < self.temperatureArray.count; i++) {
         // 绘制关键点
-            CGFloat temperture = [self.temperatureArray[i] floatValue];
-            CGFloat Y = CGRectGetMaxY(self.bounds) - temperture * YMultiple;
+            CGFloat temperature = [self.temperatureArray[i] floatValue];
+            CGFloat Y = CGRectGetMaxY(self.bounds) - temperature * YMultiple;
             switch (i) {
                 case 0:
                     X = yLabelMargin + 20;
@@ -197,7 +195,6 @@
                 //将折线添加到scroll上
                 CAShapeLayer *lineLayer = [CAShapeLayer layer];
                 lineLayer.path = linePath.CGPath;
-//                lineLayer.strokeColor = [UIColor colorWithHexString:@"#F7CE46" alpha:1.0].CGColor;
                 lineLayer.strokeColor = [UIColor clearColor].CGColor;
                 lineLayer.fillColor = [UIColor clearColor].CGColor;
                 lineLayer.lineWidth = 5;
