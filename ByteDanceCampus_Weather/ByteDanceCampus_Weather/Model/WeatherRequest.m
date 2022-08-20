@@ -78,30 +78,51 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
             currentWeatherDic[@"forecastStart"] = currentWeatherDic[@"asOf"];
             currentWeatherDic[@"cityName"] = [blockName stringByAppendingString:@"市"];
             HourlyWeather *currentWeatherModel = [HourlyWeather mj_objectWithKeyValues:currentWeatherDic];
-            
+//            // 数据处理
+//            // 1.城市名字加上“市”
+//            currentWeatherModel.cityName = [name stringByAppendingString:@"市"];
+//            // 2.天气图标转化
+//            currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
+//            // 3.背景图片
+//            currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
+//            // 4.风向转化为汉字
+//            currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
+//            // 5.气温保留一位小数，并且转化为NSString
+//            currentWeatherModel.temperatureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
+//            // 6.风速保留一位小数，并且转化为NSString
+//            currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
             current = currentWeatherModel;
         }
         // MARK: WeatherDataSetForecastDaily
         if (object[WeatherDataSetForecastDaily]) {
             NSArray *daysAry = object[WeatherDataSetForecastDaily][@"days"];
-//            NSMutableArray <DaylyWeather *> *daylys = NSMutableArray.array;
+            NSMutableArray <DaylyWeather *> *daylys = NSMutableArray.array;
             NSMutableArray <DaylyWeather *> *tdaylys = NSMutableArray.array;
             for (NSDictionary *dic in daysAry) {
                 DaylyWeather *daylyModel = [DaylyWeather mj_objectWithKeyValues:dic];
-                
+//                // 1.天气图标转化
+//                daylyModel.weatherIconStr = [self turnConditionCodeToIcon:daylyModel.conditionCode];
+                // 2.min气温保留一位小数，并且转化为NSString
+                daylyModel.temperatureMinStr = [self turnToOneDecimalString:daylyModel.temperatureMin];
+                // 3.max气温保留一位小数，并且转化为NSString
+                daylyModel.temperatureMaxStr = [self turnToOneDecimalString:daylyModel.temperatureMax];
+                // 4.风向转化为汉字
+                daylyModel.windDirectionStr = [self turnWindDirectionToChinese:daylyModel.daytimeForecast.windDirection];
+                // 5.风速保留一位小数，并且转化为NSString
+                daylyModel.windSpeedStr = [self turnToOneDecimalString:daylyModel.daytimeForecast.windSpeed];
                 [tdaylys addObject:daylyModel];
             }
-//            // 今日最低气温，今日最高气温，明日最高气温数组
-//            for (int i = 0; i < tdaylys.count - 1; i++) {
-//                NSMutableArray *tempertureArray = NSMutableArray.array;
-//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMin]];  //转化为NSNumber
-//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMax]];
-//                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i + 1].temperatureMin]];
-//                tdaylys[i].temperatureArray = tempertureArray;
-//                [daylys addObject:tdaylys[i]];
-//            }
-            
-            daily = tdaylys.copy;
+            // 今日最低气温，今日最高气温，明日最高气温数组
+            for (int i = 0; i < tdaylys.count - 1; i++) {
+                NSMutableArray *temperatureArray = NSMutableArray.array;
+                [temperatureArray addObject:[self turnToOneDecimalNumber:tdaylys[i].temperatureMin]];
+                [temperatureArray addObject:[self turnToOneDecimalNumber:tdaylys[i].temperatureMax]];
+                [temperatureArray addObject:[self turnToOneDecimalNumber:tdaylys[i + 1].temperatureMin]];
+                tdaylys[i].temperatureArray = temperatureArray;
+                NSLog(@"🌭%@", temperatureArray.firstObject);
+                [daylys addObject:tdaylys[i]];
+            }
+            daily = daylys.copy;
         }
         // MARK: WeatherDataSetForecastHourly
         if (object[WeatherDataSetForecastHourly]) {
@@ -165,7 +186,7 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
                                      ForecastHourly * _Nullable hourly))success
                     failure:(void (^)(NSError *error))failure {
     
-    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", [NSLocale.currentLocale localizedStringForLanguageCode:NSLocale.currentLocale.languageCode], latitude, longitude]];
+    NSString *requestURL = [Weather_GET_locale_API stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%lf/%lf", @"zh-cn", latitude, longitude]];
     
     [HttpTool.shareTool
      request:requestURL
@@ -184,19 +205,19 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
             currentWeatherDic[@"forecastStart"] = currentWeatherDic[@"asOf"];
             HourlyWeather *currentWeatherModel = [HourlyWeather mj_objectWithKeyValues:currentWeatherDic];
             
-            // 数据处理
-            // 1.城市名字加上“市”
-            currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
-            // 2.天气图标转化
-            currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
-            // 3.背景图片
-            currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
-            // 4.风向转化为汉字
-            currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
-            // 5.气温保留一位小数，并且转化为NSString
-            currentWeatherModel.tempertureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
-            // 6.风速保留一位小数，并且转化为NSString
-            currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
+//            // 数据处理
+//            // 1.城市名字加上“市”
+//            currentWeatherModel.cityName = [cityName stringByAppendingString:@"市"];
+//            // 2.天气图标转化
+//            currentWeatherModel.weatherIconStr = [self turnConditionCodeToIcon:currentWeatherModel.conditionCode];
+//            // 3.背景图片
+//            currentWeatherModel.bgImageStr = [self turnWeatherIconToImageBG:currentWeatherModel.weatherIconStr];
+//            // 4.风向转化为汉字
+//            currentWeatherModel.windDirectionStr = [self turnWindDirectionToChinese:currentWeatherModel.windDirection];
+//            // 5.气温保留一位小数，并且转化为NSString
+//            currentWeatherModel.temperatureStr = [self turnToOneDecimalString:currentWeatherModel.temperature];
+//            // 6.风速保留一位小数，并且转化为NSString
+//            currentWeatherModel.windSpeedStr = [self turnToOneDecimalString:currentWeatherModel.windSpeed];
             
             RisingLog(R_debug, @"%@", currentWeatherModel);
             
@@ -213,26 +234,26 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
             NSMutableArray <DaylyWeather *> *tdaylys = NSMutableArray.array;
             for (NSDictionary *dic in daysAry) {
                 DaylyWeather *daylyModel = [DaylyWeather mj_objectWithKeyValues:dic];
-                // 1.天气图标转化
-                daylyModel.weatherIconStr = [self turnConditionCodeToIcon:daylyModel.conditionCode];
-                // 2.min气温保留一位小数，并且转化为NSString
-                daylyModel.temperatureMinStr = [self turnToOneDecimalString:daylyModel.temperatureMin];
-                // 3.max气温保留一位小数，并且转化为NSString
-                daylyModel.temperatureMaxStr = [self turnToOneDecimalString:daylyModel.temperatureMax];
-                // 4.风向转化为汉字
-                daylyModel.windDirectionStr = [self turnWindDirectionToChinese:daylyModel.daytimeForecast.windDirection];
-                // 5.风速保留一位小数，并且转化为NSString
-                daylyModel.windSpeedStr = [self turnToOneDecimalString:daylyModel.daytimeForecast.windSpeed];
+//                // 1.天气图标转化
+//                daylyModel.weatherIconStr = [self turnConditionCodeToIcon:daylyModel.conditionCode];
+//                // 2.min气温保留一位小数，并且转化为NSString
+//                daylyModel.temperatureMinStr = [self turnToOneDecimalString:daylyModel.temperatureMin];
+//                // 3.max气温保留一位小数，并且转化为NSString
+//                daylyModel.temperatureMaxStr = [self turnToOneDecimalString:daylyModel.temperatureMax];
+//                // 4.风向转化为汉字
+//                daylyModel.windDirectionStr = [self turnWindDirectionToChinese:daylyModel.daytimeForecast.windDirection];
+//                // 5.风速保留一位小数，并且转化为NSString
+//                daylyModel.windSpeedStr = [self turnToOneDecimalString:daylyModel.daytimeForecast.windSpeed];
                 
                 [tdaylys addObject:daylyModel];
             }
             // 6.今日最低气温，今日最高气温，明日最高气温数组
             for (int i = 0; i < tdaylys.count - 1; i++) {
-                NSMutableArray *tempertureArray = NSMutableArray.array;
-                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMin]];  //转化为NSNumber
-                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMax]];
-                [tempertureArray addObject:[NSNumber numberWithFloat:tdaylys[i + 1].temperatureMin]];
-                tdaylys[i].temperatureArray = tempertureArray;
+                NSMutableArray *temperatureArray = NSMutableArray.array;
+                [temperatureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMin]];  //转化为NSNumber
+                [temperatureArray addObject:[NSNumber numberWithFloat:tdaylys[i].temperatureMax]];
+                [temperatureArray addObject:[NSNumber numberWithFloat:tdaylys[i + 1].temperatureMin]];
+                tdaylys[i].temperatureArray = temperatureArray;
                 [daylys addObject:tdaylys[i]];
             }
             
@@ -266,7 +287,7 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
 }
 
 /// 转化为气候图标
-- (NSString *)turnConditionCodeToIcon:(NSString *)con {
++ (NSString *)turnConditionCodeToIcon:(NSString *)con {
     NSString *sunny = @"Sunny";
     NSString *clear = @"Clear";
     NSString *cloudy = @"Cloudy";
@@ -292,12 +313,12 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
 }
 
 /// 背景图转化
-- (NSString *)turnWeatherIconToImageBG:(NSString *)iconStr {
++ (NSString *)turnWeatherIconToImageBG:(NSString *)iconStr {
     return [iconStr stringByAppendingString:@"BG"];
 }
 
 /// 风向转化为汉字
-- (NSString *)turnWindDirectionToChinese:(CGFloat)w {
++ (NSString *)turnWindDirectionToChinese:(CGFloat)w {
     if (w >= 10 && w <= 80) return @"西北";
     if (w > 80 && w < 100) return @"西";
     if (w >= 100 && w <= 170) return @"西南";
@@ -309,7 +330,7 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
 }
 
 /// 保留一位小数,并且转化为NSString
-- (NSString *)turnToOneDecimalString:(CGFloat)num {
++ (NSString *)turnToOneDecimalString:(CGFloat)num {
     NSNumber *number = [NSNumber numberWithFloat:num];
     // 这是保留1位小数，并且不会四舍五入
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -320,6 +341,10 @@ FOUNDATION_EXPORT WeatherDataSet RowValueForWeatherRequestType(WeatherRequestTyp
     return oneDecimalString;
 }
 
-/// NSString 转化为 NSNumber
+/// 保留一位小数,并且转化为 NSNumber
++ (NSNumber *)turnToOneDecimalNumber:(CGFloat)num {
+    NSNumber *number = [NSNumber numberWithString:[NSString stringWithFormat:@"%.1f", num]];
+    return number;
+}
 
 @end

@@ -63,7 +63,7 @@ FOUNDATION_EXPORT NSString *WeatherTableName;
 @property (nonatomic) CGFloat temperature;
 
 /// 温度，NSString
-@property (nonatomic, copy) NSString *tempertureStr;
+@property (nonatomic, copy) NSString *temperatureStr;
 
 /// 表观温度
 @property (nonatomic) CGFloat temperatureApparent;

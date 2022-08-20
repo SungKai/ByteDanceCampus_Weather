@@ -151,7 +151,7 @@ WCDB_SYNTHESIZE(HourlyWeather, windSpeed)
 - (void)setTemperature:(CGFloat)temperature {
     _temperature = temperature;
     
-    _tempertureStr = [self __turnToOneDecimalString:temperature];
+    _temperatureStr = [self __turnToOneDecimalString:temperature];
 }
 
 - (void)setWindSpeed:(CGFloat)windSpeed {

@@ -7,10 +7,11 @@
 //
 
 #import "ChildView.h"
-#import "TemperatureChartView.h"
+
 @interface ChildView ()
 
-@property (nonatomic, strong) TemperatureChartView *chartView;
+@property (nonatomic, strong) UIView *view;
+
 @end
 
 @implementation ChildView
@@ -19,6 +20,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.temperatureArray = [NSArray array];
         [self _addView];
         [self _setPosition];
     }
@@ -29,27 +31,62 @@
 #pragma mark - Method
 
 -(void) _addView{
-    [self addSubview:self.chartView];
+    [self addSubview:self.view];
+//    [self.view addSubview:self.collectionView];
+}
+
+- (void)setChartArray:(NSArray<NSNumber *> *)chartArray {
+    self.temperatureArray = chartArray;
+    [self addSubview:self.temperatureChartView];
 }
 
 -(void) _setPosition{
-    [self.chartView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
         make.height.equalTo(@200);
     }];
+//    [self.temperatureChartView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self);
+//        make.height.equalTo(@200);
+//    }];
 }
 
+
 - (void)showAnimation {
-    [self.chartView showOpacityAnimation];
+    [self.temperatureChartView showOpacityAnimation];
 }
+
+#pragma mark - Setter
+
+- (void)settemperatureArray:(NSArray<NSNumber *> *)temperatureArray {
+    _temperatureArray = temperatureArray;
+    [self addSubview:self.temperatureChartView];
+}
+
 
 #pragma mark - Getter
 
-- (TemperatureChartView *)chartView{
-    if(_chartView==NULL){
-        _chartView = [[TemperatureChartView alloc] initWithFrame:CGRectMake(0, 0, 300, 200) PointArray:@[@22,@30,@25]];
+- (UIView *)view {
+    if (_view == nil) {
+        _view = [[UIView alloc] init];
+        
     }
-    return _chartView;
+    return _view;
 }
 
+- (TemperatureChartView *)temperatureChartView {
+    if (_temperatureChartView == nil) {
+        _temperatureChartView = [[TemperatureChartView alloc] initWithFrame:CGRectMake(0, 0, 300, 180) PointArray:self.temperatureArray];
+    }
+    return _temperatureChartView;
+}
+
+- (WindAndCloudView *)windCloudView {
+    if (_windCloudView == nil) {
+        _windCloudView = [[WindAndCloudView alloc] initWithFrame:CGRectMake(0, 0, 300, 180)];
+        
+    }
+    return _windCloudView;
+}
 @end

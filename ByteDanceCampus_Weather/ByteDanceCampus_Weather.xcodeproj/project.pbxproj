@@ -55,6 +55,8 @@
 		B5759A00288ADF90007CE07E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57599FF288ADF90007CE07E /* Assets.xcassets */; };
 		B5759A03288ADF90007CE07E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5759A01288ADF90007CE07E /* LaunchScreen.storyboard */; };
 		B5759A06288ADF90007CE07E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5759A05288ADF90007CE07E /* main.m */; };
+		B57B28A028AF5CE300F83D7F /* WindAndCloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B57B289F28AF5CE300F83D7F /* WindAndCloudView.m */; };
+		B5C72AEB28AFDF3B005630A7 /* BlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C72AEA28AFDF3B005630A7 /* BlurView.m */; };
 		C54F130A3DC811B61B471F3C /* Pods_ByteDanceCampus_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +154,10 @@
 		B5759A04288ADF90007CE07E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5759A05288ADF90007CE07E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B5759A0C288AE0EF007CE07E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B57B289E28AF5CE300F83D7F /* WindAndCloudView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindAndCloudView.h; sourceTree = "<group>"; };
+		B57B289F28AF5CE300F83D7F /* WindAndCloudView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindAndCloudView.m; sourceTree = "<group>"; };
+		B5C72AE928AFDF3B005630A7 /* BlurView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlurView.h; sourceTree = "<group>"; };
+		B5C72AEA28AFDF3B005630A7 /* BlurView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlurView.m; sourceTree = "<group>"; };
 		C093B705E69E432B0E9FC689 /* Pods-ByteDanceCampus_Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteDanceCampus_Weather.release.xcconfig"; path = "Target Support Files/Pods-ByteDanceCampus_Weather/Pods-ByteDanceCampus_Weather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -273,6 +279,7 @@
 			children = (
 				5C97CF4528AA6B6E00BEA5A8 /* ChildView.h */,
 				5C97CF4428AA6B6E00BEA5A8 /* ChildView.m */,
+				B57B289B28AF478B00F83D7F /* PageView */,
 				5C97CF4228AA6B6E00BEA5A8 /* FlexContainer.h */,
 				5C97CF4328AA6B6E00BEA5A8 /* FlexContainer.m */,
 				5C97CF4628AA6B6E00BEA5A8 /* HeaderView.h */,
@@ -380,8 +387,6 @@
 		B5338EB8289B65FF009A72EA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				B51A7682289E163E004C9E5F /* TemperatureChartView.h */,
-				B51A7683289E163E004C9E5F /* TemperatureChartView.m */,
 				B5338EB9289B661F009A72EA /* Location.h */,
 				B5338EBA289B661F009A72EA /* Location.m */,
 			);
@@ -481,6 +486,35 @@
 				B5759A05288ADF90007CE07E /* main.m */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B57B289B28AF478B00F83D7F /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				B57B289C28AF47B100F83D7F /* ChartView */,
+				B57B289D28AF5C1400F83D7F /* WindView */,
+			);
+			name = PageView;
+			sourceTree = "<group>";
+		};
+		B57B289C28AF47B100F83D7F /* ChartView */ = {
+			isa = PBXGroup;
+			children = (
+				B51A7682289E163E004C9E5F /* TemperatureChartView.h */,
+				B51A7683289E163E004C9E5F /* TemperatureChartView.m */,
+			);
+			name = ChartView;
+			sourceTree = "<group>";
+		};
+		B57B289D28AF5C1400F83D7F /* WindView */ = {
+			isa = PBXGroup;
+			children = (
+				B57B289E28AF5CE300F83D7F /* WindAndCloudView.h */,
+				B57B289F28AF5CE300F83D7F /* WindAndCloudView.m */,
+				B5C72AE928AFDF3B005630A7 /* BlurView.h */,
+				B5C72AEA28AFDF3B005630A7 /* BlurView.m */,
+			);
+			name = WindView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -624,6 +658,7 @@
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
 				5CEF5AC628A6A28D0000F518 /* ForecastDailyModel.m in Sources */,
 				B5338EBB289B661F009A72EA /* Location.m in Sources */,
+				B57B28A028AF5CE300F83D7F /* WindAndCloudView.m in Sources */,
 				5CEF5AC228A69F410000F518 /* ForecastDailyBean.m in Sources */,
 				5C97CF4828AA6B6E00BEA5A8 /* FlexContainer.m in Sources */,
 				14B2C5BB2890398B005BFC7C /* ASN1.swift in Sources */,
@@ -637,6 +672,7 @@
 				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
 				B5338EC4289B7175009A72EA /* CityChosenViewController.m in Sources */,
 				14B2C5A3288EC92D005BFC7C /* UIView+Rising.m in Sources */,
+				B5C72AEB28AFDF3B005630A7 /* BlurView.m in Sources */,
 				14B2C5BD2890398B005BFC7C /* JWT.swift in Sources */,
 				14B2C59A288E78E7005BFC7C /* HttpTool.m in Sources */,
 				14A9021C28922D8500DC3C1A /* NSDate+Rising.m in Sources */,
