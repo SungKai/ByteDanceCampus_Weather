@@ -130,12 +130,6 @@
     }];
 }
 
-/// 数据存储相关
-/// 从偏好设置中找到记录的主页城市
-- (void)getCityNameFromUserDefault {
-//    NSString *cityName = [NSUserDefaults.standardUserDefaults objectForKey:@"chosenCity"];
-//    [self getLocationInformationFromCityName:cityName];
-}
 
 // MARK: SEL
 
@@ -157,8 +151,6 @@
 /// 根据城市名字获取经纬度，并查询
 - (void)getLocationInformationFromCityName:(NSString *)cityName {
     CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
-//    __block CGFloat latitude;
-//    __block CGFloat longitude;
     [myGeocoder geocodeAddressString:cityName completionHandler:^(NSArray *placemarks, NSError *error) {
         if ([placemarks count] > 0 && error == nil) {
             NSLog(@"Found %lu placemark(s).", (unsigned long)[placemarks count]);
@@ -208,44 +200,6 @@
     }];
 }
 
-///// 获取到城市经纬度信息后查询
-//- (void)sendRequestOfName:(NSString *)cityName Latitude:(CGFloat)latitude Longitude:(CGFloat)longitude {
-//    // 1.当前时刻头视图数据
-//    [[WeatherRequest shareInstance]
-//     requestWithCityName:cityName
-//     Latitude:latitude
-//     Longitude:longitude
-//     DataSet:WeatherDataSetCurrentWeather
-//     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-//        if (current) {
-//            // 加入到每个城市的实时气温透视图数据数组中
-//            [self.currentWeatherArray addObject:current];
-//            // 展示UI数据
-////            [self setUIData];
-//        }
-//    }
-//     failure:^(NSError * _Nonnull error) {
-//        NSLog(@"请求此刻气候出错");
-//    }];
-//
-//    // 2.未来9天的数据
-//    [[WeatherRequest shareInstance]
-//     requestWithCityName:cityName
-//     Latitude:latitude
-//     Longitude:longitude
-//     DataSet:WeatherDataSetForecastDaily
-//     success:^(WeatherDataSet  _Nonnull set, CurrentWeather * _Nullable current, ForecastDaily * _Nullable daily, ForecastHourly * _Nullable hourly) {
-//        if (daily) {
-//            // 加入到每个城市的实时气温透视图数据数组中
-//            [self.futureWeatherArray addObject:daily];
-//
-//        }
-//    }
-//     failure:^(NSError * _Nonnull error) {
-//        NSLog(@"请求未来气候出错");
-//    }];
-//}
-
 /// 选择城市
 - (void)changeCity {
     CityChosenViewController *cityVC = [[CityChosenViewController alloc] init];
@@ -263,6 +217,7 @@
 }
 
 #pragma mark - UIScrollViewProtocol
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat offsetY = scrollView.contentOffset.y;
     NSLog(@"%f",offsetY);
