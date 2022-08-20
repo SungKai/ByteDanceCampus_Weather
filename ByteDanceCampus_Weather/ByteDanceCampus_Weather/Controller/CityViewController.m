@@ -128,7 +128,6 @@
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
     }];
-    NSLog(@"Text");
 }
 
 /// 数据存储相关
@@ -194,7 +193,7 @@
             NSString *weatherIconStr = self.currentWeather.weatherIconStr;
             self.bgImgView.image = [UIImage imageNamed:self.currentWeather.bgImageStr];
             [self.animationView backgroundAnimation:weatherIconStr];
-            NSLog(@"🍿%@", weatherIconStr);
+            
             // 顶部CurrentWeather
             [self.currentWeatherView setCity:current.cityName temperature:current.temperature windDirection:current.windDirectionStr windSpeed:current.windSpeedStr];
             // 10日天气预报

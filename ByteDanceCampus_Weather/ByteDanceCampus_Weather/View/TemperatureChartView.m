@@ -35,8 +35,7 @@
 - (instancetype)initWithFrame:(CGRect)frame PointArray:(NSArray *)pointArray {
     self = [super initWithFrame:frame];
     if (self) {
-//        self.backgroundColor = [UIColor clearColor];
-        self.backgroundColor = UIColor.lightGrayColor;
+        self.backgroundColor = [UIColor clearColor];
         self.temperatureArray = [NSArray array];
         self.temperatureArray = pointArray;
         self.xLabArray = [NSMutableArray array];
@@ -44,8 +43,6 @@
         [self setDataInXY];
         [self drawXYLine];
         [self drawCircleLine];
-        NSLog(@"🍷%f", self.frame.size.width);
-        NSLog(@"🫖%f", self.frame.size.height);
         
     }
     return self;

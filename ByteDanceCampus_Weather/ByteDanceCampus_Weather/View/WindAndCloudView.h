@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *informationArray;
 
 /// 毛玻璃数组
-@property (nonatomic, strong) NSArray <BlurView *> *blurArray;
+@property (nonatomic, strong) NSArray <BlurView *> *blurViewArray;
 
 - (void)setDataWithWindDirection:(NSString *)windDirection
                        WindSpeed:(NSString *)windSpeed

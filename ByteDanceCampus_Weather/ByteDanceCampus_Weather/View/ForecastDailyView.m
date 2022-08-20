@@ -27,7 +27,6 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-//        NSLog(@"🌮%f", self.frame.size.width);
         [self _addView];
         [self _setPosition];
     }
@@ -54,10 +53,9 @@
         NSString *week = i==0?@"今天":[self _dateStrToWeek:item.forecastStart];
         [self.column addArrangedSubview:({
             ChildView *child = [[ChildView alloc] init];
-            NSLog(@"🥙%@", item.windSpeedStr);
-            NSString *cloudyStr = [NSString stringWithFormat:@"%f", item.daytimeForecast.cloudCover];
-            NSString *maxUvStr = [NSString stringWithFormat:@"%ld", (long)item.maxUvIndex];
-            NSString *humidityStr = [NSString stringWithFormat:@"%f", item.daytimeForecast.humidity];
+            NSString *cloudyStr = [NSString stringWithFormat:@"%.1f", item.daytimeForecast.cloudCover];
+            NSString *maxUvStr = [NSString stringWithFormat:@"%.1ld", (long)item.maxUvIndex];
+            NSString *humidityStr = [NSString stringWithFormat:@"%.1f", item.daytimeForecast.humidity];
             // 气温图表数据
             [child setChartArray:item.temperatureArray];
             // 风云指数

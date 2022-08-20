@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         self = [self initWithEffect:blurEffect];
         [self addViews];
         [self setPosition];
@@ -25,8 +25,8 @@
     if (self) {
         self.layer.cornerRadius = 16;
         self.layer.masksToBounds = YES;
-        self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
-        self.alpha = 0;
+        self.backgroundColor = [[UIColor colorWithHexString:@"#E4B796"] colorWithAlphaComponent:0.4];
+        self.alpha = 0.7;
     }
     return self;
 }
@@ -34,27 +34,28 @@
 #pragma mark - Method
 
 - (void)addViews {
-    [self addSubview:self.imgView];
-    [self addSubview:self.titleLab];
-    [self addSubview:self.view];
+    [self.contentView addSubview:self.imgView];
+    [self.contentView addSubview:self.titleLab];
+    [self.contentView addSubview:self.view];
 }
 
 - (void)setPosition {
     // imgView
     [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(15);
-        make.top.equalTo(self).offset(-10);
-        make.size.mas_equalTo(CGSizeMake(16, 16));
+        make.left.equalTo(self).offset(8);
+        make.top.equalTo(self).offset(12);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
     }];
     // titleLab
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.imgView);
-        make.left.equalTo(self.imgView.mas_right).offset(20);
-        make.size.mas_equalTo(CGSizeMake(120, 30));
+        make.left.equalTo(self.imgView.mas_right).offset(5);
+        make.size.mas_equalTo(CGSizeMake(60, 20));
     }];
     // view
     [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self).offset(5);
+        make.top.equalTo(self.imgView.mas_bottom).offset(5);
+        make.left.equalTo(self).offset(5);
         make.bottom.right.equalTo(self).offset(-5);
     }];
 }
@@ -64,6 +65,7 @@
 - (UIImageView *)imgView {
     if (_imgView == nil) {
         _imgView = [[UIImageView alloc] init];
+        _imgView.tintColor = UIColor.whiteColor;
         
     }
     return _imgView;
@@ -73,7 +75,7 @@
     if (_titleLab == nil) {
         _titleLab = [[UILabel alloc] init];
         _titleLab.textColor = UIColor.whiteColor;
-        _titleLab.font = [UIFont systemFontOfSize:15];
+        _titleLab.font = [UIFont boldSystemFontOfSize:16];
         _titleLab.textAlignment = NSTextAlignmentLeft;
     }
     return _titleLab;
