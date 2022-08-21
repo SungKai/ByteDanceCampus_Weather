@@ -110,7 +110,7 @@
     }];
     // scrollView
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(statusBarH);
+        make.top.equalTo(self.view);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.bottom.equalTo(self.view);
@@ -121,9 +121,9 @@
         make.left.right.equalTo(self.view);
         make.centerX.equalTo(self.view);
     }];
-    [self.view layoutIfNeeded];
+    // forecastDailyView
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView.mas_top).offset(200);
+        make.top.equalTo(self.scrollView.mas_top).offset(230);
         make.left.equalTo(self.view).offset(13);
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
