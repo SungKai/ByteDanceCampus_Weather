@@ -59,15 +59,10 @@
 /// <#description#>
 @property (nonatomic, strong) ForecastHourly *forecastHourly;
 
-@property (nonatomic, assign) CGFloat currentWeatherY;
-
 @end
 
 @implementation CityViewController
 
-- (void)viewDidAppear:(BOOL)animated{
-    self.currentWeatherY = self.currentWeatherView.frame.origin.y;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,11 +84,10 @@
     [self.view addSubview:self.bgImgView];
     // 背景动画所在的View
     [self.view addSubview:self.animationView];
-
-    //当前城市气温头视图
-    [self.view addSubview:self.currentWeatherView];
     // 上下滚动
     [self.view addSubview:self.scrollView];
+    //当前城市气温头视图
+    [self.scrollView addSubview:self.currentWeatherView];
     //天气预报
     [self.scrollView addSubview:self.forecastDailyView];
     // 选择城市按钮
@@ -117,13 +111,13 @@
     }];
     // currentWeatherView
     [self.currentWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(statusBarH);
+        make.top.equalTo(self.scrollView.mas_top).offset(statusBarH);
         make.left.right.equalTo(self.view);
         make.centerX.equalTo(self.view);
     }];
     // forecastDailyView
     [self.forecastDailyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView.mas_top).offset(230);
+        make.top.equalTo(self.currentWeatherView.mas_bottom).offset(statusBarH);
         make.left.equalTo(self.view).offset(13);
         make.right.equalTo(self.view).offset(-13);
         make.bottom.equalTo(self.scrollView.mas_bottom);
@@ -190,7 +184,7 @@
             [self.currentWeatherView setCity:current.cityName temperature:current.temperature windDirection:current.windDirectionStr windSpeed:current.windSpeedStr];
             // 10日天气预报
             if (daily){
-                [self.forecastDailyView setUIDataFromDaily:daily current:current];
+                [self.forecastDailyView setUIDataFromDaily:daily current:current backImg:self.bgImgView.image];
             }
         }
         
@@ -214,17 +208,6 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         // TODO: 数据存储？
     };
-}
-
-#pragma mark - UIScrollViewProtocol
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat offsetY = scrollView.contentOffset.y;
-    NSLog(@"%f",offsetY);
-    // 广州市向上移动
-    CGFloat newHeaderY = self.currentWeatherY - offsetY/2;
-    self.currentWeatherView.origin = CGPointMake(0,newHeaderY);
-    
 }
 #pragma mark - RisingRouterHandler
 

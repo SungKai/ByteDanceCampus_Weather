@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 传入数据，绘制组件
 /// @param array 未来10天的天气预报
 /// @param current 当前的天气
--(void) setUIDataFromDaily:(ForecastDaily *) array current:(CurrentWeather *) current;
+-(void) setUIDataFromDaily:(ForecastDaily *) array current:(CurrentWeather *) current backImg:(UIImage *)backImg;
 
 @end
 
