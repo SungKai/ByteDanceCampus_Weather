@@ -31,10 +31,6 @@
 		5C97CF4728AA6B6E00BEA5A8 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C97CF4128AA6B6E00BEA5A8 /* HeaderView.m */; };
 		5C97CF4828AA6B6E00BEA5A8 /* FlexContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C97CF4328AA6B6E00BEA5A8 /* FlexContainer.m */; };
 		5C97CF4928AA6B6E00BEA5A8 /* ChildView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C97CF4428AA6B6E00BEA5A8 /* ChildView.m */; };
-		5CEF5AC228A69F410000F518 /* ForecastDailyBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5AC128A69F410000F518 /* ForecastDailyBean.m */; };
-		5CEF5AC628A6A28D0000F518 /* ForecastDailyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5AC528A6A28D0000F518 /* ForecastDailyModel.m */; };
-		5CEF5AC928A6A5710000F518 /* ForecastHourlyBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5AC828A6A5710000F518 /* ForecastHourlyBean.m */; };
-		5CEF5ACC28A6A6110000F518 /* ForecastHourlyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5ACB28A6A6110000F518 /* ForecastHourlyModel.m */; };
 		5CEF5AD728A6C3EC0000F518 /* ForecastDailyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CEF5AD628A6C3EC0000F518 /* ForecastDailyView.m */; };
 		B50BAD4C289F9A0D009208C2 /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B50BAD4B289F9A0D009208C2 /* AnimationView.m */; };
 		B517922428A9F97D00884FC7 /* WeatherRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B517922128A9F97D00884FC7 /* WeatherRequest.m */; };
@@ -42,7 +38,6 @@
 		B517923028A9F9A000884FC7 /* DaylyWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = B517922C28A9F9A000884FC7 /* DaylyWeather.m */; };
 		B517923128A9F9A000884FC7 /* DaylyPerWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = B517922E28A9F9A000884FC7 /* DaylyPerWeather.m */; };
 		B51A767A289CF5F4004C9E5F /* CurrentWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */; };
-		B51A7681289E156E004C9E5F /* futureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7680289E156E004C9E5F /* futureTableView.m */; };
 		B51A7684289E163E004C9E5F /* TemperatureChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B51A7683289E163E004C9E5F /* TemperatureChartView.m */; };
 		B5338EB4289B5E6A009A72EA /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5338EB3289B5E6A009A72EA /* CityViewController.m */; };
 		B5338EB7289B6119009A72EA /* rainData.json in Resources */ = {isa = PBXBuildFile; fileRef = B5338EB6289B6119009A72EA /* rainData.json */; };
@@ -105,14 +100,6 @@
 		5C97CF4428AA6B6E00BEA5A8 /* ChildView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildView.m; sourceTree = "<group>"; };
 		5C97CF4528AA6B6E00BEA5A8 /* ChildView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildView.h; sourceTree = "<group>"; };
 		5C97CF4628AA6B6E00BEA5A8 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
-		5CEF5AC028A69F410000F518 /* ForecastDailyBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDailyBean.h; sourceTree = "<group>"; };
-		5CEF5AC128A69F410000F518 /* ForecastDailyBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDailyBean.m; sourceTree = "<group>"; };
-		5CEF5AC428A6A28D0000F518 /* ForecastDailyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDailyModel.h; sourceTree = "<group>"; };
-		5CEF5AC528A6A28D0000F518 /* ForecastDailyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDailyModel.m; sourceTree = "<group>"; };
-		5CEF5AC728A6A5710000F518 /* ForecastHourlyBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastHourlyBean.h; sourceTree = "<group>"; };
-		5CEF5AC828A6A5710000F518 /* ForecastHourlyBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastHourlyBean.m; sourceTree = "<group>"; };
-		5CEF5ACA28A6A6110000F518 /* ForecastHourlyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastHourlyModel.h; sourceTree = "<group>"; };
-		5CEF5ACB28A6A6110000F518 /* ForecastHourlyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastHourlyModel.m; sourceTree = "<group>"; };
 		5CEF5AD528A6C3EC0000F518 /* ForecastDailyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDailyView.h; sourceTree = "<group>"; };
 		5CEF5AD628A6C3EC0000F518 /* ForecastDailyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDailyView.m; sourceTree = "<group>"; };
 		9B10660F2F04B3B436AE955F /* Pods_ByteDanceCampus_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteDanceCampus_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,8 +117,6 @@
 		B51A7678289CF5F4004C9E5F /* CurrentWeatherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentWeatherView.h; sourceTree = "<group>"; };
 		B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherView.m; sourceTree = "<group>"; };
 		B51A767E289D7C36004C9E5F /* MacroHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroHeader.h; sourceTree = "<group>"; };
-		B51A767F289E156E004C9E5F /* futureTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = futureTableView.h; sourceTree = "<group>"; };
-		B51A7680289E156E004C9E5F /* futureTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = futureTableView.m; sourceTree = "<group>"; };
 		B51A7682289E163E004C9E5F /* TemperatureChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemperatureChartView.h; sourceTree = "<group>"; };
 		B51A7683289E163E004C9E5F /* TemperatureChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemperatureChartView.m; sourceTree = "<group>"; };
 		B5338EB2289B5E6A009A72EA /* CityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
@@ -263,17 +248,6 @@
 			path = RisingJWT;
 			sourceTree = "<group>";
 		};
-		5CEF5AC328A6A1D30000F518 /* Bean */ = {
-			isa = PBXGroup;
-			children = (
-				5CEF5AC028A69F410000F518 /* ForecastDailyBean.h */,
-				5CEF5AC128A69F410000F518 /* ForecastDailyBean.m */,
-				5CEF5AC728A6A5710000F518 /* ForecastHourlyBean.h */,
-				5CEF5AC828A6A5710000F518 /* ForecastHourlyBean.m */,
-			);
-			name = Bean;
-			sourceTree = "<group>";
-		};
 		5CEF5AD828A6C5B00000F518 /* ForecastDailyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +318,6 @@
 				B50BAD4B289F9A0D009208C2 /* AnimationView.m */,
 				B51A7678289CF5F4004C9E5F /* CurrentWeatherView.h */,
 				B51A7679289CF5F4004C9E5F /* CurrentWeatherView.m */,
-				B51A767F289E156E004C9E5F /* futureTableView.h */,
-				B51A7680289E156E004C9E5F /* futureTableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -365,12 +337,7 @@
 				B517922128A9F97D00884FC7 /* WeatherRequest.m */,
 				B517922A28A9F9A000884FC7 /* DaylyWeather */,
 				B517922628A9F99500884FC7 /* HourlyWeather */,
-				5CEF5AC328A6A1D30000F518 /* Bean */,
 				14B2C5D428911608005BFC7C /* WeatherHeader.h */,
-				5CEF5AC428A6A28D0000F518 /* ForecastDailyModel.h */,
-				5CEF5AC528A6A28D0000F518 /* ForecastDailyModel.m */,
-				5CEF5ACA28A6A6110000F518 /* ForecastHourlyModel.h */,
-				5CEF5ACB28A6A6110000F518 /* ForecastHourlyModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -397,7 +364,6 @@
 			isa = PBXGroup;
 			children = (
 				B5338EC5289B7432009A72EA /* Controller */,
-				B5338ECA289BE1DC009A72EA /* VIew */,
 				B5338EC6289B7444009A72EA /* Model */,
 			);
 			path = CityLocation;
@@ -419,13 +385,6 @@
 				B5338EC8289B7481009A72EA /* CitiesModel.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		B5338ECA289BE1DC009A72EA /* VIew */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VIew;
 			sourceTree = "<group>";
 		};
 		B57599E7288ADF8E007CE07E = {
@@ -635,7 +594,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B57599FB288ADF8E007CE07E /* ViewController.m in Sources */,
-				5CEF5ACC28A6A6110000F518 /* ForecastHourlyModel.m in Sources */,
 				B517923028A9F9A000884FC7 /* DaylyWeather.m in Sources */,
 				14B2C5BE2890398B005BFC7C /* ECPrivateKey.swift in Sources */,
 				B57599F5288ADF8E007CE07E /* AppDelegate.m in Sources */,
@@ -648,7 +606,6 @@
 				147671C4288D185800A4FCAF /* RisingRouterRequest.m in Sources */,
 				B51A767A289CF5F4004C9E5F /* CurrentWeatherView.m in Sources */,
 				B5338EB4289B5E6A009A72EA /* CityViewController.m in Sources */,
-				B51A7681289E156E004C9E5F /* futureTableView.m in Sources */,
 				14B2C5BA2890398B005BFC7C /* ECKeyData.swift in Sources */,
 				147671C5288D185800A4FCAF /* RisingRouterResponse.m in Sources */,
 				B51A7684289E163E004C9E5F /* TemperatureChartView.m in Sources */,
@@ -656,10 +613,8 @@
 				147671BB288D16F000A4FCAF /* RisingUIKitExtension.m in Sources */,
 				5CEF5AD728A6C3EC0000F518 /* ForecastDailyView.m in Sources */,
 				B5759A06288ADF90007CE07E /* main.m in Sources */,
-				5CEF5AC628A6A28D0000F518 /* ForecastDailyModel.m in Sources */,
 				B5338EBB289B661F009A72EA /* Location.m in Sources */,
 				B57B28A028AF5CE300F83D7F /* WindAndCloudView.m in Sources */,
-				5CEF5AC228A69F410000F518 /* ForecastDailyBean.m in Sources */,
 				5C97CF4828AA6B6E00BEA5A8 /* FlexContainer.m in Sources */,
 				14B2C5BB2890398B005BFC7C /* ASN1.swift in Sources */,
 				147671C6288D185800A4FCAF /* RisingRouter.m in Sources */,
@@ -667,7 +622,6 @@
 				14B2C5BC2890398B005BFC7C /* P8.swift in Sources */,
 				14B2C597288E6AEF005BFC7C /* RisingRouter+Extension.m in Sources */,
 				147671BA288D16F000A4FCAF /* RisingFoundationExtention.m in Sources */,
-				5CEF5AC928A6A5710000F518 /* ForecastHourlyBean.m in Sources */,
 				B517922428A9F97D00884FC7 /* WeatherRequest.m in Sources */,
 				14B2C5BF2890398B005BFC7C /* CupertinoJWTError.swift in Sources */,
 				B5338EC4289B7175009A72EA /* CityChosenViewController.m in Sources */,
