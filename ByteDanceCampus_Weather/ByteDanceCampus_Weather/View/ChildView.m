@@ -9,7 +9,9 @@
 #import "ChildView.h"
 
 @interface ChildView ()
-
+/// 顶部分割线
+@property (nonatomic, strong) UIView *spliteLine;
+/// 底部视图
 @property (nonatomic, strong) UIView *view;
 
 @end
@@ -23,7 +25,7 @@
         self.temperatureArray = [NSArray array];
         [self _addView];
         [self _setPosition];
-        [self setSEL];
+        [self _setSEL];
     }
 
     return self;
@@ -37,37 +39,6 @@
     [self addSubview:self.windCloudBtn];
 }
 
-- (void)setSEL {
-    [self.weatherBtn addTarget:self action:@selector(clickWeather) forControlEvents:UIControlEventTouchUpInside];
-    [self.windCloudBtn addTarget:self action:@selector(clickWindCloud) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)clickWeather {
-    [self.windCloudView removeFromSuperview];
-    [self addSubview:self.temperatureChartView];
-    // 点击即进入动画
-    [self.temperatureChartView showOpacityAnimation];
-    self.weatherBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:21];
-    [self.weatherBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    self.windCloudBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-    [self.windCloudBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-}
-
-- (void)clickWindCloud {
-    [self.temperatureChartView removeFromSuperview];
-    [self addSubview:self.windCloudView];
-    self.weatherBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-    [self.weatherBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-    self.windCloudBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:21];
-    [self.windCloudBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-}
-
-
-- (void)setChartArray:(NSArray<NSNumber *> *)chartArray {
-    self.temperatureArray = chartArray;
-    [self addSubview:self.temperatureChartView];
-}
-
 -(void) _setPosition{
     // weatherBtn
     [self.weatherBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +48,7 @@
     // windCloudBtn
     [self.windCloudBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.weatherBtn);
-        make.left.equalTo(self.weatherBtn.mas_right).offset(20);
+        make.left.equalTo(self.weatherBtn.mas_right).offset(8);
         make.size.mas_equalTo(CGSizeMake(90, 30));
     }];
     // view
@@ -87,6 +58,37 @@
     }];
 }
 
+
+- (void)_setSEL {
+    [self.weatherBtn addTarget:self action:@selector(clickWeather) forControlEvents:UIControlEventTouchUpInside];
+    [self.windCloudBtn addTarget:self action:@selector(clickWindCloud) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)clickWeather {
+    [self.windCloudView removeFromSuperview];
+    [self addSubview:self.temperatureChartView];
+    // 点击即进入动画
+    [self.temperatureChartView showOpacityAnimation];
+    self.weatherBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:16];
+    [self.weatherBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    self.windCloudBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    [self.windCloudBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
+}
+
+- (void)clickWindCloud {
+    [self.temperatureChartView removeFromSuperview];
+    [self addSubview:self.windCloudView];
+    self.weatherBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    [self.weatherBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
+    self.windCloudBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:16];
+    [self.windCloudBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+}
+
+
+- (void)setChartArray:(NSArray<NSNumber *> *)chartArray {
+    self.temperatureArray = chartArray;
+    [self addSubview:self.temperatureChartView];
+}
 
 - (void)showAnimation {
     [self.temperatureChartView showOpacityAnimation];
@@ -107,7 +109,7 @@
         _weatherBtn = [[UIButton alloc] init];
         [_weatherBtn setTitle:@"气温" forState:UIControlStateNormal];
         [_weatherBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        _weatherBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:21];
+        _weatherBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Semibold" size:16];
     }
     return _weatherBtn;
 }
@@ -117,7 +119,7 @@
         _windCloudBtn = [[UIButton alloc] init];
         [_windCloudBtn setTitle:@"风云指数" forState:UIControlStateNormal];
         [_windCloudBtn setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
-        _windCloudBtn.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+        _windCloudBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     return _windCloudBtn;
 }

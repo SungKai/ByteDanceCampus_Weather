@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
         self = [self initWithEffect:blurEffect];
         [self addViews];
         [self setPosition];
@@ -25,8 +25,8 @@
     if (self) {
         self.layer.cornerRadius = 16;
         self.layer.masksToBounds = YES;
-        self.backgroundColor = [[UIColor colorWithHexString:@"#E4B796"] colorWithAlphaComponent:0.4];
-        self.alpha = 0.7;
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+        self.alpha = 1;
     }
     return self;
 }
