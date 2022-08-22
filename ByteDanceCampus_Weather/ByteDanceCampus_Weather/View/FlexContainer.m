@@ -92,7 +92,7 @@
         } else {
             self.childView.hidden = false;
             self.childView.alpha = 1;
-            self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.2];
+            self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.1];
             [self.childView showAnimation];
         }
     }];
