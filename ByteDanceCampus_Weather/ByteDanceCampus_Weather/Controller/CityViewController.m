@@ -261,6 +261,7 @@
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc] init];
         _scrollView.delegate = self;
+        _scrollView.showsVerticalScrollIndicator = NO;
     }
     return _scrollView;
 }
