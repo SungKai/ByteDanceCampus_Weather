@@ -3,29 +3,7 @@
 
 # 介绍
 
-## 项目介绍
-
- **第四届字节跳动青训营天气预报APP**
-
-使用Apple的官方API
-
-## 团队介绍
-
-队名：**Rising & SSR**
-
-队长：**孙思瑞**
-
-队号：**27692119954**
-
-|  人员  |               GitHub               |          主要贡献          |
-| :----: | :--------------------------------: | :------------------------: |
-| 孙思瑞 |    https://github.com/HONEY-SSR    | 基础建设，基础架构，主设计 |
-| 牟金腾 |     https://github.com/cnatom      |                            |
-|  耿洋  | https://github.com/TastyHeadphones |                            |
-| 宋嘉明 |     https://github.com/SungKai     |                            |
-| 吴晓明 |     https://github.com/Xlight5     |                            |
-
-
+详情请见：[项目及团队介绍](https://bytedancecampus1.feishu.cn/docx/doxcnysPxh8WVkbw2jAjdynqgXg)
 
 # 下载以及运行
 

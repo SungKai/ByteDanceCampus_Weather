@@ -7,8 +7,9 @@
 
 #import "TemperatureChartView.h"
 #import "Masonry.h"
-#define WidthMargin 55
-#define YMultiple 5.1
+#define WidthMargin self.frame.size.width * 0.143
+#define YMultiple self.frame.size.height * 0.02
+#define yLabelMargin 36
 
 @interface TemperatureChartView ()
 
@@ -24,6 +25,9 @@
 /// 最后一点
 @property (nonatomic, assign) CGPoint lastestPoint;
 
+/// 透明度动画图层
+@property (nonatomic, strong) CALayer *animationLayer;
+
 @end
 
 @implementation TemperatureChartView
@@ -31,7 +35,7 @@
 - (instancetype)initWithFrame:(CGRect)frame PointArray:(NSArray *)pointArray {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:102/255.0 green:159/255.0 blue:243/255.0 alpha:1];
+        self.backgroundColor = [UIColor clearColor];
         self.temperatureArray = [NSArray array];
         self.temperatureArray = pointArray;
         self.xLabArray = [NSMutableArray array];
@@ -57,7 +61,7 @@
         [lab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self).offset(-5);
             if (self.xLabArray.count == 0) {
-                make.left.equalTo(self).offset(40);
+                make.left.equalTo(self).offset(self.frame.size.width * 0.1 + 15);
             }else {
                 make.left.equalTo(self.xLabArray.lastObject).offset(WidthMargin);
             }
@@ -72,7 +76,7 @@
         UILabel *lab = [self setYLabel:i];
         // 设定位置
         temperature = [self.temperatureArray[i] floatValue];
-        lab.frame = CGRectMake(0, self.frame.size.height - temperature * YMultiple, 40, 18);
+        lab.frame = CGRectMake(0, self.frame.size.height - temperature * YMultiple, yLabelMargin, 18);
         [self addSubview:lab];
         [self.yLabArray addObject:lab];
     }
@@ -91,7 +95,7 @@
     }
     NSString *numStr = [NSString stringWithFormat:@"%d", num];
     lab.text = [numStr stringByAppendingString:@"时"];
-    lab.font = [UIFont systemFontOfSize:18];
+    lab.font = [UIFont systemFontOfSize:13];
     lab.textColor = UIColor.whiteColor;
     lab.textAlignment = NSTextAlignmentLeft;
     return lab;
@@ -101,7 +105,7 @@
 - (UILabel *)setYLabel:(int)i {
     UILabel *lab = [[UILabel alloc] init];
     lab.text = [NSString stringWithFormat:@"%@", self.temperatureArray[i]];
-    lab.font = [UIFont systemFontOfSize:18];
+    lab.font = [UIFont systemFontOfSize:15];
     lab.textColor = UIColor.whiteColor;
     lab.textAlignment = NSTextAlignmentLeft;
     return lab;
@@ -111,8 +115,8 @@
 - (void)drawXYLine {
     UIBezierPath *path = [UIBezierPath bezierPath];
     // 1.Y轴直线
-    [path moveToPoint:CGPointMake(40, 20)];
-    [path addLineToPoint:CGPointMake(40, CGRectGetMaxY(self.bounds) - 25)];
+    [path moveToPoint:CGPointMake(yLabelMargin, 20)];
+    [path addLineToPoint:CGPointMake(yLabelMargin, CGRectGetMaxY(self.bounds) - 25)];
     
     // 2.X轴直线
     [path addLineToPoint:CGPointMake(CGRectGetMaxX(self.bounds) - 10, CGRectGetMaxY(self.bounds) - 25)];
@@ -145,14 +149,14 @@
     CGPoint startPoint = CGPointMake(0, 0);
         for (int i = 0; i < self.temperatureArray.count; i++) {
         // 绘制关键点
-            CGFloat temperture = [self.temperatureArray[i] floatValue];
-            CGFloat Y = CGRectGetMaxY(self.bounds) - temperture * YMultiple;
+            CGFloat temperature = [self.temperatureArray[i] floatValue];
+            CGFloat Y = CGRectGetMaxY(self.bounds) - temperature * YMultiple;
             switch (i) {
                 case 0:
-                    X = 55;
+                    X = yLabelMargin + 20;
                     break;
                 case 1:
-                    X = 170;
+                    X = self.frame.size.width * 0.4 + self.frame.size.height * 0.2;
                     break;
                 case 2:
                     X = self.frame.size.width - 25;
@@ -191,7 +195,7 @@
                 //将折线添加到scroll上
                 CAShapeLayer *lineLayer = [CAShapeLayer layer];
                 lineLayer.path = linePath.CGPath;
-                lineLayer.strokeColor = [UIColor colorWithRed:225/255.0 green:225/255.0 blue:126/255.0 alpha:1].CGColor;
+                lineLayer.strokeColor = [UIColor clearColor].CGColor;
                 lineLayer.fillColor = [UIColor clearColor].CGColor;
                 lineLayer.lineWidth = 5;
                 lineLayer.lineCap = kCALineCapRound;
@@ -244,28 +248,25 @@
     gradientLayer.masksToBounds = YES;
     
     //渐变的颜色数组
-    gradientLayer.colors = @[(__bridge id)[UIColor colorWithRed:171/255.0 green:192/255.0 blue:228/255.0 alpha:0.8].CGColor,(__bridge id)[UIColor colorWithRed:200/255.0 green:214/255.0 blue:237/255.0 alpha:0.1].CGColor];
+    gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:@"#F9D970" alpha:1.0].CGColor,(__bridge id)[UIColor colorWithHexString:@"#FDF3CB" alpha:0.1].CGColor];
     
     gradientLayer.locations = @[@(0.5)];        //绘制颜色分割
     CALayer *baseLayer = [CALayer layer];
     [baseLayer addSublayer:gradientLayer];
     [baseLayer setMask:shadeLayer];             //将之前取得的轮廓作为CAGradientLayer的遮罩
-    [self.layer addSublayer:baseLayer];
-    
+    self.animationLayer = baseLayer;
+    [self.layer addSublayer:self.animationLayer];
+}
+
+/// 点击展开后会出现动画
+- (void)showOpacityAnimation {
     CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"opacity"];
     anima.fromValue = [NSNumber numberWithFloat:0.1f];
     anima.toValue = [NSNumber numberWithFloat:1.0f];
     anima.duration = 1.0f;  //自动复原
     anima.fillMode = kCAFillModeForwards;
         anima.removedOnCompletion = NO; //不移除动画
-    [baseLayer addAnimation:anima forKey:@"opacityAniamtion"];
+    [self.animationLayer addAnimation:anima forKey:@"opacityAniamtion"];
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

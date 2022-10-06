@@ -15,7 +15,8 @@
 @property(nonatomic, strong) UIView *headerView;
 
 /// 点击后伸缩出来的部分
-@property(nonatomic, strong) UIView *childView;
+@property(nonatomic, strong) ChildView *childView;
+
 
 /// 模糊容器
 @property(nonatomic, strong) UIVisualEffectView *blurContainer;
@@ -30,7 +31,7 @@
 }
 #pragma mark - 初始化
 
-- (instancetype)initWithHeaderView:(UIView *)headerView childView:(UIView *)childView {
+- (instancetype)initWithHeaderView:(UIView *)headerView childView:(ChildView *)childView {
     self = [super init];
     if (self) {
         [self initConfig];
@@ -44,6 +45,7 @@
 }
 
 - (instancetype)init {
+    
     self = [self initWithHeaderView:[[HeaderView alloc] init] childView:[[ChildView alloc] init]];
     return self;
 }
@@ -90,7 +92,8 @@
         } else {
             self.childView.hidden = false;
             self.childView.alpha = 1;
-            self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.2];
+            self.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.1];
+            [self.childView showAnimation];
         }
     }];
 }
@@ -128,7 +131,7 @@
     [_headerView addGestureRecognizer:tap];
 }
 
-- (void)setChildView:(UIView *)childView {
+- (void)setChildView:(ChildView *)childView {
     _childView = childView;
     _childView.hidden = true;
 }
